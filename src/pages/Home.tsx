@@ -156,7 +156,7 @@ export default function Home() {
   const latestIssue = getLatestWeeklyIssue();
 
   useEffect(() => {
-    document.title = "Swami Guru | Building products in public with AI";
+    document.title = "Building products in public with AI | Swami Guru";
     document
       .querySelector('meta[name="description"]')
       ?.setAttribute(
