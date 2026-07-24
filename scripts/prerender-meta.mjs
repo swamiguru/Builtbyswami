@@ -99,6 +99,7 @@ for (const r of routes) {
   html = sub(html, '<meta name="twitter:title" content', r.title);
   html = sub(html, '<meta name="twitter:description" content', r.description);
   html = sub(html, '<meta name="twitter:url" content', url);
+  html = sub(html, '<link rel="canonical" href', url);
 
   const outDir = join(DIST, r.path);
   mkdirSync(outDir, { recursive: true });
