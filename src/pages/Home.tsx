@@ -161,7 +161,7 @@ export default function Home() {
       .querySelector('meta[name="description"]')
       ?.setAttribute(
         "content",
-        "Swami Guru — 11 years scaling $20M media products at Condé Nast and Newsweek, now building AI products solo, in public."
+        "Swami Guru — 11+ years scaling digital media products at world class brands, now building AI products solo, in public."
       );
   }, []);
 
