@@ -25,3 +25,7 @@
 2026-07-24 | 2 | AI / Hardware | OpenAI Codex Micro | First OpenAI hardware — $230 mechanical keypad for the Codex coding agent
 2026-07-24 | 4 | AI workflow | Prompt of the day — skeptical advisor | Copy-paste decision prompt (3 for / 3 against / blind spots / 1 question)
 2026-07-24 | 5 | Myth-buster | Overnight charging battery myth | Optimised/Adaptive charging + heat is the real killer
+2026-07-25 | 1 | Gaming | Nintendo Switch 2 price hike | Official price rises to $499.99 effective Sept 1 (US/CA/EU/AU)
+2026-07-25 | 2 | Big Tech / AI infra | Apple Intelligence on Google Cloud + Nvidia | Apple extends Private Cloud Compute to Google Cloud on Nvidia Blackwell GPUs (summer 2026 preview)
+2026-07-25 | 4 | Phones | Budget vs Flagship 2026 | Comparison — where 4x price actually matters, who-should-buy verdict
+2026-07-25 | 5 | Phones / Community | Foldables poll | Foldables in 2026 — mainstream or still a flex? (Threads+X poll)
