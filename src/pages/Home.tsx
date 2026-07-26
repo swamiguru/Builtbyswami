@@ -341,7 +341,7 @@ export default function Home() {
               </h2>
             </div>
             <p className="text-sm md:text-base font-medium opacity-80 mb-6 max-w-xl">
-              I run Top 5 Daily all week — this is the distilled best of it, plus what I build in public as a solo founder. 11 years building product across Cond&eacute; Nast's full portfolio and Newsweek. Weekly-ish, free.
+              I run Top 5 Daily all week — this is the distilled best of it, plus what I build in public as a solo founder. 11+ years building products at world class brands. Weekly-ish, free.
             </p>
             <NewsletterSignup />
           </div>
