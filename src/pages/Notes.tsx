@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 import { ArrowRight, Clock, BookOpen } from "lucide-react";
 import { NOTES_SORTED, formatNoteDate, type Note } from "../data/notes";
 import SiteHeader from "../components/SiteHeader";
+import SiteFooter from "../components/SiteFooter";
 
 const formatMonth = (key: string): string =>
   new Date(key + "-01T00:00:00").toLocaleDateString("en-US", {
@@ -101,12 +102,7 @@ export default function Notes() {
           )}
         </section>
 
-        <footer className="px-6 md:px-14 py-8 bg-m3-surface flex items-center gap-4 justify-between border-t border-m3-outline/10 rounded-b-m3-xl md:rounded-b-[32px]">
-          <span className="font-display text-[11px] font-bold uppercase tracking-[0.2em] text-m3-primary flex items-center gap-3">
-            <span className="w-3 h-3 rounded-full bg-m3-primary animate-pulse" /> Live operational status — 2026
-          </span>
-          <span className="text-[10px] font-bold uppercase opacity-30 font-display">© builtbyswami</span>
-        </footer>
+        <SiteFooter />
       </div>
     </div>
   );

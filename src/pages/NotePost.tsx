@@ -10,6 +10,7 @@ import remarkGfm from "remark-gfm";
 import { ArrowLeft, ArrowRight, ArrowUpRight, Clock } from "lucide-react";
 import { NOTES_SORTED, getNote, formatNoteDate } from "../data/notes";
 import SiteHeader from "../components/SiteHeader";
+import SiteFooter from "../components/SiteFooter";
 
 const YOUTUBE = "https://www.youtube.com/@builtbyswami";
 
@@ -154,12 +155,7 @@ export default function NotePost() {
           </nav>
         )}
 
-        <footer className="mt-auto px-6 md:px-14 py-8 bg-m3-surface flex items-center gap-4 justify-between border-t border-m3-outline/10 rounded-b-m3-xl md:rounded-b-[32px]">
-          <Link to="/notes" className="font-display text-[11px] font-bold uppercase tracking-[0.2em] text-m3-primary">
-            ← All notes
-          </Link>
-          <span className="text-[10px] font-bold uppercase opacity-30 font-display">© builtbyswami</span>
-        </footer>
+        <SiteFooter />
       </div>
     </div>
   );
