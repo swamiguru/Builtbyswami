@@ -29,3 +29,7 @@
 2026-07-25 | 2 | Big Tech / AI infra | Apple Intelligence on Google Cloud + Nvidia | Apple extends Private Cloud Compute to Google Cloud on Nvidia Blackwell GPUs (summer 2026 preview)
 2026-07-25 | 4 | Phones | Budget vs Flagship 2026 | Comparison — where 4x price actually matters, who-should-buy verdict
 2026-07-25 | 5 | Phones / Community | Foldables poll | Foldables in 2026 — mainstream or still a flex? (Threads+X poll)
+2026-07-26 | 1 | Security | July breach wave (Abbott Labs / Chick-fil-A) | Voice phishing + credential stuffing — reused passwords & OTP-on-call are the real risk
+2026-07-26 | 2 | Creator economy | YouTube Studio AI instrumental music | Free AI instrumental generator replaces copyright-flagged audio (no more muted videos)
+2026-07-26 | 4 | Apps / India | PhonePe vs Google Pay vs Paytm | UPI app comparison — which for what, all free
+2026-07-26 | 5 | Regulatory / AI | AI kill switch debate | US lawmakers weigh authority to shut down advanced AI in a crisis (hot take)
