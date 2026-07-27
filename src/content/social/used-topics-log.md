@@ -33,3 +33,7 @@
 2026-07-26 | 2 | Creator economy | YouTube Studio AI instrumental music | Free AI instrumental generator replaces copyright-flagged audio (no more muted videos)
 2026-07-26 | 4 | Apps / India | PhonePe vs Google Pay vs Paytm | UPI app comparison — which for what, all free
 2026-07-26 | 5 | Regulatory / AI | AI kill switch debate | US lawmakers weigh authority to shut down advanced AI in a crisis (hot take)
+2026-07-27 | 1 | India-specific / Telecom | India 6GHz WiFi vs ISRO | Jio/Airtel high-power outdoor WiFi vs ISRO satellite-interference concern
+2026-07-27 | 2 | Apps / Social | Instagram feature drop | Photos in comments + Instants video + WhatsApp profile banner
+2026-07-27 | 4 | Security & Privacy | SIM PIN | Set a SIM PIN to block SIM-swap OTP theft (quick-win)
+2026-07-27 | 5 | Myth-buster | Force-closing apps | Killing background apps to save battery — busted

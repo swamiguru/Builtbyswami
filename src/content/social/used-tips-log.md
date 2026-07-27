@@ -13,3 +13,4 @@ seed | iOS | Back Tap (double/triple tap back of iPhone)
 2026-07-24 | Google Maps | Measure distance — long-press to drop a pin, tap the pin card, "Measure distance", tap to add points for straight-line KM
 2026-07-25 | iOS | Math Notes — type an expression + "=" in Apple Notes/Calculator to solve inline, auto-convert units/currency, and use variables
 2026-07-26 | Google Pixel | Flip to Shhh — turn phone face-down to auto-enable Do Not Disturb (Digital Wellbeing)
+2026-07-27 | Samsung One UI | Dual Messenger — run two WhatsApp/Messenger accounts (Settings > Advanced features > Dual Messenger)
