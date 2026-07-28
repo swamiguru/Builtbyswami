@@ -37,3 +37,7 @@
 2026-07-27 | 2 | Apps / Social | Instagram feature drop | Photos in comments + Instants video + WhatsApp profile banner
 2026-07-27 | 4 | Security & Privacy | SIM PIN | Set a SIM PIN to block SIM-swap OTP theft (quick-win)
 2026-07-27 | 5 | Myth-buster | Force-closing apps | Killing background apps to save battery — busted
+2026-07-28 | 1 | Creator economy | YouTube Shorts overhaul | Dislike button removed→heart, 2x speed, Clear Screen; reach = watch time/shares
+2026-07-28 | 2 | Big Tech Business | Apple Upgrade lease-to-own | Goes LIVE today (US, Klarna) 24/36-month leases — hardware-as-subscription take
+2026-07-28 | 4 | AI workflow | Prompt of the day — noise filter | TL;DR + 3 facts + 1 hype claim + action, be-blunt prompt
+2026-07-28 | 5 | Global tech / Robotics / Community | Humanoid robots by 2030 poll | Unitree Europe + BYD/XPeng — chores by 2030 inevitable or overhyped?

@@ -14,3 +14,4 @@ seed | iOS | Back Tap (double/triple tap back of iPhone)
 2026-07-25 | iOS | Math Notes — type an expression + "=" in Apple Notes/Calculator to solve inline, auto-convert units/currency, and use variables
 2026-07-26 | Google Pixel | Flip to Shhh — turn phone face-down to auto-enable Do Not Disturb (Digital Wellbeing)
 2026-07-27 | Samsung One UI | Dual Messenger — run two WhatsApp/Messenger accounts (Settings > Advanced features > Dual Messenger)
+2026-07-28 | macOS | Finder batch rename — select files, right-click > Rename N Items (Replace Text / Add prefix-suffix / Format sequential numbers)
