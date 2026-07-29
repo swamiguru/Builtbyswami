@@ -353,7 +353,11 @@ export default function Home() {
                             className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
                           />
                           <CardArtOverlay />
-                          <span className="absolute top-4 left-4 z-[1] text-[10px] font-black uppercase tracking-[0.15em] bg-m3-primary text-white px-3 py-1.5 rounded-full">
+                          {/* Right corner, not left — the pillar pill baked into the
+                              card art (icons.py's pill(), always left-aligned near
+                              the top) sits close beneath the top-left on this crop,
+                              so a left badge here crowds it. Right stays clear. */}
+                          <span className="absolute top-4 right-4 z-[1] text-[10px] font-black uppercase tracking-[0.15em] bg-m3-primary text-white px-3 py-1.5 rounded-full">
                             Today's lead
                           </span>
                         </div>
