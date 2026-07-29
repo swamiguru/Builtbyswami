@@ -49,6 +49,16 @@
     0%, 100% { filter: drop-shadow(0 0 10px rgba(0, 109, 59, 0.2)); }
     50% { filter: drop-shadow(0 0 20px rgba(0, 109, 59, 0.4)); }
   }
+
+  @keyframes sparkle-twinkle {
+    0%, 100% { opacity: .25; transform: scale(.7); }
+    50% { opacity: 1; transform: scale(1.15); }
+  }
+
+  @keyframes shimmer-sweep {
+    0% { background-position: -150% 0; }
+    100% { background-position: 150% 0; }
+  }
 }
 
 @layer base {

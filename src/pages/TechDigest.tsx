@@ -5,6 +5,7 @@
 
 import { useEffect } from "react";
 import { Link, Navigate, useParams } from "react-router-dom";
+import { motion, useReducedMotion } from "motion/react";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { DIGESTS, getDigest, formatDigestDate } from "../data/social";
 import { SOCIALS } from "../data/socials";
@@ -16,6 +17,7 @@ const YOUTUBE = "https://www.youtube.com/@builtbyswami";
 export default function TechDigest() {
   const { date } = useParams<{ date: string }>();
   const digest = date ? getDigest(date) : undefined;
+  const shouldReduceMotion = useReducedMotion();
 
   // DIGESTS is sorted newest-first, so the older roundup sits at index + 1
   // and the newer one at index - 1.
@@ -99,19 +101,85 @@ export default function TechDigest() {
           )}
 
           <div className="flex flex-col gap-8">
-            {digest.posts.map((p) => (
-              <div
+            {digest.posts.map((p, i) => (
+              <motion.div
                 key={p.n}
                 id={`post-${p.n}`}
                 className="bg-m3-surface rounded-[24px] border border-m3-outline/5 p-6 md:p-8 scroll-mt-24 md:scroll-mt-28"
+                initial={shouldReduceMotion ? false : { opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.2 }}
+                transition={{ duration: 0.5, delay: i * 0.06, ease: [0.2, 0.7, 0.3, 1] }}
               >
                 {p.image && (
-                  <img
-                    src={p.image}
-                    alt=""
-                    loading="lazy"
-                    className="w-full max-w-[420px] rounded-[16px] border border-m3-outline/10 mb-5"
-                  />
+                  <div
+                    className="group relative w-full max-w-[420px] overflow-hidden rounded-[16px] border border-m3-outline/10 mb-5"
+                    onMouseMove={(e) => {
+                      const r = e.currentTarget.getBoundingClientRect();
+                      e.currentTarget.style.setProperty("--x", `${((e.clientX - r.left) / r.width) * 100}%`);
+                      e.currentTarget.style.setProperty("--y", `${((e.clientY - r.top) / r.height) * 100}%`);
+                    }}
+                  >
+                    <img
+                      src={p.image}
+                      alt=""
+                      loading="lazy"
+                      className="w-full transition-transform duration-500 group-hover:scale-105"
+                    />
+                    {/* Vignette — darkens the corners so the card reads as a
+                        lit editorial frame rather than a flat crop. Always on. */}
+                    <div
+                      aria-hidden="true"
+                      className="absolute inset-0 pointer-events-none"
+                      style={{
+                        background:
+                          "radial-gradient(130% 130% at 50% 35%, transparent 45%, rgba(0,0,0,.5) 100%)",
+                      }}
+                    />
+                    {/* Film grain — faint noise over the dark panel for texture. */}
+                    <div
+                      aria-hidden="true"
+                      className="absolute inset-0 pointer-events-none opacity-[0.15] mix-blend-overlay"
+                      style={{
+                        backgroundImage:
+                          "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E\")",
+                        backgroundSize: "140px 140px",
+                      }}
+                    />
+                    {/* Cursor-follow spotlight — desktop only. */}
+                    <div
+                      aria-hidden="true"
+                      className="hidden md:block absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
+                      style={{
+                        background:
+                          "radial-gradient(220px circle at var(--x, 50%) var(--y, 50%), rgba(255,255,255,.35), transparent 60%)",
+                        mixBlendMode: "overlay",
+                      }}
+                    />
+                    {/* Twinkling sparkles — aligned to the icon tile icons.py
+                        bakes into this same corner of the card art. */}
+                    <span
+                      aria-hidden="true"
+                      className="absolute text-cyan-400 text-[13px] leading-none pointer-events-none animate-[sparkle-twinkle_2.6s_ease-in-out_infinite] motion-reduce:animate-none motion-reduce:opacity-60"
+                      style={{ left: "62%", top: "60%" }}
+                    >
+                      ✦
+                    </span>
+                    <span
+                      aria-hidden="true"
+                      className="absolute text-white text-[9px] leading-none pointer-events-none animate-[sparkle-twinkle_2.6s_ease-in-out_infinite] [animation-delay:0.9s] motion-reduce:animate-none motion-reduce:opacity-60"
+                      style={{ left: "91%", top: "73%" }}
+                    >
+                      ✦
+                    </span>
+                    <span
+                      aria-hidden="true"
+                      className="absolute text-cyan-400 text-[8px] leading-none pointer-events-none animate-[sparkle-twinkle_2.6s_ease-in-out_infinite] [animation-delay:1.7s] motion-reduce:animate-none motion-reduce:opacity-60"
+                      style={{ left: "73%", top: "92%" }}
+                    >
+                      ✦
+                    </span>
+                  </div>
                 )}
                 <div className="mb-4">
                   <span className="font-display text-[11px] font-black uppercase tracking-[0.2em] text-m3-primary">
@@ -133,7 +201,7 @@ export default function TechDigest() {
                     {p.body}
                   </p>
                 )}
-              </div>
+              </motion.div>
             ))}
           </div>
 

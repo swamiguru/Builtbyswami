@@ -3,25 +3,65 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { useRef, type ReactNode } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
 interface CarouselProps {
   children: ReactNode;
   ariaLabel?: string;
+  /** Show a mobile-only progress-dot strip beneath the track, synced to
+   * whichever card is currently snapped into view. Opt-in since most rails
+   * (e.g. the video carousel) read fine without it. */
+  showDots?: boolean;
 }
 
 /**
  * Horizontal scroll-snap carousel: native swipe on touch,
  * arrow buttons on pointer devices. Children set their own widths.
  */
-export default function Carousel({ children, ariaLabel }: CarouselProps) {
+export default function Carousel({ children, ariaLabel, showDots = false }: CarouselProps) {
   const trackRef = useRef<HTMLDivElement>(null);
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [dotCount, setDotCount] = useState(0);
 
   const scrollBy = (dir: 1 | -1) => {
     const el = trackRef.current;
     if (!el) return;
     el.scrollBy({ left: dir * el.clientWidth * 0.85, behavior: "smooth" });
+  };
+
+  // Track which card is centered in the viewport so the dot strip can stay
+  // in sync with native swipe/scroll — no extra state needed from callers.
+  useEffect(() => {
+    if (!showDots) return;
+    const track = trackRef.current;
+    if (!track) return;
+
+    const items = Array.from(track.children) as HTMLElement[];
+    setDotCount(items.length);
+    if (items.length === 0) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting && entry.intersectionRatio > 0.6) {
+            const idx = items.indexOf(entry.target as HTMLElement);
+            if (idx !== -1) setActiveIndex(idx);
+          }
+        });
+      },
+      { root: track, threshold: [0.6] }
+    );
+    items.forEach((item) => observer.observe(item));
+    return () => observer.disconnect();
+  }, [showDots, children]);
+
+  const goTo = (i: number) => {
+    const track = trackRef.current;
+    const item = track?.children[i] as HTMLElement | undefined;
+    if (!item) return;
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    item.scrollIntoView({ behavior: reduce ? "auto" : "smooth", inline: "center", block: "nearest" });
   };
 
   return (
@@ -51,6 +91,28 @@ export default function Carousel({ children, ariaLabel }: CarouselProps) {
       >
         <ChevronRight className="w-5 h-5" />
       </button>
+
+      {showDots && dotCount > 1 && (
+        <div
+          className="flex md:hidden justify-center gap-1.5 mt-4"
+          role="tablist"
+          aria-label={ariaLabel ? `${ariaLabel} progress` : undefined}
+        >
+          {Array.from({ length: dotCount }).map((_, i) => (
+            <button
+              key={i}
+              type="button"
+              role="tab"
+              aria-selected={i === activeIndex}
+              aria-label={`Go to item ${i + 1}`}
+              onClick={() => goTo(i)}
+              className={`h-1.5 rounded-full transition-all duration-300 ${
+                i === activeIndex ? "w-5 bg-m3-primary" : "w-1.5 bg-m3-outline/30"
+              }`}
+            />
+          ))}
+        </div>
+      )}
     </div>
   );
 }

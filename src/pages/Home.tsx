@@ -5,7 +5,7 @@
 
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { motion } from "motion/react";
+import { motion, useReducedMotion } from "motion/react";
 import {
   ArrowUpRight,
   ArrowRight,
@@ -132,8 +132,122 @@ function VideoCard({ video }: { video: Video }) {
   );
 }
 
+/** Dark sweep shimmer for a thumbnail-shaped block — used by both skeletons
+ * below while /api/latest-videos is in flight, in place of the empty gap
+ * (or fallback CTA) that would otherwise flash before the real cards pop in. */
+function ShimmerBlock({ className = "" }: { className?: string }) {
+  return (
+    <div className={`relative overflow-hidden bg-black ${className}`}>
+      <div
+        className="absolute inset-0 animate-[shimmer-sweep_1.8s_ease-in-out_infinite] motion-reduce:animate-none"
+        style={{
+          background: "linear-gradient(90deg, transparent, rgba(255,255,255,.08), transparent)",
+          backgroundSize: "200% 100%",
+        }}
+      />
+    </div>
+  );
+}
+
+function FeaturedVideoSkeleton() {
+  return (
+    <div
+      aria-hidden="true"
+      className="rounded-[28px] overflow-hidden border border-m3-outline/10 bg-m3-surface shadow-sm"
+    >
+      <ShimmerBlock className="aspect-video" />
+      <div className="flex items-center justify-between gap-4 p-5 md:p-6">
+        <div className="h-4 w-2/3 rounded-full bg-m3-outline/15 animate-pulse" />
+        <div className="w-5 h-5 rounded-full bg-m3-outline/15 animate-pulse shrink-0" />
+      </div>
+    </div>
+  );
+}
+
+function VideoCardSkeleton() {
+  return (
+    <div
+      role="listitem"
+      aria-hidden="true"
+      className="snap-start shrink-0 bg-m3-surface rounded-[20px] border border-m3-outline/5 overflow-hidden w-[240px] md:w-[280px]"
+    >
+      <ShimmerBlock className="aspect-video" />
+      <div className="p-4 flex flex-col gap-2">
+        <div className="h-3.5 w-4/5 rounded-full bg-m3-outline/15 animate-pulse" />
+        <div className="h-3.5 w-2/5 rounded-full bg-m3-outline/15 animate-pulse" />
+      </div>
+    </div>
+  );
+}
+
+/** Vignette + grain + cursor-spotlight + sparkles stack shared by the
+ * standard "Today's Five" rail cards and the featured hero card, so the two
+ * treatments can't drift out of sync. Positions are tuned to the icon tile
+ * icons.py always draws in the same corner of the 1080×1080 card art. Must
+ * render inside a `relative overflow-hidden` (and, for the spotlight, a
+ * `group`) ancestor that owns the --x/--y mousemove vars. */
+function CardArtOverlay() {
+  return (
+    <>
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background: "radial-gradient(130% 130% at 50% 35%, transparent 45%, rgba(0,0,0,.5) 100%)",
+        }}
+      />
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 pointer-events-none opacity-[0.15] mix-blend-overlay"
+        style={{
+          backgroundImage:
+            "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E\")",
+          backgroundSize: "140px 140px",
+        }}
+      />
+      <div
+        aria-hidden="true"
+        className="hidden md:block absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
+        style={{
+          background:
+            "radial-gradient(220px circle at var(--x, 50%) var(--y, 50%), rgba(255,255,255,.35), transparent 60%)",
+          mixBlendMode: "overlay",
+        }}
+      />
+      <span
+        aria-hidden="true"
+        className="absolute text-cyan-400 text-[13px] leading-none pointer-events-none animate-[sparkle-twinkle_2.6s_ease-in-out_infinite] motion-reduce:animate-none motion-reduce:opacity-60"
+        style={{ left: "62%", top: "60%" }}
+      >
+        ✦
+      </span>
+      <span
+        aria-hidden="true"
+        className="absolute text-white text-[9px] leading-none pointer-events-none animate-[sparkle-twinkle_2.6s_ease-in-out_infinite] [animation-delay:0.9s] motion-reduce:animate-none motion-reduce:opacity-60"
+        style={{ left: "91%", top: "73%" }}
+      >
+        ✦
+      </span>
+      <span
+        aria-hidden="true"
+        className="absolute text-cyan-400 text-[8px] leading-none pointer-events-none animate-[sparkle-twinkle_2.6s_ease-in-out_infinite] [animation-delay:1.7s] motion-reduce:animate-none motion-reduce:opacity-60"
+        style={{ left: "73%", top: "92%" }}
+      >
+        ✦
+      </span>
+    </>
+  );
+}
+
 export default function Home() {
   const [videos, setVideos] = useState<Video[]>([]);
+  const [videosLoading, setVideosLoading] = useState(true);
+  const shouldReduceMotion = useReducedMotion();
+  // Today's Five, touch devices: first tap on a card previews a one-line
+  // summary instead of navigating straight away; a second tap (or the CTA)
+  // follows through. Devices with a real pointer (mouse/trackpad) skip this
+  // — hover already does the previewing job there.
+  const [expandedPostIndex, setExpandedPostIndex] = useState<number | null>(null);
 
   useEffect(() => {
     let active = true;
@@ -144,6 +258,9 @@ export default function Home() {
       })
       .catch(() => {
         /* fall back to the CTA card */
+      })
+      .finally(() => {
+        if (active) setVideosLoading(false);
       });
     return () => {
       active = false;
@@ -153,6 +270,11 @@ export default function Home() {
   const featured = videos[0] ?? null;
   const railVideos = videos.slice(1, 6);
   const latestDigest = getLatestDigest();
+  // Lead story for the day: whichever post is explicitly marked `featured`,
+  // falling back to the first post so today's content (and any digest that
+  // hasn't adopted the field yet) still gets a hero instead of nothing.
+  const heroPost = latestDigest?.posts.find((p) => p.featured) ?? latestDigest?.posts[0];
+  const railPosts = latestDigest ? latestDigest.posts.filter((p) => p.n !== heroPost?.n) : [];
   const categories = getTopCategories();
   const latestIssue = getLatestWeeklyIssue();
 
@@ -203,35 +325,130 @@ export default function Home() {
                 <div className="mb-5 text-[11px] font-bold uppercase tracking-widest text-m3-primary">
                   {formatDigestDate(latestDigest.date)} · today's five
                 </div>
-                <Carousel ariaLabel="Today's tech roundup">
-                  {latestDigest.posts.map((p) => (
+
+                {heroPost && (
+                  <motion.div
+                    role="listitem"
+                    className="group mb-6"
+                    initial={shouldReduceMotion ? false : { opacity: 0, y: 24 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, amount: "some" }}
+                    transition={{ duration: 0.5, ease: [0.2, 0.7, 0.3, 1] }}
+                    onMouseMove={(e) => {
+                      const r = e.currentTarget.getBoundingClientRect();
+                      e.currentTarget.style.setProperty("--x", `${((e.clientX - r.left) / r.width) * 100}%`);
+                      e.currentTarget.style.setProperty("--y", `${((e.clientY - r.top) / r.height) * 100}%`);
+                    }}
+                  >
                     <Link
-                      key={p.n}
-                      to={`/tech-roundup/${latestDigest.date}#post-${p.n}`}
-                      role="listitem"
-                      className="group snap-start shrink-0 w-[280px] md:w-[340px] bg-m3-surface-variant/40 rounded-[24px] border border-m3-outline/5 overflow-hidden flex flex-col hover:bg-m3-surface hover:border-m3-primary/30 hover:shadow-xl transition-all"
+                      to={`/tech-roundup/${latestDigest.date}#post-${heroPost.n}`}
+                      className="grid md:grid-cols-2 bg-m3-surface-variant/40 rounded-[24px] border border-m3-outline/5 overflow-hidden hover:bg-m3-surface hover:border-m3-primary/30 hover:shadow-xl transition-all"
                     >
-                      {p.image && (
-                        <img
-                          src={p.image}
-                          alt=""
-                          loading="lazy"
-                          className="w-full aspect-square object-cover"
-                        />
+                      {heroPost.image && (
+                        <div className="relative overflow-hidden aspect-[16/9] md:aspect-auto">
+                          <img
+                            src={heroPost.image}
+                            alt=""
+                            loading="lazy"
+                            className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
+                          />
+                          <CardArtOverlay />
+                          <span className="absolute top-4 left-4 z-[1] text-[10px] font-black uppercase tracking-[0.15em] bg-m3-primary text-white px-3 py-1.5 rounded-full">
+                            Today's lead
+                          </span>
+                        </div>
                       )}
-                      <div className="p-6 flex flex-col gap-4 flex-1">
+                      <div className="p-6 md:p-10 flex flex-col justify-center gap-3">
                         <span className="text-[10px] font-bold uppercase tracking-widest text-m3-primary">
-                          {p.pillar}
+                          {heroPost.pillar}
                         </span>
-                        <p className="text-[15px] leading-snug text-m3-on-surface font-bold line-clamp-4">
-                          {p.hook}
-                        </p>
-                        <span className="mt-auto inline-flex items-center gap-1 text-[11px] font-bold uppercase tracking-widest text-m3-primary opacity-0 group-hover:opacity-100 transition-opacity">
+                        <h2 className="display text-2xl md:text-3xl font-extrabold tracking-tight text-m3-on-surface leading-snug">
+                          {heroPost.hook}
+                        </h2>
+                        {heroPost.body && (
+                          <p className="text-sm md:text-base leading-relaxed text-m3-on-surface-variant font-medium line-clamp-3">
+                            {heroPost.body}
+                          </p>
+                        )}
+                        <span className="mt-2 inline-flex items-center gap-1 text-[11px] font-bold uppercase tracking-widest text-m3-primary">
                           Read the take <ArrowUpRight className="w-3.5 h-3.5" />
                         </span>
                       </div>
                     </Link>
-                  ))}
+                  </motion.div>
+                )}
+
+                <Carousel ariaLabel="Today's tech roundup" showDots>
+                  {railPosts.map((p, i) => {
+                    const isExpanded = expandedPostIndex === i;
+                    return (
+                    <motion.div
+                      key={p.n}
+                      role="listitem"
+                      className="group snap-start shrink-0 w-[calc(100vw_-_104px)] max-w-[360px] md:w-[340px] md:max-w-none"
+                      initial={shouldReduceMotion ? false : { opacity: 0, y: 24 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true, amount: "some" }}
+                      transition={{ duration: 0.5, delay: i * 0.08, ease: [0.2, 0.7, 0.3, 1] }}
+                      onMouseMove={(e) => {
+                        const r = e.currentTarget.getBoundingClientRect();
+                        e.currentTarget.style.setProperty("--x", `${((e.clientX - r.left) / r.width) * 100}%`);
+                        e.currentTarget.style.setProperty("--y", `${((e.clientY - r.top) / r.height) * 100}%`);
+                      }}
+                    >
+                      <Link
+                        to={`/tech-roundup/${latestDigest.date}#post-${p.n}`}
+                        onClick={(e) => {
+                          // Touch devices only (no real hover) — first tap
+                          // previews instead of navigating away immediately.
+                          const canHover = window.matchMedia("(hover: hover)").matches;
+                          if (!canHover && !isExpanded) {
+                            e.preventDefault();
+                            setExpandedPostIndex(i);
+                          }
+                        }}
+                        className="block h-full bg-m3-surface-variant/40 rounded-[24px] border border-m3-outline/5 overflow-hidden flex flex-col hover:bg-m3-surface hover:border-m3-primary/30 hover:shadow-xl hover:-translate-y-1 transition-all"
+                      >
+                        {p.image && (
+                          <div className="relative overflow-hidden">
+                            <img
+                              src={p.image}
+                              alt=""
+                              loading="lazy"
+                              className="w-full aspect-square object-cover transition-transform duration-500 group-hover:scale-105"
+                            />
+                            <CardArtOverlay />
+                          </div>
+                        )}
+                        <div className="p-6 flex flex-col gap-4 flex-1">
+                          <span className="text-[10px] font-bold uppercase tracking-widest text-m3-primary">
+                            {p.pillar}
+                          </span>
+                          <p className="text-[15px] leading-snug text-m3-on-surface font-bold line-clamp-4">
+                            {p.hook}
+                          </p>
+                          {isExpanded && p.body && (
+                            <motion.p
+                              initial={shouldReduceMotion ? false : { opacity: 0, y: 6 }}
+                              animate={{ opacity: 1, y: 0 }}
+                              transition={{ duration: 0.3 }}
+                              className="text-[13px] leading-snug text-m3-on-surface-variant font-medium line-clamp-2 -mt-2"
+                            >
+                              {p.body}
+                            </motion.p>
+                          )}
+                          <span
+                            className={`mt-auto inline-flex items-center gap-1 text-[11px] font-bold uppercase tracking-widest text-m3-primary transition-opacity ${
+                              isExpanded ? "opacity-100" : "opacity-0 group-hover:opacity-100"
+                            }`}
+                          >
+                            Read the take <ArrowUpRight className="w-3.5 h-3.5" />
+                          </span>
+                        </div>
+                      </Link>
+                    </motion.div>
+                    );
+                  })}
                 </Carousel>
               </>
             ) : (
@@ -363,7 +580,9 @@ export default function Home() {
               All videos <ArrowUpRight className="w-3.5 h-3.5" />
             </a>
           </div>
-          {featured ? (
+          {videosLoading ? (
+            <FeaturedVideoSkeleton />
+          ) : featured ? (
             <FeaturedVideo video={featured} />
           ) : (
             <a
@@ -389,14 +608,15 @@ export default function Home() {
         </section>
 
         {/* 05 — Latest Videos (carousel) */}
-        {railVideos.length > 0 && (
-          <section className="px-6 md:px-14 py-10 md:py-14 bg-m3-surface">
+        {(videosLoading || railVideos.length > 0) && (
+          <section className="px-6 md:px-14 py-10 md:py-14 bg-m3-surface" aria-busy={videosLoading}>
             <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-2 mb-8">
               <div className="flex items-center gap-3">
                 <Play className="w-5 h-5 text-m3-primary" />
                 <span className="font-display text-[11px] md:text-sm font-black uppercase tracking-[0.3em] text-m3-on-surface">
                   Latest Videos
                 </span>
+                {videosLoading && <span className="sr-only">Loading videos…</span>}
               </div>
               <a
                 href={YOUTUBE}
@@ -408,9 +628,9 @@ export default function Home() {
               </a>
             </div>
             <Carousel ariaLabel="Latest videos">
-              {railVideos.map((v) => (
-                <VideoCard key={v.id} video={v} />
-              ))}
+              {videosLoading
+                ? Array.from({ length: 4 }).map((_, i) => <VideoCardSkeleton key={i} />)
+                : railVideos.map((v) => <VideoCard key={v.id} video={v} />)}
             </Carousel>
           </section>
         )}

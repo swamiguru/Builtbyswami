@@ -14,6 +14,11 @@ export interface SocialPost {
   body: string;
   url?: string;
   image?: string; // e.g. /social/2026-07-12/card_1.png
+  // Marks this as the day's lead story — gets the wide hero treatment on the
+  // homepage instead of a standard rail card. Optional and rare: at most one
+  // post per day should set this. When no post has it, the homepage falls
+  // back to posts[0] so nothing breaks for existing or not-yet-updated content.
+  featured?: boolean;
   // Optional long-form breakdown for the website story view (/tech-roundup).
   // `body` stays short-form for social distribution; when these are present,
   // TechDigest renders the structured version instead of `body`.
