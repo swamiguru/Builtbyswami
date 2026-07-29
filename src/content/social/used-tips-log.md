@@ -15,3 +15,5 @@ seed | iOS | Back Tap (double/triple tap back of iPhone)
 2026-07-26 | Google Pixel | Flip to Shhh — turn phone face-down to auto-enable Do Not Disturb (Digital Wellbeing)
 2026-07-27 | Samsung One UI | Dual Messenger — run two WhatsApp/Messenger accounts (Settings > Advanced features > Dual Messenger)
 2026-07-28 | macOS | Finder batch rename — select files, right-click > Rename N Items (Replace Text / Add prefix-suffix / Format sequential numbers)
+
+2026-07-29 | Google Chrome | Copy Link to Highlight — select text, right-click > Copy Link to Highlight; link auto-scrolls to + highlights that exact text for the recipient

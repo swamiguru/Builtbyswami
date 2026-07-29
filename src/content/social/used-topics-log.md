@@ -41,3 +41,8 @@
 2026-07-28 | 2 | Big Tech Business | Apple Upgrade lease-to-own | Goes LIVE today (US, Klarna) 24/36-month leases — hardware-as-subscription take
 2026-07-28 | 4 | AI workflow | Prompt of the day — noise filter | TL;DR + 3 facts + 1 hype claim + action, be-blunt prompt
 2026-07-28 | 5 | Global tech / Robotics / Community | Humanoid robots by 2030 poll | Unitree Europe + BYD/XPeng — chores by 2030 inevitable or overhyped?
+
+2026-07-29 | 1 | Chips / Phones / India | Memory chip price crisis | RAM $2.80→$12, 8+ India brands +₹1,500, avg phone price up ~14% (IDC), squeeze into 2027
+2026-07-29 | 2 | Wearables / AR / Privacy | Apple smart glasses delay | Pushed to WWDC 2027 over privacy; camera-free / no-capture versions considered (Gurman report)
+2026-07-29 | 4 | Connectivity / Phones | eSIM vs physical SIM | 2026 comparison, who-should-pick verdict
+2026-07-29 | 5 | Big Tech Business / AI infra | Nvidia–OpenAI $250B backstop | Circular AI financing / bubble hot take (Burry: 'around and around we go')
