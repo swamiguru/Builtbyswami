@@ -30,6 +30,17 @@ export function useScrambleText(target: string, active = true): string {
 
     let iterations = 0;
     const interval = setInterval(() => {
+      iterations += 0.3;
+      // Stop as soon as every position would resolve correctly, and set the
+      // exact target string directly — don't rely on the reveal math below
+      // to land on it by coincidence. This is the only line that guarantees
+      // the animation always ends reading the real text, character for
+      // character, no matter how the iteration count landed.
+      if (iterations >= target.length) {
+        setDisplay(target);
+        clearInterval(interval);
+        return;
+      }
       setDisplay(
         target
           .split("")
@@ -40,8 +51,6 @@ export function useScrambleText(target: string, active = true): string {
           })
           .join("")
       );
-      iterations += 0.3;
-      if (iterations > target.length) clearInterval(interval);
     }, 40);
 
     return () => clearInterval(interval);
