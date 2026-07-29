@@ -17,6 +17,7 @@ import {
 import SiteHeader from "../components/SiteHeader";
 import SiteFooter from "../components/SiteFooter";
 import NewsletterSignup from "../components/NewsletterSignup";
+import { useScrambleText } from "../hooks/useScrambleText";
 
 const formatMonth = (key: string): string =>
   new Date(key + "-01T00:00:00").toLocaleDateString("en-US", {
@@ -28,6 +29,7 @@ export default function Tech() {
   const [searchParams, setSearchParams] = useSearchParams();
   const activeCategory = searchParams.get("category");
   const categories = useMemo(() => getTopCategories(), []);
+  const roundupKicker = useScrambleText("The Daily Tech Roundup");
 
   const filteredDigests = useMemo(() => {
     if (!activeCategory) return DIGESTS;
@@ -72,7 +74,7 @@ export default function Tech() {
           <div className="flex items-center gap-3 mb-4">
             <Sparkles className="w-5 h-5 text-m3-primary" />
             <span className="font-display text-[11px] md:text-sm font-black uppercase tracking-[0.3em] text-m3-primary">
-              The Daily Tech Roundup
+              {roundupKicker}
             </span>
           </div>
           <h1 className="display text-3xl md:text-5xl font-extrabold uppercase tracking-tighter text-m3-on-surface max-w-2xl leading-[0.95]">

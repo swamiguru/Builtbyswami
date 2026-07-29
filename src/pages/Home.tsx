@@ -24,6 +24,7 @@ import SiteHeader from "../components/SiteHeader";
 import SiteFooter from "../components/SiteFooter";
 import NewsletterSignup from "../components/NewsletterSignup";
 import { useImageOrientation } from "../hooks/useImageOrientation";
+import { useScrambleText } from "../hooks/useScrambleText";
 
 const YOUTUBE = "https://www.youtube.com/@builtbyswami";
 
@@ -243,6 +244,7 @@ export default function Home() {
   const [videos, setVideos] = useState<Video[]>([]);
   const [videosLoading, setVideosLoading] = useState(true);
   const shouldReduceMotion = useReducedMotion();
+  const roundupKicker = useScrambleText("The Daily Tech Roundup");
   // Today's Five, touch devices: first tap on a card previews a one-line
   // summary instead of navigating straight away; a second tap (or the CTA)
   // follows through. Devices with a real pointer (mouse/trackpad) skip this
@@ -303,7 +305,7 @@ export default function Home() {
               <div className="flex items-center gap-3">
                 <Sparkles className="w-5 h-5 text-m3-primary" />
                 <span className="font-display text-[11px] md:text-sm font-black uppercase tracking-[0.3em] text-m3-primary">
-                  The Daily Tech Roundup
+                  {roundupKicker}
                 </span>
               </div>
               <Link
