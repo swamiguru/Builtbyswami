@@ -276,12 +276,12 @@ export default function Home() {
   const latestIssue = getLatestWeeklyIssue();
 
   useEffect(() => {
-    document.title = "Building products in public with AI | Swami Guru";
+    document.title = "The Daily Tech Roundup: Tech News + AI Builds | Swami Guru";
     document
       .querySelector('meta[name="description"]')
       ?.setAttribute(
         "content",
-        "11+ years scaling digital media products at world class brands, now building AI products solo, in public - Swami Guru"
+        "Get daily tech news, a weekly tech newsletter, and YouTube videos on AI tools - from Swami Guru, a product leader building AI products solo, in public."
       );
   }, []);
 
