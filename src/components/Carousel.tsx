@@ -30,6 +30,27 @@ export default function Carousel({ children, ariaLabel, showDots = false }: Caro
     el.scrollBy({ left: dir * el.clientWidth * 0.85, behavior: "smooth" });
   };
 
+  // Browsers auto-redirect a vertical wheel/trackpad gesture into horizontal
+  // scrolling when it's over an element that only overflows on the x-axis —
+  // convenient for shift-less horizontal scrolling, but it also swallows the
+  // page's vertical scroll while the cursor happens to be over the rail, so
+  // the whole page appears stuck. Detect a vertical-dominant gesture and
+  // forward it to the page instead of letting the track eat it. Must be a
+  // native (non-passive) listener since React's onWheel is passive by
+  // default and can't call preventDefault.
+  useEffect(() => {
+    const track = trackRef.current;
+    if (!track) return;
+    const onWheel = (e: WheelEvent) => {
+      if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
+        e.preventDefault();
+        window.scrollBy({ top: e.deltaY, left: 0 });
+      }
+    };
+    track.addEventListener("wheel", onWheel, { passive: false });
+    return () => track.removeEventListener("wheel", onWheel);
+  }, []);
+
   // Track which card is centered in the viewport so the dot strip can stay
   // in sync with native swipe/scroll — no extra state needed from callers.
   useEffect(() => {
