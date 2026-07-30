@@ -410,14 +410,19 @@ export default function Home() {
                             <CardArtOverlay />
                           </div>
                         )}
-                        <div className="p-6 flex flex-col gap-4 flex-1">
+                        <div className="p-6 flex flex-col gap-2 flex-1">
                           <span className="text-[10px] font-bold uppercase tracking-widest text-m3-primary">
                             {p.pillar}
                           </span>
-                          <p className="text-[15px] leading-snug text-m3-on-surface font-bold line-clamp-4">
+                          <p className="text-[15px] leading-snug text-m3-on-surface font-bold line-clamp-3">
                             {p.hook}
                           </p>
-                          <span className="mt-auto inline-flex items-center gap-1 text-[11px] font-bold uppercase tracking-widest text-m3-primary opacity-0 group-hover:opacity-100 transition-opacity">
+                          {p.problem && (
+                            <p className="text-[13px] leading-snug text-m3-on-surface-variant font-medium line-clamp-2">
+                              {p.problem}
+                            </p>
+                          )}
+                          <span className="mt-auto pt-2 inline-flex items-center gap-1 text-[11px] font-bold uppercase tracking-widest text-m3-primary group-hover:gap-1.5 transition-all">
                             Read the take <ArrowUpRight className="w-3.5 h-3.5" />
                           </span>
                         </div>
