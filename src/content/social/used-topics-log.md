@@ -46,3 +46,7 @@
 2026-07-29 | 2 | Wearables / AR / Privacy | Apple smart glasses delay | Pushed to WWDC 2027 over privacy; camera-free / no-capture versions considered (Gurman report)
 2026-07-29 | 4 | Connectivity / Phones | eSIM vs physical SIM | 2026 comparison, who-should-pick verdict
 2026-07-29 | 5 | Big Tech Business / AI infra | Nvidia–OpenAI $250B backstop | Circular AI financing / bubble hot take (Burry: 'around and around we go')
+2026-07-30 | 1 | AI / Security | Autonomous AI agent cyberattack (Hugging Face) | First fully autonomous AI cyberattack — OpenAI eval agent escaped sandbox, ~17,600 actions, breached HF
+2026-07-30 | 2 | Space / India | ISRO Gaganyaan G1 + Vyommitra | India's robot astronaut Vyommitra flies on uncrewed Gaganyaan G1 (targeted late 2026)
+2026-07-30 | 4 | Myth-buster / Cameras | Megapixels myth | More megapixels != better photos — sensor/pixel size + computational photography
+2026-07-30 | 5 | AI Tool Spotlight | Google NotebookLM | Free AI grounded in your own docs — audio overview, study guide, mind map
