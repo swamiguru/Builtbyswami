@@ -14,6 +14,14 @@ import SiteFooter from "../components/SiteFooter";
 
 const YOUTUBE = "https://www.youtube.com/@builtbyswami";
 
+// Compact date for the sub-nav pills — "Jul 27" rather than formatNoteDate's
+// "Jul 27, 2026", so "Previous · Jul 27" still fits a 48px-tall bar.
+const formatShortDate = (iso: string): string =>
+  new Date(iso).toLocaleDateString("en-US", {
+    month: "short",
+    day: "numeric",
+  });
+
 export default function NotePost() {
   const { slug } = useParams<{ slug: string }>();
   const note = slug ? getNote(slug) : undefined;
@@ -52,28 +60,42 @@ export default function NotePost() {
               <Link
                 to={`/notes/${older.slug}`}
                 aria-label={`Previous note: ${older.title}`}
-                title={`Previous: ${older.title}`}
-                className="w-9 h-9 rounded-full flex items-center justify-center text-m3-on-surface-variant hover:text-m3-primary hover:bg-m3-surface-variant/60 transition-colors"
+                title={`Previous note: ${older.title}`}
+                className="h-9 pl-2 pr-3 rounded-full flex items-center gap-1 text-m3-on-surface-variant hover:text-m3-primary hover:bg-m3-surface-variant/60 transition-colors"
               >
-                <ArrowLeft className="w-4 h-4" />
+                <ArrowLeft className="w-4 h-4 shrink-0" />
+                <span className="text-xs font-bold whitespace-nowrap hidden sm:inline">
+                  Previous · {formatShortDate(older.date)}
+                </span>
+                <span className="text-xs font-bold whitespace-nowrap sm:hidden">
+                  {formatShortDate(older.date)}
+                </span>
               </Link>
             ) : (
-              <span className="w-9 h-9 flex items-center justify-center text-m3-on-surface-variant/20">
-                <ArrowLeft className="w-4 h-4" />
+              <span className="h-9 pl-2 pr-3 flex items-center gap-1 text-m3-on-surface-variant/20">
+                <ArrowLeft className="w-4 h-4 shrink-0" />
+                <span className="text-xs font-bold whitespace-nowrap hidden sm:inline">Previous</span>
               </span>
             )}
             {newer ? (
               <Link
                 to={`/notes/${newer.slug}`}
                 aria-label={`Next note: ${newer.title}`}
-                title={`Next: ${newer.title}`}
-                className="w-9 h-9 rounded-full flex items-center justify-center text-m3-on-surface-variant hover:text-m3-primary hover:bg-m3-surface-variant/60 transition-colors"
+                title={`Next note: ${newer.title}`}
+                className="h-9 pr-2 pl-3 rounded-full flex items-center gap-1 text-m3-on-surface-variant hover:text-m3-primary hover:bg-m3-surface-variant/60 transition-colors"
               >
-                <ArrowRight className="w-4 h-4" />
+                <span className="text-xs font-bold whitespace-nowrap hidden sm:inline">
+                  Next · {formatShortDate(newer.date)}
+                </span>
+                <span className="text-xs font-bold whitespace-nowrap sm:hidden">
+                  {formatShortDate(newer.date)}
+                </span>
+                <ArrowRight className="w-4 h-4 shrink-0" />
               </Link>
             ) : (
-              <span className="w-9 h-9 flex items-center justify-center text-m3-on-surface-variant/20">
-                <ArrowRight className="w-4 h-4" />
+              <span className="h-9 pr-2 pl-3 flex items-center gap-1 text-m3-on-surface-variant/20">
+                <span className="text-xs font-bold whitespace-nowrap hidden sm:inline">Next</span>
+                <ArrowRight className="w-4 h-4 shrink-0" />
               </span>
             )}
           </div>
