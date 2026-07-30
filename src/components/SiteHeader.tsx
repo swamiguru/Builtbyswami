@@ -83,7 +83,7 @@ export default function SiteHeader() {
               aria-haspopup="true"
               className="px-5 py-2.5 bg-m3-primary text-m3-on-primary rounded-m3-full hover:m3-elevation-1 active:scale-95 transition-all shadow-sm"
             >
-              Subscribe
+              Newsletter
             </button>
             {subscribeOpen && (
               <div className="absolute right-0 top-[calc(100%+10px)] w-[320px] max-w-[calc(100vw-3rem)] bg-m3-surface border border-m3-outline/10 rounded-[20px] shadow-xl p-5 z-40">
