@@ -245,11 +245,6 @@ export default function Home() {
   const [videosLoading, setVideosLoading] = useState(true);
   const shouldReduceMotion = useReducedMotion();
   const roundupKicker = useScrambleText("The Daily Tech Roundup");
-  // Today's Five, touch devices: first tap on a card previews a one-line
-  // summary instead of navigating straight away; a second tap (or the CTA)
-  // follows through. Devices with a real pointer (mouse/trackpad) skip this
-  // — hover already does the previewing job there.
-  const [expandedPostIndex, setExpandedPostIndex] = useState<number | null>(null);
 
   useEffect(() => {
     let active = true;
@@ -385,9 +380,7 @@ export default function Home() {
                 )}
 
                 <Carousel ariaLabel="Today's tech roundup" showDots>
-                  {railPosts.map((p, i) => {
-                    const isExpanded = expandedPostIndex === i;
-                    return (
+                  {railPosts.map((p, i) => (
                     <motion.div
                       key={p.n}
                       role="listitem"
@@ -404,15 +397,6 @@ export default function Home() {
                     >
                       <Link
                         to={`/tech-roundup/${latestDigest.date}#post-${p.n}`}
-                        onClick={(e) => {
-                          // Touch devices only (no real hover) — first tap
-                          // previews instead of navigating away immediately.
-                          const canHover = window.matchMedia("(hover: hover)").matches;
-                          if (!canHover && !isExpanded) {
-                            e.preventDefault();
-                            setExpandedPostIndex(i);
-                          }
-                        }}
                         className="block h-full bg-m3-surface-variant/40 rounded-[24px] border border-m3-outline/5 overflow-hidden flex flex-col hover:bg-m3-surface hover:border-m3-primary/30 hover:shadow-xl hover:-translate-y-1 transition-all"
                       >
                         {p.image && (
@@ -433,28 +417,13 @@ export default function Home() {
                           <p className="text-[15px] leading-snug text-m3-on-surface font-bold line-clamp-4">
                             {p.hook}
                           </p>
-                          {isExpanded && p.body && (
-                            <motion.p
-                              initial={shouldReduceMotion ? false : { opacity: 0, y: 6 }}
-                              animate={{ opacity: 1, y: 0 }}
-                              transition={{ duration: 0.3 }}
-                              className="text-[13px] leading-snug text-m3-on-surface-variant font-medium line-clamp-2 -mt-2"
-                            >
-                              {p.body}
-                            </motion.p>
-                          )}
-                          <span
-                            className={`mt-auto inline-flex items-center gap-1 text-[11px] font-bold uppercase tracking-widest text-m3-primary transition-opacity ${
-                              isExpanded ? "opacity-100" : "opacity-0 group-hover:opacity-100"
-                            }`}
-                          >
+                          <span className="mt-auto inline-flex items-center gap-1 text-[11px] font-bold uppercase tracking-widest text-m3-primary opacity-0 group-hover:opacity-100 transition-opacity">
                             Read the take <ArrowUpRight className="w-3.5 h-3.5" />
                           </span>
                         </div>
                       </Link>
                     </motion.div>
-                    );
-                  })}
+                  ))}
                 </Carousel>
               </>
             ) : (
