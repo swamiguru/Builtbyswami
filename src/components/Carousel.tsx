@@ -64,6 +64,15 @@ export default function Carousel({ children, ariaLabel, showDots = false }: Caro
   //    were competing within one frame budget — this is what read as janky
   //    on Chrome. Accumulate the pending distance and flush it once per
   //    animation frame instead.
+  // 4. THE BIG ONE, confirmed by testing live in the console: `html` has
+  //    `scroll-behavior: smooth` globally (index.css). scrollBy/scrollTo
+  //    without an explicit `behavior` defer to that CSS value — so every
+  //    one of our rAF-batched calls was silently starting a ~300ms smooth
+  //    animation and immediately restarting it on the next frame before it
+  //    could get anywhere. Verified: 30 calls of scrollBy({top:20}) at one
+  //    per frame moved the page 58px total instead of the expected 600px.
+  //    Passing behavior: "instant" bypasses the CSS default and actually
+  //    moves the full distance we already computed.
   useEffect(() => {
     const track = trackRef.current;
     if (!track) return;
@@ -79,7 +88,7 @@ export default function Carousel({ children, ariaLabel, showDots = false }: Caro
     };
 
     const flush = () => {
-      window.scrollBy({ top: pending, left: 0 });
+      window.scrollBy({ top: pending, left: 0, behavior: "instant" });
       pending = 0;
       rafId = null;
     };
@@ -143,11 +152,17 @@ export default function Carousel({ children, ariaLabel, showDots = false }: Caro
 
   return (
     <div className="relative group/carousel">
+      {/* overflow-y-hidden is load-bearing, not decorative: per spec, an
+          element with overflow-x set to anything but visible computes its
+          unset overflow-y as auto too. Confirmed live that this track's
+          padding gave it ~16px of genuine vertical overflow, so without
+          this it was a real (if tiny) vertical scroll container in its own
+          right — competing with our own axis detection above. */}
       <div
         ref={trackRef}
         role="list"
         aria-label={ariaLabel}
-        className="flex gap-4 md:gap-5 overflow-x-auto snap-x snap-mandatory pb-2 -mx-1 px-1 touch-pan-x [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
+        className="flex gap-4 md:gap-5 overflow-x-auto overflow-y-hidden snap-x snap-mandatory pb-2 -mx-1 px-1 touch-pan-x [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
       >
         {children}
       </div>
