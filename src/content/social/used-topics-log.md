@@ -50,3 +50,7 @@
 2026-07-30 | 2 | Space / India | ISRO Gaganyaan G1 + Vyommitra | India's robot astronaut Vyommitra flies on uncrewed Gaganyaan G1 (targeted late 2026)
 2026-07-30 | 4 | Myth-buster / Cameras | Megapixels myth | More megapixels != better photos — sensor/pixel size + computational photography
 2026-07-30 | 5 | AI Tool Spotlight | Google NotebookLM | Free AI grounded in your own docs — audio overview, study guide, mind map
+2026-07-31 | 1 | Global tech / Robotics | Unitree viral robot | Super athlete quadruped ~5 m/s w/ payload + humanoid clips go viral (neutral, product-focused)
+2026-07-31 | 2 | OS updates / Apple | iOS 26.6 | Out now — 78 security fixes, on-device malicious-message detection, indexing for iOS 27 Siri
+2026-07-31 | 4 | Security & Privacy | Apple Pay / FaceTime phishing wave | Quick-win: never approve payment/OTP from inbound call/text, verify in-app
+2026-07-31 | 5 | Phones / Community | Pixel 11 vs iPhone switch poll | If Pixel 11 camera+AI beat iPhone would you switch, or ecosystem lock-in (Threads+X poll)
