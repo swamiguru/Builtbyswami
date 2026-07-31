@@ -45,11 +45,30 @@ export default function Carousel({ children, ariaLabel, showDots = false }: Caro
   // "forward to page" and "let the rail eat it," pausing the page scroll
   // mid-gesture. Instead, lock the axis on the first tick of a gesture and
   // hold that decision until the gesture goes idle for a beat.
+  //
+  // Two more things were making the forwarded scroll feel heavy/slow
+  // compared to scrolling anywhere else on the page:
+  // 1. A trackpad's momentum ("fling") phase keeps sending wheel ticks with
+  //    growing gaps between them as it decelerates. A 150ms idle window was
+  //    tight enough to land inside one of those gaps, resetting the axis
+  //    lock mid-flick and cutting the scroll short — you'd have to scroll
+  //    again to cover the same distance a normal flick would. 250ms rides
+  //    out that tail.
+  // 2. Not every device reports deltaY in pixels — Firefox (and some mice)
+  //    use "lines" or "pages." Forwarding that raw number straight into
+  //    scrollBy scrolled a tiny fraction of what the browser's own handling
+  //    would have covered. Normalize to pixels first.
   useEffect(() => {
     const track = trackRef.current;
     if (!track) return;
     let axis: "x" | "y" | null = null;
     let idleTimer: number | undefined;
+
+    const toPixels = (e: WheelEvent) => {
+      if (e.deltaMode === 1) return e.deltaY * 16; // DOM_DELTA_LINE
+      if (e.deltaMode === 2) return e.deltaY * window.innerHeight; // DOM_DELTA_PAGE
+      return e.deltaY; // DOM_DELTA_PIXEL
+    };
 
     const onWheel = (e: WheelEvent) => {
       if (axis === null) {
@@ -58,11 +77,11 @@ export default function Carousel({ children, ariaLabel, showDots = false }: Caro
       window.clearTimeout(idleTimer);
       idleTimer = window.setTimeout(() => {
         axis = null;
-      }, 150);
+      }, 250);
 
       if (axis === "y") {
         e.preventDefault();
-        window.scrollBy({ top: e.deltaY, left: 0 });
+        window.scrollBy({ top: toPixels(e), left: 0 });
       }
     };
     track.addEventListener("wheel", onWheel, { passive: false });
