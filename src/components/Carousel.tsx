@@ -46,8 +46,8 @@ export default function Carousel({ children, ariaLabel, showDots = false }: Caro
   // mid-gesture. Instead, lock the axis on the first tick of a gesture and
   // hold that decision until the gesture goes idle for a beat.
   //
-  // Two more things were making the forwarded scroll feel heavy/slow
-  // compared to scrolling anywhere else on the page:
+  // A few more things were making the forwarded scroll feel heavy, slow, or
+  // janky compared to scrolling anywhere else on the page:
   // 1. A trackpad's momentum ("fling") phase keeps sending wheel ticks with
   //    growing gaps between them as it decelerates. A 150ms idle window was
   //    tight enough to land inside one of those gaps, resetting the axis
@@ -58,16 +58,30 @@ export default function Carousel({ children, ariaLabel, showDots = false }: Caro
   //    use "lines" or "pages." Forwarding that raw number straight into
   //    scrollBy scrolled a tiny fraction of what the browser's own handling
   //    would have covered. Normalize to pixels first.
+  // 3. Calling window.scrollBy synchronously on every single wheel tick
+  //    forces a layout on the main thread once per tick. Trackpads can fire
+  //    ticks faster than the display refreshes, so several scrollBy calls
+  //    were competing within one frame budget — this is what read as janky
+  //    on Chrome. Accumulate the pending distance and flush it once per
+  //    animation frame instead.
   useEffect(() => {
     const track = trackRef.current;
     if (!track) return;
     let axis: "x" | "y" | null = null;
     let idleTimer: number | undefined;
+    let pending = 0;
+    let rafId: number | null = null;
 
     const toPixels = (e: WheelEvent) => {
       if (e.deltaMode === 1) return e.deltaY * 16; // DOM_DELTA_LINE
       if (e.deltaMode === 2) return e.deltaY * window.innerHeight; // DOM_DELTA_PAGE
       return e.deltaY; // DOM_DELTA_PIXEL
+    };
+
+    const flush = () => {
+      window.scrollBy({ top: pending, left: 0 });
+      pending = 0;
+      rafId = null;
     };
 
     const onWheel = (e: WheelEvent) => {
@@ -81,13 +95,15 @@ export default function Carousel({ children, ariaLabel, showDots = false }: Caro
 
       if (axis === "y") {
         e.preventDefault();
-        window.scrollBy({ top: toPixels(e), left: 0 });
+        pending += toPixels(e);
+        if (rafId === null) rafId = requestAnimationFrame(flush);
       }
     };
     track.addEventListener("wheel", onWheel, { passive: false });
     return () => {
       track.removeEventListener("wheel", onWheel);
       window.clearTimeout(idleTimer);
+      if (rafId !== null) cancelAnimationFrame(rafId);
     };
   }, []);
 
@@ -131,7 +147,7 @@ export default function Carousel({ children, ariaLabel, showDots = false }: Caro
         ref={trackRef}
         role="list"
         aria-label={ariaLabel}
-        className="flex gap-4 md:gap-5 overflow-x-auto scroll-smooth snap-x snap-mandatory pb-2 -mx-1 px-1 touch-pan-x [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
+        className="flex gap-4 md:gap-5 overflow-x-auto snap-x snap-mandatory pb-2 -mx-1 px-1 touch-pan-x [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
       >
         {children}
       </div>
