@@ -38,17 +38,38 @@ export default function Carousel({ children, ariaLabel, showDots = false }: Caro
   // forward it to the page instead of letting the track eat it. Must be a
   // native (non-passive) listener since React's onWheel is passive by
   // default and can't call preventDefault.
+  //
+  // Deciding per-tick (comparing deltaX/deltaY on every event) is what made
+  // this feel "stuck": a single trackpad swipe rarely moves on one axis
+  // only, so consecutive ticks within the same gesture can flip between
+  // "forward to page" and "let the rail eat it," pausing the page scroll
+  // mid-gesture. Instead, lock the axis on the first tick of a gesture and
+  // hold that decision until the gesture goes idle for a beat.
   useEffect(() => {
     const track = trackRef.current;
     if (!track) return;
+    let axis: "x" | "y" | null = null;
+    let idleTimer: number | undefined;
+
     const onWheel = (e: WheelEvent) => {
-      if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
+      if (axis === null) {
+        axis = Math.abs(e.deltaY) > Math.abs(e.deltaX) ? "y" : "x";
+      }
+      window.clearTimeout(idleTimer);
+      idleTimer = window.setTimeout(() => {
+        axis = null;
+      }, 150);
+
+      if (axis === "y") {
         e.preventDefault();
         window.scrollBy({ top: e.deltaY, left: 0 });
       }
     };
     track.addEventListener("wheel", onWheel, { passive: false });
-    return () => track.removeEventListener("wheel", onWheel);
+    return () => {
+      track.removeEventListener("wheel", onWheel);
+      window.clearTimeout(idleTimer);
+    };
   }, []);
 
   // Track which card is centered in the viewport so the dot strip can stay
@@ -91,7 +112,7 @@ export default function Carousel({ children, ariaLabel, showDots = false }: Caro
         ref={trackRef}
         role="list"
         aria-label={ariaLabel}
-        className="flex gap-4 md:gap-5 overflow-x-auto scroll-smooth snap-x snap-mandatory pb-2 -mx-1 px-1 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
+        className="flex gap-4 md:gap-5 overflow-x-auto scroll-smooth snap-x snap-mandatory pb-2 -mx-1 px-1 touch-pan-x [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
       >
         {children}
       </div>
