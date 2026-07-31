@@ -157,12 +157,25 @@ export default function Carousel({ children, ariaLabel, showDots = false }: Caro
           unset overflow-y as auto too. Confirmed live that this track's
           padding gave it ~16px of genuine vertical overflow, so without
           this it was a real (if tiny) vertical scroll container in its own
-          right — competing with our own axis detection above. */}
+          right — competing with our own axis detection above.
+
+          Deliberately NOT setting touch-action: pan-x here (an earlier,
+          unverified attempt at this did). touch-action is locked in at
+          touchstart, before the browser knows which way the finger is
+          about to move, so it can't be corrected mid-gesture the way the
+          wheel handler above corrects per-tick — there's no JS fix
+          available here. Pinning it to pan-x forced every touch that
+          starts on a card to be treated as horizontal, which silently ate
+          vertical page scroll on real devices (confirmed on both mobile
+          Chrome and mobile Safari — a browser-default problem, not a
+          per-engine bug). Leaving touch-action at its default "auto" lets
+          each browser's own, generally reliable, first-move heuristic
+          decide the axis per gesture instead. */}
       <div
         ref={trackRef}
         role="list"
         aria-label={ariaLabel}
-        className="flex gap-4 md:gap-5 overflow-x-auto overflow-y-hidden snap-x snap-mandatory pb-2 -mx-1 px-1 touch-pan-x [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
+        className="flex gap-4 md:gap-5 overflow-x-auto overflow-y-hidden snap-x snap-mandatory pb-2 -mx-1 px-1 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
       >
         {children}
       </div>
