@@ -19,3 +19,4 @@ seed | iOS | Back Tap (double/triple tap back of iPhone)
 2026-07-29 | Google Chrome | Copy Link to Highlight — select text, right-click > Copy Link to Highlight; link auto-scrolls to + highlights that exact text for the recipient
 2026-07-30 | Instagram | DM read receipts OFF (Settings > Messages and story replies > Show read receipts) — read DMs without 'Seen'
 2026-07-31 | Android | Private Space — encrypted, separately-locked space that hides sensitive apps from drawer/recents/search (Settings > Security & privacy > Private space)
+2026-08-01 | macOS | Text Replacements — auto-expanding shortcuts (Settings > Keyboard > Text Replacements), stores long multi-line snippets, syncs iPhone/iPad/Mac via iCloud

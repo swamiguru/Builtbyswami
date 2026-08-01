@@ -54,3 +54,7 @@
 2026-07-31 | 2 | OS updates / Apple | iOS 26.6 | Out now — 78 security fixes, on-device malicious-message detection, indexing for iOS 27 Siri
 2026-07-31 | 4 | Security & Privacy | Apple Pay / FaceTime phishing wave | Quick-win: never approve payment/OTP from inbound call/text, verify in-app
 2026-07-31 | 5 | Phones / Community | Pixel 11 vs iPhone switch poll | If Pixel 11 camera+AI beat iPhone would you switch, or ecosystem lock-in (Threads+X poll)
+2026-08-01 | 1 | Gaming | Xbox console price hike | Series X $650->$800, Series S $400->$500, 2TB discontinued, effective Aug 1 (memory/storage costs +2.5x)
+2026-08-01 | 2 | India / Payments | UPI privacy rules | Masked mobile numbers (last 4 digits) + username UPI IDs default, from Aug 1, NPCI deadline Sept 9
+2026-08-01 | 4 | AI workflow | Prompt of the day - tutor | 'Be my tutor' learning prompt (analogy + 3 essentials + 2-question quiz, <200 words)
+2026-08-01 | 5 | AI Tool Spotlight | Perplexity | Free AI answer engine with live web + cited sources
