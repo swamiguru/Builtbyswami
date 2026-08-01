@@ -15,6 +15,13 @@ const formatMonth = (key: string): string =>
     month: "long",
   });
 
+// Compact form used on the Older/Newer nav buttons, e.g. "Jul 2026".
+const formatMonthShort = (key: string): string =>
+  new Date(key + "-01T00:00:00").toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "short",
+  });
+
 export default function Tech() {
   const [searchParams, setSearchParams] = useSearchParams();
 
@@ -93,24 +100,28 @@ export default function Tech() {
                 <h2 className="font-display text-xs font-black uppercase tracking-[0.25em] text-m3-on-surface-variant/60">
                   {formatMonth(activeMonth)}
                 </h2>
-                <div className="flex items-center gap-2">
-                  <button
-                    type="button"
-                    onClick={() => goToMonth(olderMonth)}
-                    disabled={!olderMonth}
-                    className="inline-flex items-center gap-1 text-[11px] font-bold uppercase tracking-widest text-m3-on-surface-variant disabled:opacity-30 disabled:cursor-not-allowed hover:text-m3-primary transition-colors"
-                  >
-                    <ChevronLeft className="w-3.5 h-3.5" /> Older
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => goToMonth(newerMonth)}
-                    disabled={!newerMonth}
-                    className="inline-flex items-center gap-1 text-[11px] font-bold uppercase tracking-widest text-m3-on-surface-variant disabled:opacity-30 disabled:cursor-not-allowed hover:text-m3-primary transition-colors"
-                  >
-                    Newer <ChevronRight className="w-3.5 h-3.5" />
-                  </button>
-                </div>
+                {(olderMonth || newerMonth) && (
+                  <div className="flex items-center gap-2 bg-m3-surface rounded-full border border-m3-outline/10 px-1.5 py-1.5">
+                    {olderMonth && (
+                      <button
+                        type="button"
+                        onClick={() => goToMonth(olderMonth)}
+                        className="inline-flex items-center gap-1 text-[11px] font-bold uppercase tracking-widest text-m3-on-surface-variant hover:text-m3-primary transition-colors px-2 py-1"
+                      >
+                        <ChevronLeft className="w-3.5 h-3.5" /> {formatMonthShort(olderMonth)}
+                      </button>
+                    )}
+                    {newerMonth && (
+                      <button
+                        type="button"
+                        onClick={() => goToMonth(newerMonth)}
+                        className="inline-flex items-center gap-1 text-[11px] font-bold uppercase tracking-widest text-m3-on-surface px-2 py-1"
+                      >
+                        {formatMonthShort(newerMonth)} <ChevronRight className="w-3.5 h-3.5" />
+                      </button>
+                    )}
+                  </div>
+                )}
               </div>
               {activeItems.map((d) => (
                 <Link
