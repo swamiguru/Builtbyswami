@@ -20,3 +20,5 @@ seed | iOS | Back Tap (double/triple tap back of iPhone)
 2026-07-30 | Instagram | DM read receipts OFF (Settings > Messages and story replies > Show read receipts) — read DMs without 'Seen'
 2026-07-31 | Android | Private Space — encrypted, separately-locked space that hides sensitive apps from drawer/recents/search (Settings > Security & privacy > Private space)
 2026-08-01 | macOS | Text Replacements — auto-expanding shortcuts (Settings > Keyboard > Text Replacements), stores long multi-line snippets, syncs iPhone/iPad/Mac via iCloud
+
+2026-08-02 | YouTube | Stable Volume — per-video toggle (tap video > settings gear > Stable Volume) evens out loud/quiet swings so you stop riding the volume slider

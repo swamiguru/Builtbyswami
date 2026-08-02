@@ -58,3 +58,8 @@
 2026-08-01 | 2 | India / Payments | UPI privacy rules | Masked mobile numbers (last 4 digits) + username UPI IDs default, from Aug 1, NPCI deadline Sept 9
 2026-08-01 | 4 | AI workflow | Prompt of the day - tutor | 'Be my tutor' learning prompt (analogy + 3 essentials + 2-question quiz, <200 words)
 2026-08-01 | 5 | AI Tool Spotlight | Perplexity | Free AI answer engine with live web + cited sources
+
+2026-08-02 | 1 | Global tech / Phones | Honor Robot Phone | Aug 12 China launch — 360deg motorized 200MP gimbal camera arm, Snapdragon 8 Elite Gen 5, ARRI colour (global date/price TBD)
+2026-08-02 | 2 | Chips / Phones | Qualcomm Snapdragon price hike | Double-digit chip price rise from Sept 1 (Amon confirmed) — premium Android to climb past $1000
+2026-08-02 | 4 | Gaming | Cloud gaming vs console | 2026 comparison + who-should-pick verdict (Amazon Luna->Prime Video, Xbox ad-supported cloud context)
+2026-08-02 | 5 | AI / Myth-buster | AI detectors unreliable | AI-writing detectors give false positives / can be fooled — 'they reliably catch AI' busted
