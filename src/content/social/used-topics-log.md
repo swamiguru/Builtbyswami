@@ -63,3 +63,7 @@
 2026-08-02 | 2 | Chips / Phones | Qualcomm Snapdragon price hike | Double-digit chip price rise from Sept 1 (Amon confirmed) — premium Android to climb past $1000
 2026-08-02 | 4 | Gaming | Cloud gaming vs console | 2026 comparison + who-should-pick verdict (Amazon Luna->Prime Video, Xbox ad-supported cloud context)
 2026-08-02 | 5 | AI / Myth-buster | AI detectors unreliable | AI-writing detectors give false positives / can be fooled — 'they reliably catch AI' busted
+2026-08-03 | 1 | AI / Apps | Google Earth AI image gen | Killed <24h after launch over deepfake satellite images (fake Iran nuclear plant, collapsed Eiffel Tower)
+2026-08-03 | 2 | Gaming | August 2026 game releases | 40+ titles — Beast of Reincarnation (Game Freak), Elden Ring Tarnished Edition, MGS Master Collection Vol 2, Oblivion Remastered on Switch 2
+2026-08-03 | 4 | Security & Privacy | Passkeys vs SMS OTP | Quick-win: switch to passkeys — cannot be phished/intercepted/SIM-swapped (amid phishing wave)
+2026-08-03 | 5 | Community / Poll | Subscription fatigue poll | How many paid subscriptions are draining your account right now? (Threads+X)

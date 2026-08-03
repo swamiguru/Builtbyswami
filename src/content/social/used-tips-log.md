@@ -22,3 +22,5 @@ seed | iOS | Back Tap (double/triple tap back of iPhone)
 2026-08-01 | macOS | Text Replacements — auto-expanding shortcuts (Settings > Keyboard > Text Replacements), stores long multi-line snippets, syncs iPhone/iPad/Mac via iCloud
 
 2026-08-02 | YouTube | Stable Volume — per-video toggle (tap video > settings gear > Stable Volume) evens out loud/quiet swings so you stop riding the volume slider
+
+2026-08-03 | iOS | Background Sounds (Settings > Accessibility > Audio & Visual > Background Sounds — built-in rain/ocean/stream/brown noise for focus/sleep, add to Control Center for one-tap)
