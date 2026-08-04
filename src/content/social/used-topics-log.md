@@ -67,3 +67,7 @@
 2026-08-03 | 2 | Gaming | August 2026 game releases | 40+ titles — Beast of Reincarnation (Game Freak), Elden Ring Tarnished Edition, MGS Master Collection Vol 2, Oblivion Remastered on Switch 2
 2026-08-03 | 4 | Security & Privacy | Passkeys vs SMS OTP | Quick-win: switch to passkeys — cannot be phished/intercepted/SIM-swapped (amid phishing wave)
 2026-08-03 | 5 | Community / Poll | Subscription fatigue poll | How many paid subscriptions are draining your account right now? (Threads+X)
+2026-08-04 | 1 | AI / Apps | ChatGPT on WhatsApp | ChatGPT arrives in WhatsApp via 1-800-CHATGPT — image/voice/multilingual, optional account link
+2026-08-04 | 2 | Phones / India | POCO M8 Power | Launched in India Aug 4 — 8,000mAh, claimed 3-day battery, budget binge phone
+2026-08-04 | 4 | Comparison / Accessories | Big-battery phone vs power bank | Which is smarter — 8,000mAh phone vs carrying a power bank, who-should-pick verdict
+2026-08-04 | 5 | AI workflow | Prompt of the day — decode any document | Paste a bill/contract: what you are agreeing to + hidden traps + 3 questions to ask

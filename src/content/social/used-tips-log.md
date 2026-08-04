@@ -24,3 +24,4 @@ seed | iOS | Back Tap (double/triple tap back of iPhone)
 2026-08-02 | YouTube | Stable Volume — per-video toggle (tap video > settings gear > Stable Volume) evens out loud/quiet swings so you stop riding the volume slider
 
 2026-08-03 | iOS | Background Sounds (Settings > Accessibility > Audio & Visual > Background Sounds — built-in rain/ocean/stream/brown noise for focus/sleep, add to Control Center for one-tap)
+2026-08-04 | WhatsApp | Chat Lock Secret Code — hide locked chats entirely (Chat lock settings > Hide locked chats), type the code in the search bar to reveal
