@@ -71,3 +71,8 @@
 2026-08-04 | 2 | Phones / India | POCO M8 Power | Launched in India Aug 4 — 8,000mAh, claimed 3-day battery, budget binge phone
 2026-08-04 | 4 | Comparison / Accessories | Big-battery phone vs power bank | Which is smarter — 8,000mAh phone vs carrying a power bank, who-should-pick verdict
 2026-08-04 | 5 | AI workflow | Prompt of the day — decode any document | Paste a bill/contract: what you are agreeing to + hidden traps + 3 questions to ask
+
+2026-08-05 | 1 | Phones / India | Google Pixel 11 / Made by Google | Aug 12 launch preview (OFFICIAL) — Pixel 11/Pro/Pro XL/Pro Fold, 2nm Tensor G6 (TSMC), Pixel Glow, price 'adjustments', India same day
+2026-08-05 | 2 | Regulation / Creator economy | EU AI Act transparency live | Article 50 transparency in force Aug 2 — AI must disclose it's AI, deepfake labeling, YouTube auto-labels AI / 'inauthentic content'
+2026-08-05 | 4 | Myth-buster / Battery | Charge-to-100 / drain-to-0 myth | Li-ion phones: 20-80% + avoid heat beats deep cycles; use 80% limit / adaptive charging
+2026-08-05 | 5 | AI Tool Spotlight | Napkin AI | Free text->diagrams/flowcharts/mind maps/infographics, 500 weekly credits, export PNG/SVG/PDF/PPT
