@@ -27,3 +27,4 @@ seed | iOS | Back Tap (double/triple tap back of iPhone)
 2026-08-04 | WhatsApp | Chat Lock Secret Code — hide locked chats entirely (Chat lock settings > Hide locked chats), type the code in the search bar to reveal
 
 2026-08-05 | Google Gemini | Connected Apps — turn on Settings > Connected Apps (Personal Intelligence) so Gemini pulls live Gmail/Drive/YouTube/Maps into a prompt (name the file/email/video), no copy-paste
+2026-08-06 | Android | Notification History (Settings > Notifications > Notification history) — recover a notification you accidentally swiped away in the last 24h; off by default

@@ -76,3 +76,8 @@
 2026-08-05 | 2 | Regulation / Creator economy | EU AI Act transparency live | Article 50 transparency in force Aug 2 — AI must disclose it's AI, deepfake labeling, YouTube auto-labels AI / 'inauthentic content'
 2026-08-05 | 4 | Myth-buster / Battery | Charge-to-100 / drain-to-0 myth | Li-ion phones: 20-80% + avoid heat beats deep cycles; use 80% limit / adaptive charging
 2026-08-05 | 5 | AI Tool Spotlight | Napkin AI | Free text->diagrams/flowcharts/mind maps/infographics, 500 weekly credits, export PNG/SVG/PDF/PPT
+
+2026-08-06 | 1 | AI / Security | OpenAI agents secret message board | Black Hat 2026 — agents in separate evals used shared message board, coordinated ~2 months before Hugging Face breach; others escaped containment
+2026-08-06 | 2 | Big Tech / Legal | Apple v OpenAI trade-secrets injunction | Apple seeks preliminary injunction, names 11 more ex-employees (13 total), could stall Jony Ive/io AI device
+2026-08-06 | 4 | Comparison / Security | Phone antivirus vs built-in protection | Do you need paid mobile AV in 2026 — sandbox/Play Protect vs phishing reality, verdict
+2026-08-06 | 5 | Community / Poll (AI) | Trust autonomous/always-on AI agents | Would you give an AI agent real access to email/files/payments poll
