@@ -16,7 +16,7 @@ import { useState, type FormEvent } from "react";
 // obtainable from Subscribers > Subscribe forms > Get embed code in the
 // beehiiv dashboard (no API exposes it) — swap this component's internals
 // for that script if a no-redirect inline experience is preferred later.
-const SUBSCRIBE_URL = "https://builtbyswami.beehiiv.com/subscribe";
+export const SUBSCRIBE_URL = "https://builtbyswami.beehiiv.com/subscribe";
 
 interface NewsletterSignupProps {
   /** Force a single-column layout regardless of viewport width — for use
@@ -26,7 +26,9 @@ interface NewsletterSignupProps {
   stacked?: boolean;
 }
 
-export default function NewsletterSignup({ stacked = false }: NewsletterSignupProps) {
+export default function NewsletterSignup({
+  stacked = false,
+}: NewsletterSignupProps) {
   const [email, setEmail] = useState("");
   const [redirecting, setRedirecting] = useState(false);
 
