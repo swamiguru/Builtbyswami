@@ -81,3 +81,8 @@
 2026-08-06 | 2 | Big Tech / Legal | Apple v OpenAI trade-secrets injunction | Apple seeks preliminary injunction, names 11 more ex-employees (13 total), could stall Jony Ive/io AI device
 2026-08-06 | 4 | Comparison / Security | Phone antivirus vs built-in protection | Do you need paid mobile AV in 2026 — sandbox/Play Protect vs phishing reality, verdict
 2026-08-06 | 5 | Community / Poll (AI) | Trust autonomous/always-on AI agents | Would you give an AI agent real access to email/files/payments poll
+
+2026-08-07 | 1 | Wearables | Samsung Galaxy Watch 9 | Launches today Aug 7 — 3nm Snapdragon Wear Elite, bigger battery, One UI 9 Watch, 5yr updates, from $379 (OFFICIAL)
+2026-08-07 | 2 | Apps / Creator | Instagram Replace Audio | Swap music/audio on already-published feed posts & carousels, keeps all likes/comments/reach
+2026-08-07 | 4 | AI workflow | Prompt of the day — no-hype research assistant | 5-bullet TLDR + 3 facts w/ numbers + 1 hype claim + 1 action, <150 words, be blunt
+2026-08-07 | 5 | Myth-buster / Health-tech | 10,000 steps myth | 10k from 1960s manpo-kei pedometer ad, not science; benefits ~7-8k then plateau
