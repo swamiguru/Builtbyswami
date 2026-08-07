@@ -81,7 +81,7 @@ export default function SiteHeader() {
               onClick={() => setSubscribeOpen((o) => !o)}
               aria-expanded={subscribeOpen}
               aria-haspopup="true"
-              className="px-5 py-2.5 bg-m3-primary text-m3-on-primary rounded-m3-full hover:m3-elevation-1 active:scale-95 transition-all shadow-sm"
+              className="px-5 py-2.5 bg-m3-primary text-m3-on-primary rounded-m3-full hover:m3-elevation-1-shadow active:scale-95 transition-all shadow-sm"
             >
               Newsletter
             </button>

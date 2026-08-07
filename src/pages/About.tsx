@@ -439,7 +439,7 @@ export default function About() {
             <Link to="/notes" onClick={() => setMenuOpen(false)} className="px-4 py-3 rounded-m3-lg hover:bg-m3-surface-variant text-m3-on-surface transition-all">Notes</Link>
             <a href="#skills" onClick={() => setMenuOpen(false)} className="px-4 py-3 rounded-m3-lg hover:bg-m3-surface-variant text-m3-on-surface transition-all">Toolkit</a>
             <a href="#work" onClick={() => setMenuOpen(false)} className="px-4 py-3 rounded-m3-lg hover:bg-m3-surface-variant text-m3-on-surface transition-all">Experience</a>
-            <Link to="/#build-notes" onClick={() => setMenuOpen(false)} className="mt-2 px-5 py-3 bg-m3-primary text-m3-on-primary rounded-m3-full text-center hover:m3-elevation-1 active:scale-95 transition-all">Subscribe</Link>
+            <Link to="/#build-notes" onClick={() => setMenuOpen(false)} className="mt-2 px-5 py-3 bg-m3-primary text-m3-on-primary rounded-m3-full text-center hover:m3-elevation-1-shadow active:scale-95 transition-all">Subscribe</Link>
           </nav>
         )}
 
