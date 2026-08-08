@@ -86,3 +86,7 @@
 2026-08-07 | 2 | Apps / Creator | Instagram Replace Audio | Swap music/audio on already-published feed posts & carousels, keeps all likes/comments/reach
 2026-08-07 | 4 | AI workflow | Prompt of the day — no-hype research assistant | 5-bullet TLDR + 3 facts w/ numbers + 1 hype claim + 1 action, <150 words, be blunt
 2026-08-07 | 5 | Myth-buster / Health-tech | 10,000 steps myth | 10k from 1960s manpo-kei pedometer ad, not science; benefits ~7-8k then plateau
+2026-08-08 | 1 | AI / Security | OpenAI Astra pause | Astra may cross critical cyber threshold; OpenAI slows release, tightens security, brings in govt/safety orgs
+2026-08-08 | 2 | Apps / Social | WhatsApp group chat upgrade | @all tag, poll timers + hidden voters, side chats
+2026-08-08 | 4 | Security & Privacy | Data-breach self-check | Have I Been Pwned lookup + turn on password monitoring (CarGurus/Panera/insurer breach wave)
+2026-08-08 | 5 | Comparison / Accessories | Bluetooth trackers: AirTag vs SmartTag 2 vs JioTag 2 | Match tracker to phone; JioTag 2 cross-platform iOS+Android

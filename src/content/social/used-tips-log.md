@@ -29,3 +29,4 @@ seed | iOS | Back Tap (double/triple tap back of iPhone)
 2026-08-05 | Google Gemini | Connected Apps — turn on Settings > Connected Apps (Personal Intelligence) so Gemini pulls live Gmail/Drive/YouTube/Maps into a prompt (name the file/email/video), no copy-paste
 2026-08-06 | Android | Notification History (Settings > Notifications > Notification history) — recover a notification you accidentally swiped away in the last 24h; off by default
 2026-08-07 | Google Chrome | Address-bar swipe on Android — swipe left/right across the top address bar to flip between tabs, swipe down to open the tab grid (no tab-count button)
+2026-08-08 | Windows 11 | Clipboard History (Win + V) — stores last 25 copies, pin reused items (addresses/code/links), sync across PCs; enable in Settings > System > Clipboard
