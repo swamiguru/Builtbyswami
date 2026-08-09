@@ -30,3 +30,5 @@ seed | iOS | Back Tap (double/triple tap back of iPhone)
 2026-08-06 | Android | Notification History (Settings > Notifications > Notification history) — recover a notification you accidentally swiped away in the last 24h; off by default
 2026-08-07 | Google Chrome | Address-bar swipe on Android — swipe left/right across the top address bar to flip between tabs, swipe down to open the tab grid (no tab-count button)
 2026-08-08 | Windows 11 | Clipboard History (Win + V) — stores last 25 copies, pin reused items (addresses/code/links), sync across PCs; enable in Settings > System > Clipboard
+
+2026-08-09 | iPadOS | Quick Note corner-swipe — swipe up from the bottom-right corner (finger or Apple Pencil) to drop a floating note over ANY app/website; the note links back so tapping it later jumps to that exact context

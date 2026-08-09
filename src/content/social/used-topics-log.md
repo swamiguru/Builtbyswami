@@ -90,3 +90,7 @@
 2026-08-08 | 2 | Apps / Social | WhatsApp group chat upgrade | @all tag, poll timers + hidden voters, side chats
 2026-08-08 | 4 | Security & Privacy | Data-breach self-check | Have I Been Pwned lookup + turn on password monitoring (CarGurus/Panera/insurer breach wave)
 2026-08-08 | 5 | Comparison / Accessories | Bluetooth trackers: AirTag vs SmartTag 2 vs JioTag 2 | Match tracker to phone; JioTag 2 cross-platform iOS+Android
+2026-08-09 | 1 | Global tech / Robotics | BYD Xiao Di humanoid robot | Official early-Aug debut at D Space Zhengzhou — 1.61m, 31 DoF, 360 vision, 12-language live translation, showroom greeter (neutral product framing)
+2026-08-09 | 2 | Gaming / Business | EA $55B go-private closed | Largest LBO ever closed Aug 4 — Saudi PIF ~93%, Silver Lake + Affinity, $210/share, delisted from Nasdaq, CEO Wilson stays
+2026-08-09 | 4 | AI workflow | Prompt of the day — interview me first | 'Ask me 5 questions one at a time before answering' prompt to kill generic AI replies
+2026-08-09 | 5 | Community / Poll | Humanoid robot at home poll | Would you welcome a humanoid robot into your home by 2030 (Threads+X, tied to BYD story)
