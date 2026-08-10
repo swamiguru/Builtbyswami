@@ -94,3 +94,8 @@
 2026-08-09 | 2 | Gaming / Business | EA $55B go-private closed | Largest LBO ever closed Aug 4 — Saudi PIF ~93%, Silver Lake + Affinity, $210/share, delisted from Nasdaq, CEO Wilson stays
 2026-08-09 | 4 | AI workflow | Prompt of the day — interview me first | 'Ask me 5 questions one at a time before answering' prompt to kill generic AI replies
 2026-08-09 | 5 | Community / Poll | Humanoid robot at home poll | Would you welcome a humanoid robot into your home by 2030 (Threads+X, tied to BYD story)
+
+2026-08-10 | 1 | Gaming | GTA 6 gameplay reveal | Rockstar confirms first real gameplay (extended look) Aug 27, premieres on Netflix + Rockstar YouTube + GTA VI site; Nov 19 2026 release on track
+2026-08-10 | 2 | Chips / AI infra | Samsung zHBM memory | Memory stacked directly on GPU — claims 4x HBM4 speed at 1/4 power (Aug 4 FMS); 2027 memory capacity sold out, ties to RAM/phone price rises (neutral, product-focused)
+2026-08-10 | 4 | AI Tool Spotlight | Gamma | Prompt-to-deck AI — full designed decks/docs/webpages, AI images+charts, free tier, export PDF/PPT/web
+2026-08-10 | 5 | Myth-buster / Security | VPN anonymity myth | 'A VPN makes you anonymous online' busted — hides IP + encrypts WiFi, but logins/cookies/fingerprint/the VPN co still ID you

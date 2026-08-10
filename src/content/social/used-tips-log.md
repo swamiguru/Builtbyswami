@@ -32,3 +32,5 @@ seed | iOS | Back Tap (double/triple tap back of iPhone)
 2026-08-08 | Windows 11 | Clipboard History (Win + V) — stores last 25 copies, pin reused items (addresses/code/links), sync across PCs; enable in Settings > System > Clipboard
 
 2026-08-09 | iPadOS | Quick Note corner-swipe — swipe up from the bottom-right corner (finger or Apple Pencil) to drop a floating note over ANY app/website; the note links back so tapping it later jumps to that exact context
+
+2026-08-10 | macOS | Hot Corners — assign each screen corner an instant action (System Settings > Desktop & Dock > Hot Corners); hold ⌘ while assigning to require ⌘+corner and avoid accidental triggers
