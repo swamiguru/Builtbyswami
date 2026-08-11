@@ -5,6 +5,7 @@
 
 import { BrowserRouter, Routes, Route, Navigate, useLocation, useParams } from "react-router-dom";
 import { useEffect } from "react";
+import { Analytics } from "@vercel/analytics/react";
 import Home from "./pages/Home";
 import About from "./pages/About";
 import Notes from "./pages/Notes";
@@ -54,6 +55,7 @@ export default function App() {
         {/* Unknown routes fall back to the hub */}
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
+      <Analytics />
     </BrowserRouter>
   );
 }
