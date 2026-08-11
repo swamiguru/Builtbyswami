@@ -994,6 +994,7 @@ export default function About() {
                 </div>
               </div>
               
+              <div className="space-y-6">
               <div className="bg-m3-surface text-m3-on-surface p-10 rounded-[40px] shadow-2xl relative group">
                 <div className="absolute top-6 right-6">
                   <Sparkles className="w-8 h-8 text-m3-tertiary opacity-30" />
@@ -1018,6 +1019,38 @@ export default function About() {
                 >
                   Read Strategic Brief
                 </motion.a>
+              </div>
+
+              {/* Live solo build — Adda */}
+              <div className="bg-m3-surface text-m3-on-surface p-8 md:p-10 rounded-[40px] shadow-2xl relative">
+                <div className="absolute top-6 right-6">
+                  <Clock className="w-8 h-8 text-m3-primary opacity-20" />
+                </div>
+                <div className="flex items-center gap-4 mb-8">
+                  <div className="w-12 h-12 bg-m3-primary text-m3-on-primary rounded-full flex items-center justify-center">
+                    <Globe className="w-6 h-6" />
+                  </div>
+                  <span className="font-display text-[11px] uppercase font-black tracking-widest text-m3-primary">
+                    Shipped &amp; Live
+                  </span>
+                </div>
+                <h4 className="display text-2xl font-bold mb-6 tracking-tight">
+                  अड्डा — Adda
+                </h4>
+                <p className="text-base opacity-70 leading-relaxed mb-10 font-medium">
+                  Pick a city and hear its songs, under its own sky and its own clock. Delhi first &mdash; 31 tracks at India Gate, golden hour.
+                </p>
+                <motion.a
+                  whileHover={{ scale: 1.02, y: -4 }}
+                  whileTap={{ scale: 0.98 }}
+                  href="https://adda.builtbyswami.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full flex items-center justify-center gap-2 py-4 text-sm font-bold tracking-widest rounded-m3-full bg-m3-secondary-container text-m3-on-secondary-container shadow-lg hover:shadow-xl transition-shadow"
+                >
+                  Open Adda <ArrowUpRight className="w-4 h-4" />
+                </motion.a>
+              </div>
               </div>
             </div>
           </div>

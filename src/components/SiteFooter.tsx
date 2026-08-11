@@ -49,6 +49,14 @@ export default function SiteFooter({ className = "" }: SiteFooterProps) {
           <Link to="/about" className="text-sm font-display font-bold text-m3-on-surface-variant hover:text-m3-primary transition-colors w-fit">
             About
           </Link>
+          <a
+            href="https://adda.builtbyswami.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-sm font-display font-bold text-m3-on-surface-variant hover:text-m3-primary transition-colors w-fit inline-flex items-center gap-1.5"
+          >
+            Adda <ArrowUpRight className="w-3.5 h-3.5 opacity-60" />
+          </a>
         </nav>
       </div>
       {/* Baseline bar — status, copyright & socials */}
