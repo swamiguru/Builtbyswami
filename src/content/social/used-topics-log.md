@@ -99,3 +99,7 @@
 2026-08-10 | 2 | Chips / AI infra | Samsung zHBM memory | Memory stacked directly on GPU — claims 4x HBM4 speed at 1/4 power (Aug 4 FMS); 2027 memory capacity sold out, ties to RAM/phone price rises (neutral, product-focused)
 2026-08-10 | 4 | AI Tool Spotlight | Gamma | Prompt-to-deck AI — full designed decks/docs/webpages, AI images+charts, free tier, export PDF/PPT/web
 2026-08-10 | 5 | Myth-buster / Security | VPN anonymity myth | 'A VPN makes you anonymous online' busted — hides IP + encrypts WiFi, but logins/cookies/fingerprint/the VPN co still ID you
+2026-08-11 | 1 | AI | Meta Muse Glimmer | Open 30B Apache-2.0 agentic model runs locally on one consumer GPU (Aug 10)
+2026-08-11 | 2 | Creator economy | YouTube monetization changes | YPP watch-hour requirement doubling (Feb 2027) + non-US channel membership pricing changes Aug 17
+2026-08-11 | 4 | Comparison / Telecom | eSIM vs Physical SIM | Which to pick in 2026 — who-should-pick verdict
+2026-08-11 | 5 | Global tech / Robotics | DeepSeek x Unitree | DeepSeek invests ~$20.8M in Unitree Shanghai IPO to co-build humanoid robot 'brain' (Aug 6 filing, subs opened Aug 10; neutral product framing)

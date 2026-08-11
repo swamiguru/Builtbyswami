@@ -34,3 +34,4 @@ seed | iOS | Back Tap (double/triple tap back of iPhone)
 2026-08-09 | iPadOS | Quick Note corner-swipe — swipe up from the bottom-right corner (finger or Apple Pencil) to drop a floating note over ANY app/website; the note links back so tapping it later jumps to that exact context
 
 2026-08-10 | macOS | Hot Corners — assign each screen corner an instant action (System Settings > Desktop & Dock > Hot Corners); hold ⌘ while assigning to require ⌘+corner and avoid accidental triggers
+2026-08-11 | iOS | Safari "Listen to Page" — tap the aA / page-settings menu > Listen to Page to have the iPhone read any article aloud (lock-screen playback controls, adjustable speed)
