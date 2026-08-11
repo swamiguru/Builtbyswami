@@ -7,6 +7,7 @@
 import sprintPost from "../content/notes/24-hour-task-manager-sprint.md?raw";
 import freeWordToolPost from "../content/notes/freewordtool-one-day-sprint.md?raw";
 import builtBySwamiOriginPost from "../content/notes/why-i-built-builtbyswami-from-scratch.md?raw";
+import addaPost from "../content/notes/adda-a-product-with-no-job.md?raw";
 
 export interface Note {
   slug: string;
@@ -22,6 +23,18 @@ export interface Note {
 }
 
 export const NOTES: Note[] = [
+  {
+    slug: "adda-a-product-with-no-job",
+    title: "I built a product with no job to do",
+    description:
+      "Adda plays a city's songs under its own sky and its own clock. Twenty-four deploys in four hours — and the only thing that broke loudly was the cheapest thing to fix.",
+    date: "2026-08-11",
+    readMinutes: 5,
+    tag: "Build-in-public",
+    ctaUrl: "https://adda.builtbyswami.com",
+    ctaLabel: "Open Adda",
+    content: addaPost,
+  },
   {
     slug: "why-i-built-builtbyswami-from-scratch",
     title:

@@ -20,6 +20,12 @@ const template = readFileSync(join(DIST, "index.html"), "utf8");
 
 const NOTES = [
   {
+    slug: "adda-a-product-with-no-job",
+    title: "I built a product with no job to do",
+    description:
+      "Adda plays a city's songs under its own sky and its own clock. Twenty-four deploys in four hours — and the only thing that broke loudly was the cheapest thing to fix.",
+  },
+  {
     slug: "why-i-built-builtbyswami-from-scratch",
     title:
       "Why I Built My Own Brand From Scratch — And What It Taught Me About Building Products in the AI Era",
