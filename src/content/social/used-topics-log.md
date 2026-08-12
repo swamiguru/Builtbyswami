@@ -103,3 +103,7 @@
 2026-08-11 | 2 | Creator economy | YouTube monetization changes | YPP watch-hour requirement doubling (Feb 2027) + non-US channel membership pricing changes Aug 17
 2026-08-11 | 4 | Comparison / Telecom | eSIM vs Physical SIM | Which to pick in 2026 — who-should-pick verdict
 2026-08-11 | 5 | Global tech / Robotics | DeepSeek x Unitree | DeepSeek invests ~$20.8M in Unitree Shanghai IPO to co-build humanoid robot 'brain' (Aug 6 filing, subs opened Aug 10; neutral product framing)
+2026-08-12 | 1 | Phones | Google Pixel 11 / Made by Google | Pixel 11 launches TODAY (Aug 12) — first 2nm Tensor G6 (TSMC GAA), 'Pixel Glow' RGB alert light, 4 models from $899 (~₹90k, India same day), Pixel Watch 5 (OFFICIAL launch day, 7d after Aug 5 preview)
+2026-08-12 | 2 | Global tech / Phones | Honor Robot Phone | Launches TODAY (Aug 12, China-only) — world's first 'Robot Phone': pop-out titanium 4-DOF gimbal camera arm (~0.8s, 360° auto-track), 200MP main + 200MP periscope, ARRI Log-C, Snapdragon 8 Elite, AgenticOS (neutral product framing; global price/date TBD)
+2026-08-12 | 4 | Myth-buster / Cameras | Phone zoom numbers | '100x zoom = 100x clearer' busted — only optical/periscope zoom (3-5x) is real glass; beyond that is digital crop + AI upscaling ('space zoom' faked)
+2026-08-12 | 5 | Community / Poll | Pixel 11 vs Honor Robot Phone launch-day poll | Which of today's two launches excites you more (Threads+X, no card)
