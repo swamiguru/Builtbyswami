@@ -18,6 +18,7 @@ import {
   Globe,
   Code2,
   ArrowUp,
+  Download,
   Timer,
   Award,
   ShieldCheck,
@@ -107,16 +108,21 @@ const EXPERIENCE: ExperienceItem[] = [
     website: "https://www.condenast.com",
     context: "Vogue · GQ · Wired · Condé Nast Traveller · Architectural Digest — US, EMEA, LATAM, APAC, Middle East",
     impact: [
-      "Built $20M+ in net-new revenue through new-market entries.",
+      "Managed and mentored two product managers across regional squads.",
+      "Opened new-market revenue channels projected at $20M+.",
       "Cut prototyping cycles 30% and time-to-market 50% with AI-native delivery.",
-      "Drove a 30% audience lift and $800K incremental revenue via tentpole launches.",
-      "Executed platform migrations with 100% SEO integrity and zero revenue loss."
+      "Drove a 30% audience lift and $800K incremental revenue via tentpole launches."
     ],
     highlights: [
       {
+        title: "Team Leadership & Mentorship",
+        detail:
+          "Managed and mentored two junior product managers, establishing shared discovery and delivery standards and growing their ownership of features across regional squads."
+      },
+      {
         title: "Market Expansion",
         detail:
-          "Launched Vogue, GQ and Wired in the Middle East and Condé Nast Traveller in Germany — new-market entries that were the core driver of the $20M+ net-new revenue build, opening new advertising, subscription and partnership channels in each market."
+          "Launched Vogue, GQ and Wired in the Middle East and Condé Nast Traveller in Germany — new-market entries that were the core driver of a $20M+ projected net-new revenue build, opening new advertising, subscription and partnership channels in each market."
       },
       {
         title: "Revenue Growth & P&L",
@@ -147,14 +153,9 @@ const EXPERIENCE: ExperienceItem[] = [
         title: "Technical SEO & Migration",
         detail:
           "Executed large-scale platform migrations for Vogue, GQ, Wired and Architectural Digest with 100% SEO integrity and zero revenue loss, leading cross-functional Agile squads across Engineering and Design."
-      },
-      {
-        title: "Team Leadership & Mentorship",
-        detail:
-          "Managed and mentored two junior product managers, establishing shared discovery and delivery standards and growing their ownership of features across regional squads."
       }
     ],
-    technologies: ["Enterprise CMS", "Generative AI", "Technical SEO", "Global Migrations", "P&L Ownership", "A/B Testing"]
+    technologies: ["Team Leadership", "Enterprise CMS", "Generative AI", "Technical SEO", "Global Migrations", "P&L Ownership"]
   },
   {
     company: "Condé Nast",
@@ -449,36 +450,11 @@ export default function About() {
       .querySelector('meta[name="description"]')
       ?.setAttribute(
         "content",
-        "Swami Guru — Senior Product Leader and independent product builder. 11+ years in product scaling audience, engagement and revenue for Vogue, GQ, Wired, Condé Nast Traveller, Architectural Digest and Newsweek. $20M+ net-new revenue built."
+        "Swami Guru — Senior Product Leader and independent product builder. 11+ years in product scaling audience, engagement and revenue for Vogue, GQ, Wired, Condé Nast Traveller, Architectural Digest and Newsweek. $20M+ in projected net-new revenue."
       );
   }, []);
 
   const [isChatOpen, setIsChatOpen] = useState(false);
-  const [scrambledTitle, setScrambledTitle] = useState("PRODUCT");
-  const [scrambledBuilder, setScrambledBuilder] = useState("BUILDER");
-
-  useEffect(() => {
-    const triggerScramble = (target: string, setter: (val: string) => void) => {
-      let iterations = 0;
-      const chars = "01/_*<>[]{}$&#!%";
-      const interval = setInterval(() => {
-        setter(target.split("").map((_, i) => {
-            if (i < Math.floor(iterations)) return target[i];
-            return chars[Math.floor(Math.random() * chars.length)];
-          }).join("")
-        );
-        iterations += 0.3;
-        if (iterations > target.length) clearInterval(interval);
-      }, 40);
-    };
-
-    const interval = setInterval(() => {
-      triggerScramble("PRODUCT", setScrambledTitle);
-      setTimeout(() => triggerScramble("BUILDER", setScrambledBuilder), 150);
-    }, 12000);
-
-    return () => clearInterval(interval);
-  }, []);
 
   const [messages, setMessages] = useState<{ role: 'user' | 'ai', text: string }[]>([
     { role: 'ai', text: "Hi! I'm Swami's AI surrogate. I can dive deep into his 'Product Builder' methodology—how he pairs AI-native speed with relationship-first leadership to scale global brands. What's on your mind?" }
@@ -680,10 +656,10 @@ export default function About() {
                 <div className="flex items-start gap-4">
                   <h2 className="display text-4xl md:text-5xl leading-[0.85] font-bold tracking-tighter uppercase text-m3-on-secondary-container relative">
                     <span className="block relative group-hover/title:text-m3-primary transition-colors duration-500">
-                      {scrambledTitle}
+                      PRODUCT
                     </span>
                     <span className="block text-m3-primary/90">
-                      {scrambledBuilder}
+                      LEADER
                       <motion.span
                         animate={{ opacity: [1, 0] }}
                         transition={{ duration: 0.8, repeat: Infinity }}
@@ -710,6 +686,27 @@ export default function About() {
               </div>
 
               <div className="pt-4 space-y-6">
+                {/* Availability sits above everything else: a recruiter scanning
+                    for 30 seconds needs to know "is he looking, and at what
+                    level" before they need anything else on this page. */}
+                <div className="bg-m3-surface/70 border border-m3-primary/20 rounded-m3-lg p-4">
+                  <span className="inline-flex items-center gap-2 mb-2.5">
+                    <span className="relative flex h-2 w-2">
+                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-m3-primary opacity-75" />
+                      <span className="relative inline-flex rounded-full h-2 w-2 bg-m3-primary" />
+                    </span>
+                    <span className="font-display text-[10px] font-extrabold uppercase tracking-widest text-m3-primary">
+                      Open to new roles
+                    </span>
+                  </span>
+                  <p className="text-[13px] font-bold text-m3-on-secondary-container leading-snug">
+                    Director &amp; Head of Product
+                  </p>
+                  <p className="text-[12px] text-m3-on-secondary-container/70 font-medium mt-1">
+                    Bengaluru or remote &middot; open to relocation
+                  </p>
+                </div>
+
                 <div className="flex flex-col">
                   <span className="font-display text-[11px] font-bold uppercase tracking-wider text-m3-primary/60">Currently</span>
                   <span className="text-sm font-bold mb-1">Independent Product Builder</span>
@@ -733,6 +730,20 @@ export default function About() {
                 <div className="flex flex-col pt-2">
                   <span className="font-display text-[11px] font-bold uppercase tracking-wider text-m3-primary/60 mb-4">Get in touch</span>
                   <div className="space-y-3">
+                    {/* Recruiters need a file for their ATS — without this they
+                        have to email and ask, and most simply won't. */}
+                    <motion.a
+                      whileHover={{ scale: 1.03, x: 5 }}
+                      whileTap={{ scale: 0.98 }}
+                      href="/Swami-Guru-CV.pdf"
+                      download="Swami-Guru-CV.pdf"
+                      className="flex items-center gap-4 p-4 bg-m3-primary text-m3-on-primary rounded-m3-lg hover:m3-elevation-1-shadow transition-all group shadow-sm"
+                    >
+                      <div className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center shrink-0">
+                        <Download className="w-5 h-5" />
+                      </div>
+                      <span className="text-sm font-bold uppercase tracking-tight">Download CV</span>
+                    </motion.a>
                     <motion.a
                       whileHover={{ scale: 1.03, x: 5 }}
                       whileTap={{ scale: 0.98 }}
@@ -783,7 +794,7 @@ export default function About() {
             {/* Impact Grid */}
             <section className="grid grid-cols-2 lg:grid-cols-4 flex-1">
               {[
-                { val: "$20M+", label: "NET-NEW REVENUE", container: "bg-m3-primary-container/20", text: "text-m3-on-primary-container" },
+                { val: "$20M+", label: "PROJECTED REVENUE", container: "bg-m3-primary-container/20", text: "text-m3-on-primary-container" },
                 { val: "30%+", label: "ENGAGEMENT LIFT", container: "bg-m3-secondary-container/20", text: "text-m3-on-secondary-container" },
                 { val: "50%", label: "TIME-TO-MARKET", container: "bg-m3-tertiary-container/20", text: "text-m3-on-tertiary-container" },
                 { val: "100%", label: "SEO RETAINED", container: "bg-m3-primary-container/20", text: "text-m3-on-primary-container" }
