@@ -406,12 +406,12 @@ const CREDENTIALS = [
 
 export default function About() {
   useEffect(() => {
-    document.title = "Swami Guru | Senior Product Manager & AI-Native Product Builder";
+    document.title = "Swami Guru | Senior Product Leader & AI-Native Product Builder";
     document
       .querySelector('meta[name="description"]')
       ?.setAttribute(
         "content",
-        "Swami Guru — Senior Product Manager and independent product builder. 11+ years in product scaling audience, engagement and revenue for Vogue, GQ, Wired, Condé Nast Traveller, Architectural Digest and Newsweek. $20M+ net-new revenue built."
+        "Swami Guru — Senior Product Leader and independent product builder. 11+ years in product scaling audience, engagement and revenue for Vogue, GQ, Wired, Condé Nast Traveller, Architectural Digest and Newsweek. $20M+ net-new revenue built."
       );
   }, []);
 
@@ -731,7 +731,7 @@ export default function About() {
               <div className="absolute top-0 right-0 w-80 h-80 bg-m3-primary/5 rounded-full -mr-20 -mt-20 blur-3xl"></div>
               <div className="max-w-2xl relative z-10">
                 <span className="font-display text-[11px] md:text-[12px] font-bold uppercase tracking-[0.25em] md:tracking-[0.3em] text-m3-primary mb-4 md:mb-6 block">
-                  Senior Product Manager · AI-Native Product
+                  Senior Product Leader · AI-Native Product
                 </span>
                 <span className="display font-medium text-2xl md:text-[2.75rem] block mb-6 leading-[1.15] tracking-tight text-m3-on-surface">
                   I turn complex platforms into <span className="text-m3-primary font-bold px-2 bg-m3-primary-container/30 rounded-lg">growth engines</span> — lifting engagement, accelerating revenue, and shipping at half the time-to-market.
@@ -1134,7 +1134,7 @@ export default function About() {
                 Let&rsquo;s build something
               </h3>
               <p className="text-sm md:text-base text-m3-on-surface-variant font-medium leading-relaxed">
-                Open to senior product roles and interesting problems. Bengaluru-based, working globally.
+                Open to product leadership roles and interesting problems. Bengaluru-based, working globally.
               </p>
             </div>
             <div className="flex flex-wrap gap-3 shrink-0">
