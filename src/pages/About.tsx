@@ -679,8 +679,8 @@ export default function About() {
         {/* Top Section: Sidebar + Hero */}
         <div className="flex flex-col md:flex-row border-b border-m3-outline/10">
           {/* Sidebar: Identity */}
-          <aside className="order-2 md:order-1 w-full md:w-[360px] border-t md:border-t-0 md:border-r border-m3-outline/10 p-6 md:p-10 flex flex-col justify-between bg-m3-secondary-container shrink-0">
-            <div className="space-y-8">
+          <aside className="order-2 md:order-1 w-full md:w-[360px] border-t md:border-t-0 md:border-r border-m3-outline/10 p-6 md:p-8 flex flex-col justify-center bg-m3-secondary-container shrink-0">
+            <div className="space-y-6">
               <div className="flex items-center gap-4">
                 <img
                   src="/swami-guru.jpg"
@@ -688,9 +688,14 @@ export default function About() {
                   width={400}
                   height={400}
                   loading="eager"
-                  className="w-[72px] h-[72px] rounded-full object-cover shadow-sm ring-2 ring-m3-primary/25"
+                  className="w-[72px] h-[72px] rounded-full object-cover shadow-sm ring-2 ring-m3-primary/25 shrink-0"
                 />
-                <div className="w-10 h-1.5 bg-m3-primary rounded-full" />
+                <div className="min-w-0">
+                  <p className="display text-xl md:text-2xl font-extrabold tracking-tight text-m3-on-secondary-container leading-none">
+                    Swami Guru
+                  </p>
+                  <div className="w-10 h-1.5 bg-m3-primary rounded-full mt-2.5" />
+                </div>
               </div>
               <div className="flex flex-col gap-1 relative group/title select-none">
                 <div className="flex items-start gap-4">
@@ -725,7 +730,7 @@ export default function About() {
                 </div>
               </div>
 
-              <div className="pt-4 space-y-6">
+              <div className="pt-1 space-y-5">
                 {/* Availability sits above everything else: a recruiter scanning
                     for 30 seconds needs to know "is he looking, and at what
                     level" before they need anything else on this page. */}
@@ -768,51 +773,6 @@ export default function About() {
                   </div>
                 </div>
 
-                <div className="flex flex-col pt-2">
-                  <span className="font-display text-[11px] font-bold uppercase tracking-wider text-m3-primary/60 mb-4">Get in touch</span>
-                  <div className="space-y-3">
-                    {/* Recruiters need a file for their ATS — without this they
-                        have to email and ask, and most simply won't. */}
-                    <motion.a
-                      whileHover={{ scale: 1.03, x: 5 }}
-                      whileTap={{ scale: 0.98 }}
-                      href="/Swami-Guru-CV.pdf"
-                      download="Swami-Guru-CV.pdf"
-                      className="flex items-center gap-4 p-4 bg-m3-primary text-m3-on-primary rounded-m3-lg hover:m3-elevation-1-shadow transition-all group shadow-sm"
-                    >
-                      <div className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center shrink-0">
-                        <Download className="w-5 h-5" />
-                      </div>
-                      <span className="text-sm font-bold uppercase tracking-tight">Download CV</span>
-                    </motion.a>
-                    <div className="grid grid-cols-2 gap-3">
-                    <motion.a
-                      whileHover={{ scale: 1.03, y: -3 }}
-                      whileTap={{ scale: 0.98 }}
-                      href="https://www.linkedin.com/in/swaminathanguru/"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex flex-col items-start gap-2 p-3.5 bg-m3-surface/60 border border-m3-outline/10 rounded-m3-lg hover:bg-m3-primary hover:text-m3-on-primary transition-all group shadow-sm hover:shadow-md"
-                    >
-                      <div className="w-9 h-9 bg-m3-surface-variant rounded-full flex items-center justify-center shrink-0 group-hover:bg-white/20">
-                        <Linkedin className="w-4 h-4 text-m3-primary group-hover:text-white" />
-                      </div>
-                      <span className="text-[13px] font-bold uppercase tracking-tight">LinkedIn</span>
-                    </motion.a>
-                    <motion.a
-                      whileHover={{ scale: 1.03, y: -3 }}
-                      whileTap={{ scale: 0.98 }}
-                      href="mailto:swami.2580@gmail.com"
-                      className="flex flex-col items-start gap-2 p-3.5 bg-m3-surface/60 border border-m3-outline/10 rounded-m3-lg hover:bg-m3-secondary hover:text-m3-on-secondary transition-all group shadow-sm hover:shadow-md"
-                    >
-                      <div className="w-9 h-9 bg-m3-surface-variant rounded-full flex items-center justify-center shrink-0 group-hover:bg-white/20">
-                        <Mail className="w-4 h-4 text-m3-secondary group-hover:text-white" />
-                      </div>
-                      <span className="text-[13px] font-bold uppercase tracking-tight">Email</span>
-                    </motion.a>
-                    </div>
-                  </div>
-                </div>
               </div>
             </div>
           </aside>
@@ -831,6 +791,38 @@ export default function About() {
                 <p className="text-sm font-medium text-m3-on-surface-variant max-w-xl leading-relaxed">
                   11+ years in product across Vogue, GQ, Wired, Condé Nast Traveller, Architectural Digest and Newsweek — including new brand launches in the Middle East and Germany.
                 </p>
+
+                {/* Actions sit in the primary reading path rather than below the
+                    fold in a sidebar — the CV is the thing recruiters need most. */}
+                <div className="flex flex-wrap items-center gap-3 mt-7">
+                  <motion.a
+                    whileHover={{ scale: 1.03, y: -2 }}
+                    whileTap={{ scale: 0.98 }}
+                    href="/Swami-Guru-CV.pdf"
+                    download="Swami-Guru-CV.pdf"
+                    className="inline-flex items-center gap-2.5 bg-m3-primary text-m3-on-primary font-display font-bold px-5 py-3 rounded-m3-full text-sm tracking-wide shadow-sm hover:m3-elevation-1-shadow transition-all"
+                  >
+                    <Download className="w-4 h-4" /> Download CV
+                  </motion.a>
+                  <motion.a
+                    whileHover={{ scale: 1.03, y: -2 }}
+                    whileTap={{ scale: 0.98 }}
+                    href="https://www.linkedin.com/in/swaminathanguru/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2.5 bg-m3-secondary-container text-m3-on-secondary-container font-display font-bold px-5 py-3 rounded-m3-full text-sm tracking-wide hover:m3-elevation-1 transition-all"
+                  >
+                    <Linkedin className="w-4 h-4" /> LinkedIn
+                  </motion.a>
+                  <motion.a
+                    whileHover={{ scale: 1.03, y: -2 }}
+                    whileTap={{ scale: 0.98 }}
+                    href="mailto:swami.2580@gmail.com"
+                    className="inline-flex items-center gap-2.5 border border-m3-outline/30 text-m3-on-surface font-display font-bold px-5 py-3 rounded-m3-full text-sm tracking-wide hover:bg-m3-surface-variant transition-all"
+                  >
+                    <Mail className="w-4 h-4" /> Email
+                  </motion.a>
+                </div>
               </div>
             </section>
 
