@@ -404,6 +404,44 @@ const CREDENTIALS = [
   { title: "Advanced Diploma in Software Engineering", issuer: "APTECH Education", icon: BookOpen }
 ];
 
+const PRODUCT_LINKS: { label: string; url: string }[] = [
+  { label: "BuiltBySwami.com", url: "https://www.builtbyswami.com" },
+  { label: "Free Word Tool", url: "https://freewordtool.com" },
+  { label: "Adda", url: "https://adda.builtbyswami.com" }
+];
+
+/**
+ * Turns the names of my own shipped products into outbound links inside body
+ * copy, so the claims in the experience section are verifiable in one click
+ * rather than requiring a scroll down to Selected Work. Deliberately scoped to
+ * products I built — employer brand names are left unlinked, since a link to a
+ * company homepage proves nothing and just leaks the reader away.
+ */
+function linkifyProducts(text: string) {
+  const labels = PRODUCT_LINKS.map((p) => p.label)
+    // Longest first, so a shorter label can never consume part of a longer one.
+    .sort((a, b) => b.length - a.length)
+    .map((l) => l.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"));
+
+  const pattern = new RegExp(`\\b(${labels.join("|")})\\b`, "g");
+
+  return text.split(pattern).map((part, i) => {
+    const match = PRODUCT_LINKS.find((p) => p.label === part);
+    if (!match) return part;
+    return (
+      <a
+        key={i}
+        href={match.url}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="text-m3-primary font-semibold underline decoration-m3-primary/30 underline-offset-2 hover:decoration-m3-primary transition-colors"
+      >
+        {part}
+      </a>
+    );
+  });
+}
+
 export default function About() {
   useEffect(() => {
     document.title = "Swami Guru | Senior Product Leader & AI-Native Product Builder";
@@ -862,7 +900,7 @@ export default function About() {
                         {exp.impact.map((ki, kii) => (
                           <div key={kii} className="flex gap-3 items-start">
                             <div className="w-1.5 h-1.5 rounded-full bg-m3-primary mt-2 shrink-0" />
-                            <p className="text-sm font-bold text-m3-on-surface leading-snug">{ki}</p>
+                            <p className="text-sm font-bold text-m3-on-surface leading-snug">{linkifyProducts(ki)}</p>
                           </div>
                         ))}
                       </div>
@@ -876,7 +914,7 @@ export default function About() {
                         {exp.highlights.map((h, hi) => (
                           <div key={hi} className="bg-m3-surface p-5 rounded-[22px] border border-m3-outline/5 hover:border-m3-primary/20 transition-all shadow-sm">
                             <h5 className="font-bold text-[15px] mb-2 text-m3-on-surface leading-snug">{h.title}</h5>
-                            <p className="text-[13px] leading-relaxed text-m3-on-surface-variant font-medium">{h.detail}</p>
+                            <p className="text-[13px] leading-relaxed text-m3-on-surface-variant font-medium">{linkifyProducts(h.detail)}</p>
                           </div>
                         ))}
                       </div>
