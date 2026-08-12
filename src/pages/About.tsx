@@ -258,34 +258,40 @@ const EXPERIENCE: ExperienceItem[] = [
   },
   {
     company: "Stigasoft",
-    role: "Product & Project Manager",
+    role: "Global Service Desk Manager",
     location: "Global",
     period: "Dec 2009 – Mar 2015",
     website: "https://www.stigasoft.com",
-    context: "Earlier career — global digital portal operations",
+    context: "Global service desk operations for Metro International's online news portals",
     impact: [
-      "Managed the product lifecycle for 12 global portals.",
-      "Served a daily readership of 18.4M across US, LATAM and Europe.",
-      "Maintained 99.9% uptime for core platform services."
+      "Ran global service desk operations across 12 digital news portals.",
+      "Supported a daily readership of 18.4M across US, LATAM and Europe.",
+      "Maintained 99.9% uptime for core platform services.",
+      "Trained editorial staff across markets on CMS and online news operations."
     ],
     highlights: [
       {
-        title: "Global Product Strategy",
+        title: "Global Service Desk Operations",
         detail:
-          "Directed the end-to-end product lifecycle for 12 digital portals across the US, LATAM and Europe, serving a daily readership of 18.4M."
+          "Managed Global Service Desk Operations for Metro International, delivering exceptional service across its various online news portals."
       },
       {
-        title: "Cross-Functional Translation",
+        title: "Platform & App Management",
         detail:
-          "Bridged communication between C-suite commercial stakeholders and distributed engineering pods, accelerating delivery by translating business objectives into detailed technical specifications."
+          "Oversaw backend CMS, mobile sites and app management, ensuring seamless user experiences."
       },
       {
-        title: "Platform Stability & Governance",
+        title: "Stakeholder & Vendor Coordination",
         detail:
-          "Led global support operations for core platform tools and services, ensuring high availability and performance across 12+ international digital portals."
+          "Coordinated with stakeholders and third-party vendors to implement social media integrations and advertisement management."
+      },
+      {
+        title: "Editorial Enablement",
+        detail:
+          "Developed strong training programmes for editorial staff, enhancing their proficiency in CMS and online news operations."
       }
     ],
-    technologies: ["Multi-Portal Management", "Technical Specs", "Jira / Confluence", "Service Monitoring"]
+    technologies: ["Service Desk Operations", "Backend CMS", "Mobile & App Support", "Vendor Management", "Editorial Training"]
   }
 ];
 
@@ -405,7 +411,7 @@ export default function About() {
       .querySelector('meta[name="description"]')
       ?.setAttribute(
         "content",
-        "Swami Guru — Senior Product Manager and independent product builder. 16+ years scaling audience, engagement and revenue for Vogue, GQ, Wired, Condé Nast Traveller, Architectural Digest and Newsweek. $20M+ net-new revenue built."
+        "Swami Guru — Senior Product Manager and independent product builder. 11+ years in product scaling audience, engagement and revenue for Vogue, GQ, Wired, Condé Nast Traveller, Architectural Digest and Newsweek. $20M+ net-new revenue built."
       );
   }, []);
 
@@ -731,7 +737,7 @@ export default function About() {
                   I turn complex platforms into <span className="text-m3-primary font-bold px-2 bg-m3-primary-container/30 rounded-lg">growth engines</span> — lifting engagement, accelerating revenue, and shipping at half the time-to-market.
                 </span>
                 <p className="text-sm font-medium text-m3-on-surface-variant max-w-xl leading-relaxed">
-                  16+ years across Vogue, GQ, Wired, Condé Nast Traveller, Architectural Digest and Newsweek — including new brand launches in the Middle East and Germany.
+                  11+ years in product across Vogue, GQ, Wired, Condé Nast Traveller, Architectural Digest and Newsweek — including new brand launches in the Middle East and Germany.
                 </p>
               </div>
             </section>
