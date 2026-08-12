@@ -681,7 +681,17 @@ export default function About() {
           {/* Sidebar: Identity */}
           <aside className="order-2 md:order-1 w-full md:w-[360px] border-t md:border-t-0 md:border-r border-m3-outline/10 p-6 md:p-10 flex flex-col justify-between bg-m3-secondary-container shrink-0">
             <div className="space-y-8">
-              <div className="w-16 h-2 bg-m3-primary rounded-full"></div>
+              <div className="flex items-center gap-4">
+                <img
+                  src="/swami-guru.jpg"
+                  alt="Swami Guru"
+                  width={400}
+                  height={400}
+                  loading="eager"
+                  className="w-[72px] h-[72px] rounded-full object-cover shadow-sm ring-2 ring-m3-primary/25"
+                />
+                <div className="w-10 h-1.5 bg-m3-primary rounded-full" />
+              </div>
               <div className="flex flex-col gap-1 relative group/title select-none">
                 <div className="flex items-start gap-4">
                   <h2 className="display text-4xl md:text-5xl leading-[0.85] font-bold tracking-tighter uppercase text-m3-on-secondary-container relative">
