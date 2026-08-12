@@ -46,6 +46,9 @@ interface ExperienceItem {
   website: string;
   context?: string;
   current?: boolean;
+  /** Older roles render their detail as a compact list rather than a card
+   *  grid — depth should decay with recency the way a good CV tapers. */
+  condensed?: boolean;
   impact: string[];
   highlights: Highlight[];
   technologies: string[];
@@ -199,6 +202,7 @@ const EXPERIENCE: ExperienceItem[] = [
     role: "Product Manager",
     location: "Bengaluru",
     period: "Jan 2018 – Oct 2020",
+    condensed: true,
     website: "https://www.newsweek.com",
     context: "Digital properties reaching 50M+ monthly unique visitors",
     impact: [
@@ -231,6 +235,7 @@ const EXPERIENCE: ExperienceItem[] = [
     role: "Global Product Manager",
     location: "Gurugram",
     period: "Apr 2015 – Dec 2017",
+    condensed: true,
     website: "https://www.metro.lu",
     impact: [
       "Built and launched a new CMS from scratch in 3 months.",
@@ -262,6 +267,7 @@ const EXPERIENCE: ExperienceItem[] = [
     role: "Global Service Desk Manager",
     location: "Global",
     period: "Dec 2009 – Mar 2015",
+    condensed: true,
     website: "https://www.stigasoft.com",
     context: "Global service desk operations for Metro International's online news portals",
     impact: [
@@ -639,7 +645,7 @@ export default function About() {
         {/* Top Section: Sidebar + Hero */}
         <div className="flex flex-col md:flex-row border-b border-m3-outline/10">
           {/* Sidebar: Identity */}
-          <aside className="w-full md:w-[360px] border-b md:border-b-0 md:border-r border-m3-outline/10 p-6 md:p-10 flex flex-col justify-between bg-m3-secondary-container shrink-0">
+          <aside className="order-2 md:order-1 w-full md:w-[360px] border-t md:border-t-0 md:border-r border-m3-outline/10 p-6 md:p-10 flex flex-col justify-between bg-m3-secondary-container shrink-0">
             <div className="space-y-8">
               <div className="w-16 h-2 bg-m3-primary rounded-full"></div>
               <div className="flex flex-col gap-1 relative group/title select-none">
@@ -768,7 +774,7 @@ export default function About() {
           </aside>
 
           {/* Right Content: Hero + Stats */}
-          <div className="flex-1 flex flex-col shrink-0 bg-m3-surface">
+          <div className="order-1 md:order-2 flex-1 flex flex-col shrink-0 bg-m3-surface">
             <section className="flex-1 border-b border-m3-outline/10 p-6 md:p-10 flex flex-col justify-center relative overflow-hidden">
               <div className="absolute top-0 right-0 w-80 h-80 bg-m3-primary/5 rounded-full -mr-20 -mt-20 blur-3xl"></div>
               <div className="max-w-2xl relative z-10">
@@ -901,15 +907,29 @@ export default function About() {
                   </div>
                 </div>
 
-                {/* Highlights — 3 across at xl, which the full width now allows */}
-                <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
-                  {exp.highlights.map((h, hi) => (
-                    <div key={hi} className="bg-m3-surface p-5 rounded-[20px] border border-m3-outline/5 hover:border-m3-primary/20 transition-all shadow-sm">
-                      <h5 className="font-bold text-[14px] mb-1.5 text-m3-on-surface leading-snug">{h.title}</h5>
-                      <p className="text-[13px] leading-relaxed text-m3-on-surface-variant font-medium">{linkifyProducts(h.detail)}</p>
-                    </div>
-                  ))}
-                </div>
+                {/* Recent roles get the full card grid; older roles get the same
+                    content as a compact list — no card chrome, about a third of
+                    the height, nothing lost. */}
+                {exp.condensed ? (
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-3">
+                    {exp.highlights.map((h, hi) => (
+                      <p key={hi} className="text-[13px] leading-relaxed text-m3-on-surface-variant font-medium">
+                        <span className="font-bold text-m3-on-surface">{h.title}</span>
+                        <span className="text-m3-primary"> — </span>
+                        {linkifyProducts(h.detail)}
+                      </p>
+                    ))}
+                  </div>
+                ) : (
+                  <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
+                    {exp.highlights.map((h, hi) => (
+                      <div key={hi} className="bg-m3-surface p-5 rounded-[20px] border border-m3-outline/5 hover:border-m3-primary/20 transition-all shadow-sm">
+                        <h5 className="font-bold text-[14px] mb-1.5 text-m3-on-surface leading-snug">{h.title}</h5>
+                        <p className="text-[13px] leading-relaxed text-m3-on-surface-variant font-medium">{linkifyProducts(h.detail)}</p>
+                      </div>
+                    ))}
+                  </div>
+                )}
 
                 <div className="flex flex-wrap gap-1.5 mt-5 pt-5 border-t border-m3-outline/10">
                   {exp.technologies.map((tech, ti) => (
