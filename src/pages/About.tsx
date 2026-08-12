@@ -643,16 +643,6 @@ export default function About() {
             <div className="space-y-8">
               <div className="w-16 h-2 bg-m3-primary rounded-full"></div>
               <div className="flex flex-col gap-1 relative group/title select-none">
-                <div className="font-mono text-[9px] text-m3-primary/60 font-bold tracking-[0.2em] h-4 overflow-hidden relative">
-                  <motion.div
-                    animate={{ x: [-20, 0], opacity: [0, 1] }}
-                    className="flex items-center gap-2"
-                  >
-                    <span className="w-1 h-1 rounded-full bg-m3-primary animate-pulse" />
-                    SYSTEM_INITIALIZED: RUN_BUILD
-                  </motion.div>
-                </div>
-
                 <div className="flex items-start gap-4">
                   <h2 className="display text-4xl md:text-5xl leading-[0.85] font-bold tracking-tighter uppercase text-m3-on-secondary-container relative">
                     <span className="block relative group-hover/title:text-m3-primary transition-colors duration-500">
@@ -715,16 +705,17 @@ export default function About() {
                   </p>
                 </div>
 
-                <div className="flex flex-col">
-                  <span className="font-display text-[11px] font-bold uppercase tracking-wider text-m3-primary/60">Previously</span>
-                  <span className="text-sm font-semibold">Condé Nast · Newsweek · Metro</span>
-                </div>
-
-                <div className="flex flex-col">
-                  <span className="font-display text-[11px] font-bold uppercase tracking-wider text-m3-primary/60">Location</span>
-                  <span className="text-sm font-semibold flex items-center gap-2">
-                    <MapPin className="w-4 h-4 text-m3-primary" /> Bengaluru, India
-                  </span>
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="flex flex-col">
+                    <span className="font-display text-[11px] font-bold uppercase tracking-wider text-m3-primary/60">Previously</span>
+                    <span className="text-[13px] font-semibold leading-snug">Condé Nast · Newsweek · Metro</span>
+                  </div>
+                  <div className="flex flex-col">
+                    <span className="font-display text-[11px] font-bold uppercase tracking-wider text-m3-primary/60">Location</span>
+                    <span className="text-[13px] font-semibold flex items-center gap-1.5 leading-snug">
+                      <MapPin className="w-3.5 h-3.5 text-m3-primary shrink-0" /> Bengaluru, India
+                    </span>
+                  </div>
                 </div>
 
                 <div className="flex flex-col pt-2">
@@ -744,30 +735,32 @@ export default function About() {
                       </div>
                       <span className="text-sm font-bold uppercase tracking-tight">Download CV</span>
                     </motion.a>
+                    <div className="grid grid-cols-2 gap-3">
                     <motion.a
-                      whileHover={{ scale: 1.03, x: 5 }}
+                      whileHover={{ scale: 1.03, y: -3 }}
                       whileTap={{ scale: 0.98 }}
                       href="https://www.linkedin.com/in/swaminathanguru/"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex items-center gap-4 p-4 bg-m3-surface/60 border border-m3-outline/10 rounded-m3-lg hover:bg-m3-primary hover:text-m3-on-primary transition-all group shadow-sm hover:shadow-md"
+                      className="flex flex-col items-start gap-2 p-3.5 bg-m3-surface/60 border border-m3-outline/10 rounded-m3-lg hover:bg-m3-primary hover:text-m3-on-primary transition-all group shadow-sm hover:shadow-md"
                     >
-                      <div className="w-10 h-10 bg-m3-surface-variant rounded-full flex items-center justify-center shrink-0 group-hover:bg-white/20">
-                        <Linkedin className="w-5 h-5 text-m3-primary group-hover:text-white" />
+                      <div className="w-9 h-9 bg-m3-surface-variant rounded-full flex items-center justify-center shrink-0 group-hover:bg-white/20">
+                        <Linkedin className="w-4 h-4 text-m3-primary group-hover:text-white" />
                       </div>
-                      <span className="text-sm font-bold uppercase tracking-tight">LinkedIn</span>
+                      <span className="text-[13px] font-bold uppercase tracking-tight">LinkedIn</span>
                     </motion.a>
                     <motion.a
-                      whileHover={{ scale: 1.03, x: 5 }}
+                      whileHover={{ scale: 1.03, y: -3 }}
                       whileTap={{ scale: 0.98 }}
                       href="mailto:swami.2580@gmail.com"
-                      className="flex items-center gap-4 p-4 bg-m3-surface/60 border border-m3-outline/10 rounded-m3-lg hover:bg-m3-secondary hover:text-m3-on-secondary transition-all group shadow-sm hover:shadow-md"
+                      className="flex flex-col items-start gap-2 p-3.5 bg-m3-surface/60 border border-m3-outline/10 rounded-m3-lg hover:bg-m3-secondary hover:text-m3-on-secondary transition-all group shadow-sm hover:shadow-md"
                     >
-                      <div className="w-10 h-10 bg-m3-surface-variant rounded-full flex items-center justify-center shrink-0 group-hover:bg-white/20">
-                        <Mail className="w-5 h-5 text-m3-secondary group-hover:text-white" />
+                      <div className="w-9 h-9 bg-m3-surface-variant rounded-full flex items-center justify-center shrink-0 group-hover:bg-white/20">
+                        <Mail className="w-4 h-4 text-m3-secondary group-hover:text-white" />
                       </div>
-                      <span className="text-sm font-bold uppercase tracking-tight">Email</span>
+                      <span className="text-[13px] font-bold uppercase tracking-tight">Email</span>
                     </motion.a>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -776,7 +769,7 @@ export default function About() {
 
           {/* Right Content: Hero + Stats */}
           <div className="flex-1 flex flex-col shrink-0 bg-m3-surface">
-            <section className="flex-1 min-h-[300px] md:min-h-[340px] border-b border-m3-outline/10 p-6 md:p-10 flex flex-col justify-end relative overflow-hidden">
+            <section className="flex-1 border-b border-m3-outline/10 p-6 md:p-10 flex flex-col justify-center relative overflow-hidden">
               <div className="absolute top-0 right-0 w-80 h-80 bg-m3-primary/5 rounded-full -mr-20 -mt-20 blur-3xl"></div>
               <div className="max-w-2xl relative z-10">
                 <span className="font-display text-[11px] md:text-[12px] font-bold uppercase tracking-[0.25em] md:tracking-[0.3em] text-m3-primary mb-4 md:mb-6 block">
@@ -831,7 +824,7 @@ export default function About() {
             </span>
           </motion.div>
 
-          <div className="flex-1 space-y-10 md:space-y-16 p-5 md:p-12 lg:p-16">
+          <div className="flex-1 space-y-8 md:space-y-10 p-5 md:p-10 lg:p-12">
             {EXPERIENCE.map((exp, i) => (
               <motion.div
                 key={i}
@@ -845,92 +838,85 @@ export default function About() {
                     : "bg-m3-surface-variant/40 border-m3-outline/5 hover:bg-m3-surface hover:shadow-xl"
                 }`}
               >
-                <div className="flex flex-col xl:flex-row gap-8 md:gap-10">
-                  {/* Left rail: company meta */}
-                  <div className="xl:w-[32%] space-y-5 shrink-0">
+                {/* Header runs full width rather than sitting in a tall left
+                    rail — the rail forced the highlight grid into 2 columns and
+                    stacked awkwardly on mobile. */}
+                <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4 pb-5 mb-6 border-b border-m3-outline/10">
+                  <div className="space-y-2 min-w-0">
                     {exp.current && (
-                      <span className="inline-flex items-center gap-2 px-3 py-1 bg-m3-primary text-m3-on-primary rounded-m3-full text-[10px] font-bold uppercase tracking-widest">
+                      <span className="inline-flex items-center gap-2 px-3 py-1 bg-m3-primary text-m3-on-primary rounded-m3-full text-[10px] font-bold uppercase tracking-widest mb-1">
                         <span className="w-1.5 h-1.5 rounded-full bg-m3-on-primary animate-pulse" />
                         Current
                       </span>
                     )}
-                    <div className="space-y-2">
-                      <div className="flex items-center gap-3 flex-wrap">
-                        <h3 className="display font-bold text-2xl sm:text-4xl tracking-tighter uppercase leading-none text-m3-primary">
-                          {exp.company}
-                        </h3>
-                        <motion.a
-                          whileHover={{ scale: 1.15, rotate: 10 }}
-                          whileTap={{ scale: 0.9 }}
-                          href={exp.website}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          aria-label={`${exp.company} website`}
-                          className="w-10 h-10 bg-m3-primary-container text-m3-on-primary-container rounded-full flex items-center justify-center transition-all shadow-sm hover:bg-m3-primary hover:text-m3-on-primary shrink-0"
-                        >
-                          <ArrowUpRight className="w-4 h-4" />
-                        </motion.a>
-                      </div>
-                      <div className="text-lg font-bold text-m3-secondary">{exp.role}</div>
+                    <div className="flex items-center gap-3 flex-wrap">
+                      <h3 className="display font-bold text-2xl sm:text-3xl lg:text-4xl tracking-tighter uppercase leading-none text-m3-primary">
+                        {exp.company}
+                      </h3>
+                      <motion.a
+                        whileHover={{ scale: 1.15, rotate: 10 }}
+                        whileTap={{ scale: 0.9 }}
+                        href={exp.website}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label={`${exp.company} website`}
+                        className="w-9 h-9 bg-m3-primary-container text-m3-on-primary-container rounded-full flex items-center justify-center transition-all shadow-sm hover:bg-m3-primary hover:text-m3-on-primary shrink-0"
+                      >
+                        <ArrowUpRight className="w-4 h-4" />
+                      </motion.a>
+                      <span className="text-base lg:text-lg font-bold text-m3-secondary">{exp.role}</span>
                     </div>
-
-                    <div className="flex flex-wrap gap-2">
-                      <span className="px-3.5 py-1.5 bg-m3-secondary-container text-m3-on-secondary-container rounded-m3-full text-[11px] font-bold uppercase tracking-wider">
-                        {exp.period}
-                      </span>
-                      <span className="px-3.5 py-1.5 bg-m3-surface border border-m3-outline/20 text-m3-on-surface rounded-m3-full text-[11px] font-bold uppercase tracking-wider flex items-center gap-1.5">
-                        <MapPin className="w-3 h-3" /> {exp.location}
-                      </span>
-                    </div>
-
                     {exp.context && (
-                      <p className="text-[13px] leading-relaxed text-m3-on-surface-variant font-medium">
+                      <p className="text-[13px] leading-relaxed text-m3-on-surface-variant font-medium max-w-3xl">
                         {exp.context}
                       </p>
                     )}
-
-                    <div className="flex flex-wrap gap-1.5 pt-2">
-                      {exp.technologies.map((tech, ti) => (
-                        <span key={ti} className="text-[10px] font-bold uppercase tracking-wider bg-m3-primary/5 text-m3-primary px-2.5 py-1 rounded-m3-md border border-m3-primary/10">
-                          {tech}
-                        </span>
-                      ))}
-                    </div>
                   </div>
 
-                  {/* Right: impact + detail */}
-                  <div className="flex-1 space-y-7 min-w-0">
-                    <div className="bg-m3-primary-container/30 rounded-[20px] md:rounded-[24px] p-5 md:p-7 border border-m3-primary/10">
-                      <div className="flex items-center gap-3 mb-4">
-                        <Sparkles className="w-5 h-5 text-m3-primary shrink-0" />
-                        <h4 className="display font-extrabold text-[10px] md:text-xs uppercase tracking-widest text-m3-primary">
-                          Quantifiable Impact
-                        </h4>
-                      </div>
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4">
-                        {exp.impact.map((ki, kii) => (
-                          <div key={kii} className="flex gap-3 items-start">
-                            <div className="w-1.5 h-1.5 rounded-full bg-m3-primary mt-2 shrink-0" />
-                            <p className="text-sm font-bold text-m3-on-surface leading-snug">{linkifyProducts(ki)}</p>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-
-                    <div className="space-y-5">
-                      <h4 className="display font-extrabold text-[10px] uppercase tracking-[0.35em] text-m3-outline">
-                        What I owned
-                      </h4>
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-5">
-                        {exp.highlights.map((h, hi) => (
-                          <div key={hi} className="bg-m3-surface p-5 rounded-[22px] border border-m3-outline/5 hover:border-m3-primary/20 transition-all shadow-sm">
-                            <h5 className="font-bold text-[15px] mb-2 text-m3-on-surface leading-snug">{h.title}</h5>
-                            <p className="text-[13px] leading-relaxed text-m3-on-surface-variant font-medium">{linkifyProducts(h.detail)}</p>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
+                  <div className="flex flex-wrap gap-2 lg:justify-end shrink-0">
+                    <span className="px-3.5 py-1.5 bg-m3-secondary-container text-m3-on-secondary-container rounded-m3-full text-[11px] font-bold uppercase tracking-wider">
+                      {exp.period}
+                    </span>
+                    <span className="px-3.5 py-1.5 bg-m3-surface border border-m3-outline/20 text-m3-on-surface rounded-m3-full text-[11px] font-bold uppercase tracking-wider flex items-center gap-1.5">
+                      <MapPin className="w-3 h-3" /> {exp.location}
+                    </span>
                   </div>
+                </div>
+
+                {/* Impact — 4 across at desktop so it reads as one band */}
+                <div className="bg-m3-primary-container/30 rounded-[20px] p-5 md:p-6 border border-m3-primary/10 mb-6">
+                  <div className="flex items-center gap-3 mb-4">
+                    <Sparkles className="w-4 h-4 text-m3-primary shrink-0" />
+                    <h4 className="display font-extrabold text-[10px] uppercase tracking-widest text-m3-primary">
+                      Quantifiable Impact
+                    </h4>
+                  </div>
+                  <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-3 md:gap-5">
+                    {exp.impact.map((ki, kii) => (
+                      <div key={kii} className="flex gap-2.5 items-start">
+                        <div className="w-1.5 h-1.5 rounded-full bg-m3-primary mt-1.5 shrink-0" />
+                        <p className="text-[13px] font-bold text-m3-on-surface leading-snug">{linkifyProducts(ki)}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Highlights — 3 across at xl, which the full width now allows */}
+                <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
+                  {exp.highlights.map((h, hi) => (
+                    <div key={hi} className="bg-m3-surface p-5 rounded-[20px] border border-m3-outline/5 hover:border-m3-primary/20 transition-all shadow-sm">
+                      <h5 className="font-bold text-[14px] mb-1.5 text-m3-on-surface leading-snug">{h.title}</h5>
+                      <p className="text-[13px] leading-relaxed text-m3-on-surface-variant font-medium">{linkifyProducts(h.detail)}</p>
+                    </div>
+                  ))}
+                </div>
+
+                <div className="flex flex-wrap gap-1.5 mt-5 pt-5 border-t border-m3-outline/10">
+                  {exp.technologies.map((tech, ti) => (
+                    <span key={ti} className="text-[10px] font-bold uppercase tracking-wider bg-m3-primary/5 text-m3-primary px-2.5 py-1 rounded-m3-md border border-m3-primary/10">
+                      {tech}
+                    </span>
+                  ))}
                 </div>
               </motion.div>
             ))}
@@ -938,7 +924,7 @@ export default function About() {
         </section>
 
         {/* ============ SELECTED WORK ============ */}
-        <section id="builds" className="bg-m3-surface-variant border-b border-m3-outline/10 px-6 md:px-12 lg:px-16 py-12 md:py-16">
+        <section id="builds" className="bg-m3-surface-variant border-b border-m3-outline/10 px-6 md:px-10 lg:px-12 py-10 md:py-12">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-10">
             <div>
               <span className="font-display text-[10px] font-extrabold uppercase tracking-[0.35em] text-m3-primary block mb-3">
@@ -953,7 +939,7 @@ export default function About() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4 md:gap-5">
             {BUILDS.map((b, i) => {
               const BuildIcon = b.icon;
               const inner = (
@@ -1006,7 +992,7 @@ export default function About() {
             How I Work
           </motion.div>
 
-          <div className="px-6 md:px-12 lg:px-16 py-12 md:py-16 space-y-14">
+          <div className="px-6 md:px-10 lg:px-12 py-10 md:py-12 space-y-10">
             {/* AI-native proof — the three claims that carry numbers */}
             <div>
               <span className="font-display text-[10px] font-extrabold uppercase tracking-[0.35em] text-m3-primary block mb-6">
@@ -1109,7 +1095,7 @@ export default function About() {
         </section>
 
         {/* ============ MANIFESTO ============ */}
-        <section className="bg-m3-primary text-m3-on-primary p-8 md:p-16 lg:p-20 relative overflow-hidden">
+        <section className="bg-m3-primary text-m3-on-primary p-8 md:p-12 lg:p-14 relative overflow-hidden">
           <div className="absolute top-0 right-0 opacity-10 pointer-events-none">
             <Cpu className="w-64 h-64 md:w-96 md:h-96 -mr-16 -mt-16 md:-mr-20 md:-mt-20 rotate-12" />
           </div>
@@ -1176,7 +1162,7 @@ export default function About() {
         </section>
 
         {/* ============ CONTACT CTA ============ */}
-        <section className="bg-m3-surface px-6 md:px-12 lg:px-16 py-12 md:py-16 border-t border-m3-outline/10">
+        <section className="bg-m3-surface px-6 md:px-10 lg:px-12 py-10 md:py-12 border-t border-m3-outline/10">
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-8">
             <div className="max-w-lg">
               <h3 className="display text-2xl md:text-4xl font-extrabold tracking-tighter uppercase text-m3-on-surface mb-3">
