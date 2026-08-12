@@ -39,13 +39,13 @@ import {
   BarChart3,
   MousePointer2,
   ZapOff,
-  Rocket,
-  Menu
+  Rocket
 } from "lucide-react";
 import { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { askAssistant } from "../services/geminiService";
-import { SOCIALS } from "../data/socials";
+import SiteHeader from "../components/SiteHeader";
+import SiteFooter from "../components/SiteFooter";
 
 // --- Types ---
 
@@ -225,7 +225,6 @@ export default function About() {
   }, []);
 
   const [isChatOpen, setIsChatOpen] = useState(false);
-  const [menuOpen, setMenuOpen] = useState(false);
   const [scrambledTitle, setScrambledTitle] = useState("PRODUCT");
   const [scrambledBuilder, setScrambledBuilder] = useState("BUILDER");
 
@@ -346,102 +345,7 @@ export default function About() {
       {/* 12px frame replaced with M3 shadow and rounded container */}
       <div className="max-w-[1100px] mx-auto min-h-[90vh] flex flex-col relative bg-m3-surface-variant overflow-hidden shadow-xl rounded-m3-xl md:rounded-[32px] border border-m3-outline/10">
         
-        {/* Header Section */}
-        <header className="h-[70px] md:h-[100px] border-b border-m3-outline/20 flex items-center justify-between px-6 md:px-10 bg-m3-surface/80 backdrop-blur-md z-20">
-          <motion.div 
-            initial={{ opacity: 0.8 }}
-            animate={{ opacity: [0.8, 1, 0.8] }}
-            transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-            className="flex flex-col relative group cursor-default"
-          >
-            <span className="font-display text-[9px] md:text-[11px] uppercase tracking-widest font-black text-m3-primary/60">Portfolio Vol. 01</span>
-            <motion.h1 
-              animate={{ 
-                filter: [
-                  "drop-shadow(0 0 10px rgba(0, 109, 59, 0.2))", 
-                  "drop-shadow(0 0 25px rgba(0, 109, 59, 0.5))", 
-                  "drop-shadow(0 0 10px rgba(0, 109, 59, 0.2))"
-                ] 
-              }}
-              transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-              className="text-2xl md:text-3xl font-extrabold tracking-tighter uppercase display bg-clip-text text-transparent bg-gradient-to-r from-m3-on-surface via-m3-primary via-emerald-400 via-m3-primary to-m3-on-surface bg-[length:300%_auto] animate-[gradient_8s_linear_infinite] group-hover:drop-shadow-[0_0_35px_rgba(0,109,59,0.6)] transition-all duration-700 relative overflow-hidden"
-            >
-              SWAMI GURU
-              {/* Internal shine sweep */}
-              <motion.div 
-                animate={{ left: ["-150%", "150%"] }}
-                transition={{ duration: 4, repeat: Infinity, repeatDelay: 3, ease: "easeInOut" }}
-                className="absolute top-0 bottom-0 w-24 bg-gradient-to-r from-transparent via-white/20 to-transparent skew-x-[-30deg]"
-              />
-            </motion.h1>
-            {/* Subtle pulse underglow line */}
-            <motion.div 
-              animate={{ 
-                opacity: [0.1, 0.4, 0.1],
-                scaleX: [0.8, 1, 0.8],
-                x: [-2, 2, -2]
-              }}
-              transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-              className="absolute -bottom-1 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-m3-primary/40 to-transparent blur-[1px]"
-            />
-          </motion.div>
-          <div className="flex items-center gap-3 md:gap-6">
-            <button
-              type="button"
-              onClick={() => setMenuOpen((o) => !o)}
-              aria-label={menuOpen ? "Close menu" : "Open menu"}
-              aria-expanded={menuOpen}
-              className="md:hidden w-11 h-11 flex items-center justify-center rounded-full bg-m3-outline/10 text-m3-on-surface hover:text-m3-primary transition-colors"
-            >
-              {menuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-            </button>
-            <nav className="hidden md:flex gap-4 font-display font-bold text-sm">
-              <Link
-                to="/"
-                className="px-6 py-2.5 hover:bg-m3-surface-variant text-m3-on-surface rounded-m3-full transition-all flex items-center gap-2"
-              >
-                ← Home
-              </Link>
-              <motion.a
-                whileHover={{ scale: 1.05, y: -2 }}
-                whileTap={{ scale: 0.98 }}
-                href="#skills"
-                className="px-6 py-2.5 bg-m3-primary-container text-m3-on-primary-container rounded-m3-full hover:bg-m3-primary hover:text-m3-on-primary transition-all shadow-sm"
-              >
-                Toolkit
-              </motion.a>
-              <motion.a 
-                whileHover={{ scale: 1.05, y: -2, backgroundColor: "rgba(var(--m3-surface-variant), 0.8)" }}
-                whileTap={{ scale: 0.98 }}
-                href="#work" 
-                className="px-6 py-2.5 hover:bg-m3-surface-variant text-m3-on-surface rounded-m3-full transition-all"
-              >
-                Experience
-              </motion.a>
-            </nav>
-            <motion.button 
-              whileHover={{ scale: 1.1, backgroundColor: "var(--color-m3-primary-container)" }}
-              whileTap={{ scale: 0.9 }}
-              onClick={() => setIsChatOpen(!isChatOpen)}
-              className="w-12 h-12 bg-m3-outline/10 text-m3-on-surface rounded-full flex items-center justify-center transition-all shadow-sm hover:text-m3-primary focus:outline-none focus:ring-4 focus:ring-m3-primary/20"
-              title="Query AI Surrogate"
-            >
-              {isChatOpen ? <X className="w-6 h-6" /> : <Search className="w-5 h-5" />}
-            </motion.button>
-          </div>
-        </header>
-
-        {menuOpen && (
-          <nav className="md:hidden border-b border-m3-outline/20 bg-m3-surface px-4 py-4 flex flex-col gap-1 font-display font-bold text-base">
-            <Link to="/" onClick={() => setMenuOpen(false)} className="px-4 py-3 rounded-m3-lg hover:bg-m3-surface-variant text-m3-on-surface transition-all">Home</Link>
-            <Link to="/tech-roundup" onClick={() => setMenuOpen(false)} className="px-4 py-3 rounded-m3-lg hover:bg-m3-surface-variant text-m3-on-surface transition-all">Tech Roundup</Link>
-            <a href="https://www.youtube.com/@builtbyswami" target="_blank" rel="noopener noreferrer" onClick={() => setMenuOpen(false)} className="px-4 py-3 rounded-m3-lg hover:bg-m3-surface-variant text-m3-on-surface transition-all">The Channel</a>
-            <Link to="/notes" onClick={() => setMenuOpen(false)} className="px-4 py-3 rounded-m3-lg hover:bg-m3-surface-variant text-m3-on-surface transition-all">Notes</Link>
-            <a href="#skills" onClick={() => setMenuOpen(false)} className="px-4 py-3 rounded-m3-lg hover:bg-m3-surface-variant text-m3-on-surface transition-all">Toolkit</a>
-            <a href="#work" onClick={() => setMenuOpen(false)} className="px-4 py-3 rounded-m3-lg hover:bg-m3-surface-variant text-m3-on-surface transition-all">Experience</a>
-            <Link to="/#build-notes" onClick={() => setMenuOpen(false)} className="mt-2 px-5 py-3 bg-m3-primary text-m3-on-primary rounded-m3-full text-center hover:m3-elevation-1-shadow active:scale-95 transition-all">Subscribe</Link>
-          </nav>
-        )}
+        <SiteHeader />
 
         <AnimatePresence>
           {isChatOpen && (
@@ -1081,36 +985,7 @@ export default function About() {
            </div>
         </section>
 
-        {/* Footer Status Bar */}
-        <footer className="min-h-[80px] py-4 bg-m3-surface text-m3-on-surface flex flex-wrap items-center gap-4 px-6 md:px-10 justify-between border-t border-m3-outline/10 print:hidden rounded-b-m3-xl md:rounded-b-[32px]">
-          <div className="flex items-center gap-4">
-            <div className="w-3 h-3 rounded-full bg-m3-primary animate-pulse shadow-[0_0_12px_rgba(var(--primary),0.5)]"></div>
-            <span className="font-display text-[11px] font-bold uppercase tracking-[0.2em] text-m3-primary">Live Operational Status — 2026</span>
-          </div>
-
-          {/* Social Branding */}
-          <div className="flex items-center gap-2 md:gap-3 order-last w-full justify-center md:order-none md:w-auto">
-            {SOCIALS.map((s) => (
-              <motion.a
-                key={s.name}
-                whileHover={{ scale: 1.15, y: -2 }}
-                whileTap={{ scale: 0.9 }}
-                href={s.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                title={`@builtbyswami on ${s.name}`}
-                aria-label={`@builtbyswami on ${s.name}`}
-                className="w-9 h-9 md:w-10 md:h-10 bg-m3-surface-variant text-m3-on-surface-variant rounded-full flex items-center justify-center hover:bg-m3-primary hover:text-m3-on-primary transition-colors shadow-sm"
-              >
-                <svg viewBox="0 0 24 24" fill="currentColor" className="w-4 h-4 md:w-[18px] md:h-[18px]" aria-hidden="true">
-                  <path d={s.path} />
-                </svg>
-              </motion.a>
-            ))}
-          </div>
-
-          <div className="text-[10px] font-bold uppercase opacity-30 font-display">© builtbyswami</div>
-        </footer>
+        <SiteFooter />
       </div>
 
       <style>{`
