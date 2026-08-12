@@ -153,7 +153,7 @@ const EXPERIENCE: ExperienceItem[] = [
       {
         title: "Revenue Growth & P&L",
         detail:
-          "Owned the P&L for new revenue lines, directing the full-cycle launch of monetisation channels including the Architectural Digest Directory ($300K), the Condé Nast Traveller and Abercrombie & Kent booking partnership ($650K), and Traveller Secret Homestays with Airbnb and Booking.com."
+          "Owned the P&L for new revenue lines, directing the full-cycle launch of monetisation channels including the Architectural Digest Directory ($300K), the Condé Nast Traveller and Abercrombie & Kent booking partnership (scaled $150K to $650K across 2025–26), and Traveller Secret Homestays with Airbnb and Booking.com."
       },
       {
         title: "AI-Native Product Delivery",
