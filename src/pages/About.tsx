@@ -28,6 +28,7 @@ import {
 import { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { askAssistant } from "../services/geminiService";
+import { getNote, formatNoteDate } from "../data/notes";
 import SiteHeader from "../components/SiteHeader";
 import SiteFooter from "../components/SiteFooter";
 
@@ -49,6 +50,13 @@ interface ExperienceItem {
   /** Older roles render their detail as a compact list rather than a card
    *  grid — depth should decay with recency the way a good CV tapers. */
   condensed?: boolean;
+  /** Portfolio-level scope — the "ran a book of work" signal that individual
+   *  project bullets can't carry on their own. */
+  portfolio?: {
+    label: string;
+    stats: { value: string; label: string }[];
+    themes: string[];
+  };
   impact: string[];
   highlights: Highlight[];
   technologies: string[];
@@ -110,6 +118,21 @@ const EXPERIENCE: ExperienceItem[] = [
     period: "May 2022 – Apr 2026",
     website: "https://www.condenast.com",
     context: "Vogue · GQ · Wired · Condé Nast Traveller · Architectural Digest — US, EMEA, LATAM, APAC, Middle East",
+    portfolio: {
+      label: "Portfolio 2024–26",
+      stats: [
+        { value: "14", label: "Projects" },
+        { value: "10+", label: "Markets" },
+        { value: "6", label: "New revenue lines" },
+        { value: "$20M+", label: "Revenue delivered" }
+      ],
+      themes: [
+        "Global Brand Expansion",
+        "New Revenue Lines",
+        "Risk & Brand Integrity",
+        "Traffic & Audience Growth"
+      ]
+    },
     impact: [
       "Managed and mentored two product managers across regional squads.",
       "Built $20M+ in net-new revenue through new-market entries.",
@@ -150,7 +173,7 @@ const EXPERIENCE: ExperienceItem[] = [
       {
         title: "Platform Growth",
         detail:
-          "Orchestrated the migration of Condé Nast Traveller Spain and LATAM onto a unified Spanish-language platform, growing reach to 56.6M unique users with projected revenue growth of $1.3M by 2027."
+          "Orchestrated the migration of Condé Nast Traveller Spain and LATAM onto a unified Spanish-language platform, growing addressable reach to 56.6M unique users."
       },
       {
         title: "Technical SEO & Migration",
@@ -404,6 +427,17 @@ const AI_PROOF = [
       "A full task-management engine built solo in a single day by writing the product context upfront and directing AI tools in tight build-review loops.",
     icon: Timer
   }
+];
+
+/**
+ * Hand-picked rather than "latest": these are the pieces that show product
+ * judgment, which is what a hiring reader is assessing. Falls back gracefully
+ * if a slug is ever renamed.
+ */
+const FEATURED_NOTE_SLUGS = [
+  "adda-a-product-with-no-job",
+  "why-i-built-builtbyswami-from-scratch",
+  "24-hour-task-manager-sprint"
 ];
 
 const CREDENTIALS = [
@@ -907,6 +941,33 @@ export default function About() {
                   </div>
                 </div>
 
+                {exp.portfolio && (
+                  <div className="rounded-[20px] border border-m3-outline/10 bg-m3-surface p-5 md:p-6 mb-6">
+                    <span className="font-display text-[10px] font-extrabold uppercase tracking-[0.3em] text-m3-on-surface-variant/60 block mb-4">
+                      {exp.portfolio.label}
+                    </span>
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">
+                      {exp.portfolio.stats.map((s, si) => (
+                        <div key={si} className="flex flex-col">
+                          <span className="display text-2xl md:text-3xl font-extrabold tracking-tighter text-m3-primary leading-none">
+                            {s.value}
+                          </span>
+                          <span className="font-display text-[9px] md:text-[10px] font-bold uppercase tracking-widest text-m3-on-surface-variant/70 mt-1.5">
+                            {s.label}
+                          </span>
+                        </div>
+                      ))}
+                    </div>
+                    <div className="flex flex-wrap gap-1.5 pt-4 border-t border-m3-outline/10">
+                      {exp.portfolio.themes.map((t, ti) => (
+                        <span key={ti} className="text-[11px] font-semibold text-m3-on-surface-variant bg-m3-surface-variant/60 px-2.5 py-1 rounded-m3-md border border-m3-outline/5">
+                          {t}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
                 {/* Recent roles get the full card grid; older roles get the same
                     content as a compact list — no card chrome, about a third of
                     the height, nothing lost. */}
@@ -998,6 +1059,59 @@ export default function About() {
                 >
                   {inner}
                 </div>
+              );
+            })}
+          </div>
+        </section>
+
+        {/* ============ WRITING ============ */}
+        <section id="writing" className="bg-m3-surface border-b border-m3-outline/10 px-6 md:px-10 lg:px-12 py-10 md:py-12">
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8">
+            <div>
+              <span className="font-display text-[10px] font-extrabold uppercase tracking-[0.35em] text-m3-primary block mb-3">
+                Writing
+              </span>
+              <h3 className="display text-2xl md:text-4xl font-extrabold tracking-tighter uppercase text-m3-on-surface">
+                How I think
+              </h3>
+            </div>
+            <Link
+              to="/notes"
+              className="text-sm font-display font-bold text-m3-primary hover:underline underline-offset-4 inline-flex items-center gap-1.5 shrink-0"
+            >
+              All build notes <ArrowUpRight className="w-4 h-4" />
+            </Link>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-5">
+            {FEATURED_NOTE_SLUGS.map((slug) => {
+              const note = getNote(slug);
+              if (!note) return null;
+              return (
+                <motion.div key={slug} whileHover={{ y: -6 }}>
+                  <Link
+                    to={`/notes/${note.slug}`}
+                    className="h-full flex flex-col bg-m3-surface-variant/40 p-6 rounded-[24px] border border-m3-outline/5 hover:border-m3-primary/30 hover:bg-m3-surface hover:shadow-xl transition-all group"
+                  >
+                    <div className="flex items-center gap-2 mb-4">
+                      <span className="text-[10px] font-bold uppercase tracking-widest text-m3-primary bg-m3-primary/5 border border-m3-primary/15 px-2.5 py-1 rounded-m3-full">
+                        {note.tag}
+                      </span>
+                      <span className="text-[11px] font-medium text-m3-on-surface-variant/60">
+                        {note.readMinutes} min
+                      </span>
+                    </div>
+                    <h4 className="font-display font-extrabold text-[15px] leading-snug text-m3-on-surface mb-2.5 line-clamp-3">
+                      {note.title}
+                    </h4>
+                    <p className="text-[13px] leading-relaxed text-m3-on-surface-variant font-medium line-clamp-4">
+                      {note.description}
+                    </p>
+                    <span className="mt-auto pt-4 inline-flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-widest text-m3-primary group-hover:gap-2.5 transition-all">
+                      {formatNoteDate(note.date)} <ArrowUpRight className="w-3.5 h-3.5" />
+                    </span>
+                  </Link>
+                </motion.div>
               );
             })}
           </div>
