@@ -70,7 +70,7 @@ const EXPERIENCE: ExperienceItem[] = [
     context: "Solo, AI-native product building — strategy through shipped code",
     current: true,
     impact: [
-      "Shipped three live products solo, from brief to production.",
+      "Shipped three live products solo — BuiltBySwami.com, Free Word Tool and Adda.",
       "Took a full task-management engine from empty repo to working app in 24 hours.",
       "Built and instrumented a daily-publishing content platform end to end.",
       "Ran a self-initiated portfolio audit for a major global media brand."
