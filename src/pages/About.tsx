@@ -109,7 +109,7 @@ const EXPERIENCE: ExperienceItem[] = [
     context: "Vogue · GQ · Wired · Condé Nast Traveller · Architectural Digest — US, EMEA, LATAM, APAC, Middle East",
     impact: [
       "Managed and mentored two product managers across regional squads.",
-      "Opened new-market revenue channels projected at $20M+.",
+      "Built $20M+ in net-new revenue through new-market entries.",
       "Cut prototyping cycles 30% and time-to-market 50% with AI-native delivery.",
       "Drove a 30% audience lift and $800K incremental revenue via tentpole launches."
     ],
@@ -122,7 +122,7 @@ const EXPERIENCE: ExperienceItem[] = [
       {
         title: "Market Expansion",
         detail:
-          "Launched Vogue, GQ and Wired in the Middle East and Condé Nast Traveller in Germany — new-market entries that were the core driver of a $20M+ projected net-new revenue build, opening new advertising, subscription and partnership channels in each market."
+          "Launched Vogue, GQ and Wired in the Middle East and Condé Nast Traveller in Germany — new-market entries that were the core driver of the $20M+ net-new revenue build, opening new advertising, subscription and partnership channels in each market."
       },
       {
         title: "Revenue Growth & P&L",
@@ -450,7 +450,7 @@ export default function About() {
       .querySelector('meta[name="description"]')
       ?.setAttribute(
         "content",
-        "Swami Guru — Senior Product Leader and independent product builder. 11+ years in product scaling audience, engagement and revenue for Vogue, GQ, Wired, Condé Nast Traveller, Architectural Digest and Newsweek. $20M+ in projected net-new revenue."
+        "Swami Guru — Senior Product Leader and independent product builder. 11+ years in product scaling audience, engagement and revenue for Vogue, GQ, Wired, Condé Nast Traveller, Architectural Digest and Newsweek. $20M+ net-new revenue built."
       );
   }, []);
 
@@ -700,7 +700,7 @@ export default function About() {
                     </span>
                   </span>
                   <p className="text-[13px] font-bold text-m3-on-secondary-container leading-snug">
-                    Director &amp; Head of Product
+                    Senior product &amp; leadership roles
                   </p>
                   <p className="text-[12px] text-m3-on-secondary-container/70 font-medium mt-1">
                     Bengaluru or remote &middot; open to relocation
@@ -776,7 +776,7 @@ export default function About() {
 
           {/* Right Content: Hero + Stats */}
           <div className="flex-1 flex flex-col shrink-0 bg-m3-surface">
-            <section className="min-h-[300px] md:min-h-[340px] border-b border-m3-outline/10 p-6 md:p-10 flex flex-col justify-end relative overflow-hidden">
+            <section className="flex-1 min-h-[300px] md:min-h-[340px] border-b border-m3-outline/10 p-6 md:p-10 flex flex-col justify-end relative overflow-hidden">
               <div className="absolute top-0 right-0 w-80 h-80 bg-m3-primary/5 rounded-full -mr-20 -mt-20 blur-3xl"></div>
               <div className="max-w-2xl relative z-10">
                 <span className="font-display text-[11px] md:text-[12px] font-bold uppercase tracking-[0.25em] md:tracking-[0.3em] text-m3-primary mb-4 md:mb-6 block">
@@ -792,16 +792,16 @@ export default function About() {
             </section>
 
             {/* Impact Grid */}
-            <section className="grid grid-cols-2 lg:grid-cols-4 flex-1">
+            <section className="grid grid-cols-2 lg:grid-cols-4 shrink-0">
               {[
-                { val: "$20M+", label: "PROJECTED REVENUE", container: "bg-m3-primary-container/20", text: "text-m3-on-primary-container" },
+                { val: "$20M+", label: "NET-NEW REVENUE", container: "bg-m3-primary-container/20", text: "text-m3-on-primary-container" },
                 { val: "30%+", label: "ENGAGEMENT LIFT", container: "bg-m3-secondary-container/20", text: "text-m3-on-secondary-container" },
                 { val: "50%", label: "TIME-TO-MARKET", container: "bg-m3-tertiary-container/20", text: "text-m3-on-tertiary-container" },
                 { val: "100%", label: "SEO RETAINED", container: "bg-m3-primary-container/20", text: "text-m3-on-primary-container" }
               ].map((stat, i) => (
                 <div
                   key={i}
-                  className={`p-5 md:p-6 flex flex-col items-center justify-center text-center ${stat.container} border-m3-outline/5 border-t lg:border-t-0 ${i % 2 === 0 ? "border-r" : ""} ${i < 3 ? "lg:border-r" : "lg:border-r-0"}`}
+                  className={`px-4 py-6 flex flex-col items-center justify-center text-center ${stat.container} border-m3-outline/5 border-t lg:border-t-0 ${i % 2 === 0 ? "border-r" : ""} ${i < 3 ? "lg:border-r" : "lg:border-r-0"}`}
                 >
                   <span className={`display text-3xl md:text-4xl font-extrabold tracking-tighter ${stat.text}`}>{stat.val}</span>
                   <span className={`font-display text-[9px] md:text-[10px] font-bold uppercase tracking-widest opacity-60 mt-1.5 ${stat.text}`}>{stat.label}</span>
