@@ -86,19 +86,19 @@ const EXPERIENCE: ExperienceItem[] = [
     ],
     highlights: [
       {
-        title: "End-to-End Product Ownership",
+        title: "Definition Before Code",
         detail:
-          "Conceived and shipped BuiltBySwami.com from scratch post–Condé Nast — defining audience, content, and distribution strategy across site, newsletter, and social before writing code. Built with React, TypeScript, Vite and Tailwind using AI tools as build partners, then instrumented GA4, GTM and Search Console to drive an ongoing publish-measure-iterate loop."
+          "Audience, content and distribution strategy defined and written down before any code exists — then instrumented with GA4, GTM and Search Console so every release feeds a publish-measure-iterate loop rather than a guess."
       },
       {
-        title: "Solo AI-Native Build",
+        title: "Directing AI Through Execution",
         detail:
-          "Took Free Word Tool from brief to live production in a single one-day sprint — scoping six target user segments from editorial and platform experience, directing AI tools through execution, and catching and reversing mid-build scope creep to ship one focused, privacy-first tool (fully client-side, no data upload) instead of an unfocused bundle."
+          "AI tools used as build partners in tight build-review loops, not one-shot prompts. The constraint that makes it work is the brief: state the context and what is out of scope, then hold the model to it."
       },
       {
-        title: "24-Hour AI-Native Sprint",
+        title: "Scope Discipline",
         detail:
-          "Took a full task-management engine — data modeling, state, persistence, UI — from empty repo to a working app in 24 hours, solo. Wrote the product context and brief upfront, then directed AI tools through execution in tight build-review loops."
+          "Caught and reversed scope creep mid-build, shipping one focused, privacy-first utility instead of the unfocused five-app bundle it was turning into. Knowing what to cut is the job; speed only compounds the decision."
       },
       {
         title: "Portfolio Audit",
@@ -687,7 +687,7 @@ export default function About() {
               <div className="absolute top-0 right-0 w-80 h-80 bg-m3-primary/5 rounded-full -mr-20 -mt-20 blur-3xl"></div>
               <div className="max-w-2xl relative z-10">
                 <span className="font-display text-[11px] md:text-[12px] font-bold uppercase tracking-[0.25em] md:tracking-[0.3em] text-m3-primary mb-4 md:mb-6 block">
-                  Senior Product Leader · AI-Native Product
+                  <span className="hidden md:inline">Senior Product Leader · </span>AI-Native Product
                 </span>
                 <span className="display font-medium text-2xl md:text-[2.75rem] block mb-6 leading-[1.15] tracking-tight text-m3-on-surface">
                   I turn complex platforms into <span className="text-m3-primary font-bold px-2 bg-m3-primary-container/30 rounded-lg">growth engines</span> — lifting engagement, accelerating revenue, and shipping at half the time-to-market.
