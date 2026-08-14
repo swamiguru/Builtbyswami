@@ -13,8 +13,6 @@ import {
   Layers,
   Sparkles,
   Zap,
-  MessageSquare,
-  X,
   Globe,
   Code2,
   ArrowUp,
@@ -27,7 +25,6 @@ import {
 } from "lucide-react";
 import { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { askAssistant } from "../services/geminiService";
 import { getNote, formatNoteDate } from "../data/notes";
 import SiteHeader from "../components/SiteHeader";
 import SiteFooter from "../components/SiteFooter";
@@ -458,28 +455,52 @@ const PRODUCT_LINKS: { label: string; url: string }[] = [
  * products I built — employer brand names are left unlinked, since a link to a
  * company homepage proves nothing and just leaks the reader away.
  */
-function linkifyProducts(text: string) {
+/** Currency, percentages and magnitudes — the tokens a scanning reader hunts for. */
+const METRIC_ONLY = /^(?:\$\d[\d.,]*[KMB]?\+?|\d[\d.]*%\+?|\d[\d.]*[KMB]\+?)$/;
+
+/**
+ * Renders body copy with two kinds of emphasis: my own shipped products become
+ * links, and hard numbers become bold primary-coloured tokens. The surrounding
+ * prose deliberately stays at normal weight — if the whole line is bold, the
+ * metric has nothing to stand out against.
+ */
+function richText(text: string) {
   const labels = PRODUCT_LINKS.map((p) => p.label)
-    // Longest first, so a shorter label can never consume part of a longer one.
     .sort((a, b) => b.length - a.length)
     .map((l) => l.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"));
 
-  const pattern = new RegExp(`\\b(${labels.join("|")})\\b`, "g");
+  const pattern = new RegExp(
+    `(\\b(?:${labels.join("|")})\\b|\\$\\d[\\d.,]*[KMB]?\\+?|\\d[\\d.]*%\\+?|\\b\\d[\\d.]*[KMB]\\+?)`,
+    "g"
+  );
 
   return text.split(pattern).map((part, i) => {
-    const match = PRODUCT_LINKS.find((p) => p.label === part);
-    if (!match) return part;
-    return (
-      <a
-        key={i}
-        href={match.url}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="text-m3-primary font-semibold underline decoration-m3-primary/30 underline-offset-2 hover:decoration-m3-primary transition-colors"
-      >
-        {part}
-      </a>
-    );
+    if (!part) return null;
+
+    const link = PRODUCT_LINKS.find((p) => p.label === part);
+    if (link) {
+      return (
+        <a
+          key={i}
+          href={link.url}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-m3-primary font-semibold underline decoration-m3-primary/30 underline-offset-2 hover:decoration-m3-primary transition-colors"
+        >
+          {part}
+        </a>
+      );
+    }
+
+    if (METRIC_ONLY.test(part)) {
+      return (
+        <strong key={i} className="text-m3-primary font-extrabold">
+          {part}
+        </strong>
+      );
+    }
+
+    return part;
   });
 }
 
@@ -494,15 +515,7 @@ export default function About() {
       );
   }, []);
 
-  const [isChatOpen, setIsChatOpen] = useState(false);
-
-  const [messages, setMessages] = useState<{ role: 'user' | 'ai', text: string }[]>([
-    { role: 'ai', text: "Hi! I'm Swami's AI surrogate. I can dive deep into his 'Product Builder' methodology—how he pairs AI-native speed with relationship-first leadership to scale global brands. What's on your mind?" }
-  ]);
-  const [input, setInput] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
   const [showScrollTop, setShowScrollTop] = useState(false);
-  const scrollRef = useRef<HTMLDivElement>(null);
   const skillsSectionRef = useRef<HTMLDivElement>(null);
   const workSectionRef = useRef<HTMLDivElement>(null);
 
@@ -543,120 +556,11 @@ export default function About() {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
-  useEffect(() => {
-    if (scrollRef.current) {
-      scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
-    }
-  }, [messages, isChatOpen]);
-
-  const handleSend = async () => {
-    if (!input.trim() || isLoading) return;
-
-    const userMsg = input.trim();
-    setInput("");
-    setMessages(prev => [...prev, { role: 'user', text: userMsg }]);
-    setIsLoading(true);
-
-    try {
-      const response = await askAssistant(userMsg);
-      setMessages(prev => [...prev, { role: 'ai', text: response }]);
-    } catch (err) {
-      setMessages(prev => [...prev, { role: 'ai', text: "I encountered an error. Please try again." }]);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
   return (
     <div className="min-h-screen bg-m3-surface md:p-8 selection:bg-m3-primary selection:text-m3-on-primary relative">
       <div className="max-w-[1100px] mx-auto min-h-[90vh] flex flex-col relative bg-m3-surface-variant overflow-hidden shadow-xl rounded-m3-xl md:rounded-[32px] border border-m3-outline/10">
 
         <SiteHeader />
-
-        <AnimatePresence>
-          {isChatOpen && (
-            <motion.div
-              initial={{ opacity: 0, y: 20, scale: 0.95 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: 20, scale: 0.95 }}
-              className="fixed bottom-0 md:bottom-32 right-0 md:right-8 w-full md:w-[400px] max-w-full md:max-w-[90vw] h-[100dvh] md:h-[600px] bg-m3-surface border-x md:border border-m3-outline/20 z-50 flex flex-col shadow-2xl rounded-none md:rounded-[32px] print:hidden overflow-hidden"
-            >
-              <div className="p-5 md:p-6 bg-m3-primary text-m3-on-primary flex justify-between items-center shadow-lg shrink-0">
-                <div className="flex items-center gap-4">
-                  <div className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center">
-                    <Sparkles className="w-6 h-6 text-white" />
-                  </div>
-                  <div className="flex flex-col">
-                    <span className="font-display text-sm font-black tracking-wide">AI SURROGATE</span>
-                    <span className="text-[10px] font-bold opacity-60">Strategic Context Engine</span>
-                  </div>
-                </div>
-                <button onClick={() => setIsChatOpen(false)} className="bg-white/10 hover:bg-white/20 p-2 rounded-full transition-colors active:scale-95">
-                  <X className="w-5 h-5" />
-                </button>
-              </div>
-
-              <div ref={scrollRef} className="flex-1 overflow-y-auto p-6 space-y-6 bg-m3-surface">
-                {messages.map((msg, idx) => (
-                  <div key={idx} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
-                    <div className={`max-w-[85%] p-5 text-sm font-bold leading-relaxed shadow-sm ${
-                      msg.role === 'user'
-                      ? 'bg-m3-primary text-m3-on-primary rounded-[28px] rounded-br-[4px]'
-                      : 'bg-m3-secondary-container text-m3-on-secondary-container rounded-[28px] rounded-bl-[4px]'
-                    }`}>
-                      {msg.text}
-                    </div>
-                  </div>
-                ))}
-                {isLoading && (
-                  <div className="flex justify-start">
-                    <div className="bg-m3-surface-variant text-m3-on-surface-variant p-4 rounded-[24px] rounded-bl-[4px] flex items-center gap-3">
-                       <div className="flex gap-1.5">
-                         <span className="w-2 h-2 bg-m3-primary rounded-full animate-bounce [animation-delay:-0.3s]"></span>
-                         <span className="w-2 h-2 bg-m3-primary rounded-full animate-bounce [animation-delay:-0.15s]"></span>
-                         <span className="w-2 h-2 bg-m3-primary rounded-full animate-bounce"></span>
-                       </div>
-                    </div>
-                  </div>
-                )}
-              </div>
-
-              <div className="p-6 bg-m3-surface flex flex-col gap-4 border-t border-m3-outline/10">
-                <div className="flex gap-3">
-                  <input
-                    type="text"
-                    value={input}
-                    onChange={(e) => setInput(e.target.value)}
-                    onKeyDown={(e) => e.key === 'Enter' && handleSend()}
-                    placeholder="Inquire about methodology..."
-                    className="flex-1 bg-m3-surface-variant rounded-m3-full py-3.5 px-6 text-sm font-bold focus:outline-none focus:ring-4 focus:ring-m3-primary/10 transition-all placeholder:text-m3-on-surface/30 text-m3-on-surface shadow-inner"
-                  />
-                  <button
-                    onClick={handleSend}
-                    disabled={isLoading}
-                    className="w-14 h-14 bg-m3-primary text-m3-on-primary rounded-full flex items-center justify-center shadow-lg hover:shadow-xl hover:scale-105 transition-all disabled:opacity-30 disabled:scale-100 active:scale-95 group"
-                  >
-                    <ArrowUpRight className="w-6 h-6 rotate-45 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 transition-transform" />
-                  </button>
-                </div>
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
-
-        {/* Chat Toggle Button */}
-        <button
-          onClick={() => setIsChatOpen(!isChatOpen)}
-          aria-label={isChatOpen ? "Close AI surrogate" : "Open AI surrogate"}
-          className="fixed bottom-8 right-8 w-16 h-16 bg-m3-primary text-m3-on-primary rounded-[20px] flex items-center justify-center shadow-lg hover:shadow-2xl hover:scale-105 active:scale-95 transition-all z-50 group print:hidden"
-        >
-          {isChatOpen ? <X className="w-7 h-7" /> : (
-            <div className="relative">
-              <MessageSquare className="w-7 h-7 group-hover:opacity-0 transition-opacity" />
-              <Sparkles className="w-7 h-7 absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity scale-110" />
-            </div>
-          )}
-        </button>
 
         {/* Back to Top Button */}
         <AnimatePresence>
@@ -668,10 +572,10 @@ export default function About() {
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.95 }}
               onClick={scrollToTop}
-              className="fixed bottom-8 right-28 w-16 h-16 bg-m3-surface-variant text-m3-on-surface-variant rounded-[24px] flex items-center justify-center shadow-lg hover:shadow-2xl transition-all z-50 group print:hidden"
+              className="fixed bottom-6 right-6 w-12 h-12 bg-m3-surface-variant text-m3-on-surface-variant rounded-[24px] flex items-center justify-center shadow-lg hover:shadow-2xl transition-all z-50 group print:hidden"
               title="Back to Top"
             >
-              <ArrowUp className="w-8 h-8 group-hover:-translate-y-1.5 transition-transform" />
+              <ArrowUp className="w-5 h-5 group-hover:-translate-y-1 transition-transform" />
             </motion.button>
           )}
         </AnimatePresence>
@@ -794,13 +698,16 @@ export default function About() {
 
                 {/* Actions sit in the primary reading path rather than below the
                     fold in a sidebar — the CV is the thing recruiters need most. */}
-                <div className="flex flex-wrap items-center gap-3 mt-7">
+                {/* Mobile: CV spans the full row as the primary action, the two
+                    secondary actions split the row beneath — avoids the orphaned
+                    third button that flex-wrap produced. Desktop: one inline row. */}
+                <div className="mt-7 grid grid-cols-2 gap-2.5 sm:flex sm:flex-wrap sm:items-center sm:gap-3">
                   <motion.a
                     whileHover={{ scale: 1.03, y: -2 }}
                     whileTap={{ scale: 0.98 }}
                     href="/Swami-Guru-CV.pdf"
                     download="Swami-Guru-CV.pdf"
-                    className="inline-flex items-center gap-2.5 bg-m3-primary text-m3-on-primary font-display font-bold px-5 py-3 rounded-m3-full text-sm tracking-wide shadow-sm hover:m3-elevation-1-shadow transition-all"
+                    className="col-span-2 sm:col-span-1 inline-flex items-center justify-center gap-2 bg-m3-primary text-m3-on-primary font-display font-bold px-5 py-3 rounded-m3-full text-[13px] sm:text-sm tracking-wide shadow-sm hover:m3-elevation-1-shadow transition-all"
                   >
                     <Download className="w-4 h-4" /> Download CV
                   </motion.a>
@@ -810,7 +717,7 @@ export default function About() {
                     href="https://www.linkedin.com/in/swaminathanguru/"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2.5 bg-m3-secondary-container text-m3-on-secondary-container font-display font-bold px-5 py-3 rounded-m3-full text-sm tracking-wide hover:m3-elevation-1 transition-all"
+                    className="inline-flex items-center justify-center gap-2 bg-m3-secondary-container text-m3-on-secondary-container font-display font-bold px-4 sm:px-5 py-3 rounded-m3-full text-[13px] sm:text-sm tracking-wide hover:m3-elevation-1 transition-all"
                   >
                     <Linkedin className="w-4 h-4" /> LinkedIn
                   </motion.a>
@@ -818,7 +725,7 @@ export default function About() {
                     whileHover={{ scale: 1.03, y: -2 }}
                     whileTap={{ scale: 0.98 }}
                     href="mailto:swami.2580@gmail.com"
-                    className="inline-flex items-center gap-2.5 border border-m3-outline/30 text-m3-on-surface font-display font-bold px-5 py-3 rounded-m3-full text-sm tracking-wide hover:bg-m3-surface-variant transition-all"
+                    className="inline-flex items-center justify-center gap-2 border border-m3-outline/30 text-m3-on-surface font-display font-bold px-4 sm:px-5 py-3 rounded-m3-full text-[13px] sm:text-sm tracking-wide hover:bg-m3-surface-variant transition-all"
                   >
                     <Mail className="w-4 h-4" /> Email
                   </motion.a>
@@ -937,7 +844,7 @@ export default function About() {
                     {exp.impact.map((ki, kii) => (
                       <div key={kii} className="flex gap-2.5 items-start">
                         <div className="w-1.5 h-1.5 rounded-full bg-m3-primary mt-1.5 shrink-0" />
-                        <p className="text-[13px] font-bold text-m3-on-surface leading-snug">{linkifyProducts(ki)}</p>
+                        <p className="text-[13px] font-semibold text-m3-on-surface leading-snug">{richText(ki)}</p>
                       </div>
                     ))}
                   </div>
@@ -979,7 +886,7 @@ export default function About() {
                       <p key={hi} className="text-[13px] leading-relaxed text-m3-on-surface-variant font-medium">
                         <span className="font-bold text-m3-on-surface">{h.title}</span>
                         <span className="text-m3-primary"> — </span>
-                        {linkifyProducts(h.detail)}
+                        {richText(h.detail)}
                       </p>
                     ))}
                   </div>
@@ -988,7 +895,7 @@ export default function About() {
                     {exp.highlights.map((h, hi) => (
                       <div key={hi} className="bg-m3-surface p-5 rounded-[20px] border border-m3-outline/5 hover:border-m3-primary/20 transition-all shadow-sm">
                         <h5 className="font-bold text-[14px] mb-1.5 text-m3-on-surface leading-snug">{h.title}</h5>
-                        <p className="text-[13px] leading-relaxed text-m3-on-surface-variant font-medium">{linkifyProducts(h.detail)}</p>
+                        <p className="text-[13px] leading-relaxed text-m3-on-surface-variant font-medium">{richText(h.detail)}</p>
                       </div>
                     ))}
                   </div>
