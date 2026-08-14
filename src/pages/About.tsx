@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { motion, AnimatePresence, useScroll, useTransform, useSpring } from "motion/react";
+import { motion, AnimatePresence, useScroll, useSpring } from "motion/react";
 import {
   ArrowUpRight,
   Linkedin,
@@ -51,7 +51,6 @@ interface ExperienceItem {
    *  project bullets can't carry on their own. */
   portfolio?: {
     label: string;
-    stats: { value: string; label: string }[];
     themes: string[];
   };
   impact: string[];
@@ -116,13 +115,7 @@ const EXPERIENCE: ExperienceItem[] = [
     website: "https://www.condenast.com",
     context: "Vogue · GQ · Wired · Condé Nast Traveller · Architectural Digest — US, EMEA, LATAM, APAC, Middle East",
     portfolio: {
-      label: "Portfolio 2024–26",
-      stats: [
-        { value: "14", label: "Projects" },
-        { value: "10+", label: "Markets" },
-        { value: "6", label: "New revenue lines" },
-        { value: "$20M+", label: "Revenue delivered" }
-      ],
+      label: "Portfolio 2024–26 · 14 projects, 10+ markets, 6 new revenue lines",
       themes: [
         "Global Brand Expansion",
         "New Revenue Lines",
@@ -168,14 +161,9 @@ const EXPERIENCE: ExperienceItem[] = [
           "Designed and shipped interactive sponsor modules and new editorial storytelling formats to elevate the reading experience — driving an 8% lift in sponsorship revenue and a 12% increase in time spent on site."
       },
       {
-        title: "Platform Growth",
+        title: "Platform Migration & Technical SEO",
         detail:
-          "Orchestrated the migration of Condé Nast Traveller Spain and LATAM onto a unified Spanish-language platform, growing addressable reach to 56.6M unique users."
-      },
-      {
-        title: "Technical SEO & Migration",
-        detail:
-          "Executed large-scale platform migrations for Vogue, GQ, Wired and Architectural Digest with 100% SEO integrity and zero revenue loss, leading cross-functional Agile squads across Engineering and Design."
+          "Executed large-scale migrations for Vogue, GQ, Wired and Architectural Digest with 100% SEO integrity and zero revenue loss, and consolidated Condé Nast Traveller Spain and LATAM onto one Spanish-language platform reaching 56.6M unique users — leading cross-functional Agile squads across Engineering and Design throughout."
       }
     ],
     technologies: ["Team Leadership", "Enterprise CMS", "Generative AI", "Technical SEO", "Global Migrations", "P&L Ownership"]
@@ -519,16 +507,6 @@ export default function About() {
   const skillsSectionRef = useRef<HTMLDivElement>(null);
   const workSectionRef = useRef<HTMLDivElement>(null);
 
-  const { scrollYProgress: skillsScroll } = useScroll({
-    target: skillsSectionRef,
-    offset: ["start end", "end start"]
-  });
-
-  const { scrollYProgress: workScroll } = useScroll({
-    target: workSectionRef,
-    offset: ["start end", "end start"]
-  });
-
   const { scrollYProgress: workScrollProgressRaw } = useScroll({
     target: workSectionRef,
     offset: ["start start", "end end"]
@@ -539,9 +517,6 @@ export default function About() {
     damping: 30,
     restDelta: 0.001
   });
-
-  const skillsParallax = useTransform(skillsScroll, [0, 1], [0, 60]);
-  const workParallax = useTransform(workScroll, [0, 1], [0, 60]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -657,7 +632,7 @@ export default function About() {
                 </div>
 
                 <div className="flex flex-col">
-                  <span className="font-display text-[11px] font-bold uppercase tracking-wider text-m3-primary/60">Currently</span>
+                  <span className="font-display text-[11px] font-bold uppercase tracking-wider text-m3-primary/60">Currently · since May 2026</span>
                   <span className="text-sm font-bold mb-1">Independent Product Builder</span>
                   <p className="text-[13px] leading-relaxed text-m3-on-secondary-container/70 font-medium">
                     Building and shipping products solo, AI-native, in public.
@@ -693,8 +668,25 @@ export default function About() {
                   I turn complex platforms into <span className="text-m3-primary font-bold px-2 bg-m3-primary-container/30 rounded-lg">growth engines</span> — lifting engagement, accelerating revenue, and shipping at half the time-to-market.
                 </span>
                 <p className="text-sm font-medium text-m3-on-surface-variant max-w-xl leading-relaxed">
-                  11+ years in product across Vogue, GQ, Wired, Condé Nast Traveller, Architectural Digest and Newsweek — including new brand launches in the Middle East and Germany.
+                  Across Vogue, GQ, Wired, Condé Nast Traveller, Architectural Digest and Newsweek — including new brand launches in the Middle East and Germany.
                 </p>
+
+                {/* Scope, stated high. "Ran a portfolio" is a different claim from
+                    "shipped things", and it was previously only visible several
+                    screens down inside the Condé Nast card. */}
+                <div className="flex flex-wrap items-center gap-x-3 gap-y-2 mt-5">
+                  {[
+                    { v: "11+", l: "years in product" },
+                    { v: "14", l: "projects" },
+                    { v: "10+", l: "markets" },
+                    { v: "6", l: "new revenue lines" }
+                  ].map((s, i) => (
+                    <span key={i} className="inline-flex items-baseline gap-1.5 bg-m3-surface-variant/60 border border-m3-outline/10 rounded-m3-full px-3.5 py-1.5">
+                      <span className="display text-sm font-extrabold text-m3-primary">{s.v}</span>
+                      <span className="text-[12px] font-semibold text-m3-on-surface-variant">{s.l}</span>
+                    </span>
+                  ))}
+                </div>
 
                 {/* Actions sit in the primary reading path rather than below the
                     fold in a sidebar — the CV is the thing recruiters need most. */}
@@ -738,7 +730,7 @@ export default function About() {
               {[
                 { val: "$20M+", label: "NET-NEW REVENUE", container: "bg-m3-primary-container/20", text: "text-m3-on-primary-container" },
                 { val: "30%+", label: "ENGAGEMENT LIFT", container: "bg-m3-secondary-container/20", text: "text-m3-on-secondary-container" },
-                { val: "50%", label: "TIME-TO-MARKET", container: "bg-m3-tertiary-container/20", text: "text-m3-on-tertiary-container" },
+                { val: "50%", label: "TIME-TO-MARKET CUT", container: "bg-m3-tertiary-container/20", text: "text-m3-on-tertiary-container" },
                 { val: "100%", label: "SEO RETAINED", container: "bg-m3-primary-container/20", text: "text-m3-on-primary-container" }
               ].map((stat, i) => (
                 <div
@@ -761,19 +753,16 @@ export default function About() {
               className="h-full bg-m3-secondary"
             />
           </div>
-          <motion.div
-            style={{ y: workParallax }}
-            className="py-8 px-6 md:py-12 md:px-10 bg-m3-secondary text-m3-on-secondary flex justify-center items-center overflow-hidden relative z-10"
-          >
-            <span className="absolute right-0 top-1/2 -translate-y-1/2 text-8xl font-black opacity-5 select-none pointer-events-none display whitespace-nowrap">
-              TIMELINE • TIMELINE • TIMELINE
+          <div className="px-6 md:px-10 lg:px-12 pt-10 md:pt-12">
+            <span className="font-display text-[10px] font-extrabold uppercase tracking-[0.35em] text-m3-primary block mb-3">
+              Experience
             </span>
-            <span className="display text-[11px] md:text-sm uppercase tracking-[0.25em] md:tracking-[0.4em] font-bold relative z-10">
-              Professional Trajectory
-            </span>
-          </motion.div>
+            <h3 className="display text-2xl md:text-4xl font-extrabold tracking-tighter uppercase text-m3-on-surface">
+              Professional trajectory
+            </h3>
+          </div>
 
-          <div className="flex-1 space-y-8 md:space-y-10 p-5 md:p-10 lg:p-12">
+          <div className="flex-1 space-y-8 md:space-y-10 p-5 md:p-10 lg:p-12 pt-8 md:pt-8">
             {EXPERIENCE.map((exp, i) => (
               <motion.div
                 key={i}
@@ -855,19 +844,7 @@ export default function About() {
                     <span className="font-display text-[10px] font-extrabold uppercase tracking-[0.3em] text-m3-on-surface-variant/60 block mb-4">
                       {exp.portfolio.label}
                     </span>
-                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">
-                      {exp.portfolio.stats.map((s, si) => (
-                        <div key={si} className="flex flex-col">
-                          <span className="display text-2xl md:text-3xl font-extrabold tracking-tighter text-m3-primary leading-none">
-                            {s.value}
-                          </span>
-                          <span className="font-display text-[9px] md:text-[10px] font-bold uppercase tracking-widest text-m3-on-surface-variant/70 mt-1.5">
-                            {s.label}
-                          </span>
-                        </div>
-                      ))}
-                    </div>
-                    <div className="flex flex-wrap gap-1.5 pt-4 border-t border-m3-outline/10">
+                    <div className="flex flex-wrap gap-1.5">
                       {exp.portfolio.themes.map((t, ti) => (
                         <span key={ti} className="text-[11px] font-semibold text-m3-on-surface-variant bg-m3-surface-variant/60 px-2.5 py-1 rounded-m3-md border border-m3-outline/5">
                           {t}
@@ -1028,14 +1005,16 @@ export default function About() {
 
         {/* ============ TOOLKIT (condensed) ============ */}
         <section id="skills" ref={skillsSectionRef} className="flex flex-col bg-m3-surface border-b border-m3-outline/10 shrink-0 overflow-hidden relative">
-          <motion.div
-            style={{ y: skillsParallax }}
-            className="py-8 px-6 md:py-12 md:px-10 bg-m3-primary text-m3-on-primary display text-[11px] md:text-sm uppercase tracking-[0.25em] md:tracking-[0.4em] font-bold text-center z-10 relative"
-          >
-            How I Work
-          </motion.div>
+          <div className="px-6 md:px-10 lg:px-12 pt-10 md:pt-12">
+            <span className="font-display text-[10px] font-extrabold uppercase tracking-[0.35em] text-m3-primary block mb-3">
+              Capability
+            </span>
+            <h3 className="display text-2xl md:text-4xl font-extrabold tracking-tighter uppercase text-m3-on-surface">
+              How I work
+            </h3>
+          </div>
 
-          <div className="px-6 md:px-10 lg:px-12 py-10 md:py-12 space-y-10">
+          <div className="px-6 md:px-10 lg:px-12 pt-8 pb-10 md:pb-12 space-y-10">
             {/* AI-native proof — the three claims that carry numbers */}
             <div>
               <span className="font-display text-[10px] font-extrabold uppercase tracking-[0.35em] text-m3-primary block mb-6">
@@ -1091,10 +1070,10 @@ export default function About() {
               <span className="font-display text-[10px] font-extrabold uppercase tracking-[0.35em] text-m3-primary block mb-5">
                 Tools
               </span>
-              <div className="space-y-5">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-10">
                 {TOOLS.map((t, i) => (
-                  <div key={i} className="flex flex-col md:flex-row md:items-baseline gap-2 md:gap-5 py-3 border-t border-m3-outline/10">
-                    <span className="font-display text-[10px] font-bold uppercase tracking-widest text-m3-on-surface-variant/60 md:w-[190px] shrink-0 pt-1">
+                  <div key={i} className="flex flex-col gap-2 py-3 border-t border-m3-outline/10">
+                    <span className="font-display text-[10px] font-bold uppercase tracking-widest text-m3-on-surface-variant/60">
                       {t.group}
                     </span>
                     <div className="flex flex-wrap gap-2">
@@ -1117,21 +1096,14 @@ export default function About() {
               <span className="font-display text-[10px] font-extrabold uppercase tracking-[0.35em] text-m3-primary block mb-5">
                 Certifications & Education
               </span>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {CREDENTIALS.map((c, i) => {
-                  const CIcon = c.icon;
-                  return (
-                    <div key={i} className="flex items-center gap-4 bg-m3-surface-variant/50 p-5 rounded-[22px] border border-m3-outline/5">
-                      <div className="w-11 h-11 bg-m3-secondary-container text-m3-on-secondary-container rounded-full flex items-center justify-center shrink-0">
-                        <CIcon className="w-5 h-5" />
-                      </div>
-                      <div className="min-w-0">
-                        <div className="font-bold text-sm text-m3-on-surface leading-snug">{c.title}</div>
-                        <div className="text-[12px] text-m3-on-surface-variant font-medium mt-0.5">{c.issuer}</div>
-                      </div>
-                    </div>
-                  );
-                })}
+              <div className="flex flex-col sm:flex-row sm:flex-wrap gap-x-8 gap-y-2 pt-3 border-t border-m3-outline/10">
+                {CREDENTIALS.map((cred, i) => (
+                  <p key={i} className="text-[13px] text-m3-on-surface-variant font-medium">
+                    <span className="font-bold text-m3-on-surface">{cred.title}</span>
+                    <span className="text-m3-primary"> — </span>
+                    {cred.issuer}
+                  </p>
+                ))}
               </div>
             </div>
           </div>
