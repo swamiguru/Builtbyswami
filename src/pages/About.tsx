@@ -12,14 +12,12 @@ import {
   Cpu,
   Layers,
   Sparkles,
-  Zap,
   Globe,
   Code2,
   ArrowUp,
   Download,
   Timer,
   Award,
-  Rocket,
   BookOpen
 } from "lucide-react";
 import { useState, useRef, useEffect } from "react";
@@ -80,7 +78,7 @@ const EXPERIENCE: ExperienceItem[] = [
       "Shipped three live products solo — BuiltBySwami.com, Free Word Tool and Adda.",
       "Took a full task-management engine from empty repo to working app in 24 hours.",
       "Built and instrumented a daily-publishing content platform end to end.",
-      "Ran a self-initiated portfolio audit for a major global media brand."
+      "Audited a major global media brand across Editorial, Audience, Commerce and SEO."
     ],
     highlights: [
       {
@@ -394,29 +392,6 @@ const TOOLS = [
   }
 ];
 
-const AI_PROOF = [
-  {
-    metric: "50%",
-    label: "Time-to-market",
-    detail:
-      "Operationalised AI across the product lifecycle at Condé Nast — from discovery to shipped MVP — halving time-to-market on global property deployments.",
-    icon: Zap
-  },
-  {
-    metric: "30%",
-    label: "Prototyping cycles",
-    detail:
-      "Cut prototyping cycles by validating product bets with users before committing engineering resource, not after.",
-    icon: Rocket
-  },
-  {
-    metric: "24 hrs",
-    label: "Repo to working app",
-    detail:
-      "A full task-management engine built solo in a single day by writing the product context upfront and directing AI tools in tight build-review loops.",
-    icon: Timer
-  }
-];
 
 /**
  * Hand-picked rather than "latest": these are the pieces that show product
@@ -858,7 +833,7 @@ export default function About() {
                 </div>
 
                 {/* Impact — 4 across at desktop so it reads as one band */}
-                <div className="bg-m3-primary-container/30 rounded-[20px] p-5 md:p-6 border border-m3-primary/10 mb-6">
+                <div className="bg-m3-surface rounded-[20px] p-5 md:p-6 border border-m3-outline/10 shadow-sm mb-6">
                   <div className="flex items-center gap-3 mb-4">
                     <Sparkles className="w-4 h-4 text-m3-primary shrink-0" />
                     <h4 className="display font-extrabold text-[10px] uppercase tracking-widest text-m3-primary">
@@ -970,14 +945,14 @@ export default function About() {
                   target="_blank"
                   rel="noopener noreferrer"
                   whileHover={{ y: -6 }}
-                  className="bg-m3-surface p-6 md:p-7 rounded-[28px] border border-m3-outline/5 hover:border-m3-primary/30 shadow-sm hover:shadow-xl transition-all group block"
+                  className="bg-m3-surface p-6 md:p-7 rounded-[24px] border border-m3-outline/5 hover:border-m3-primary/30 shadow-sm hover:shadow-xl transition-all group block"
                 >
                   {inner}
                 </motion.a>
               ) : (
                 <div
                   key={i}
-                  className="bg-m3-surface p-6 md:p-7 rounded-[28px] border border-m3-outline/5 shadow-sm group"
+                  className="bg-m3-surface p-6 md:p-7 rounded-[24px] border border-m3-outline/5 shadow-sm group"
                 >
                   {inner}
                 </div>
@@ -1051,39 +1026,6 @@ export default function About() {
           </div>
 
           <div className="px-6 md:px-10 lg:px-12 pt-8 pb-10 md:pb-12 space-y-10">
-            {/* AI-native proof — the three claims that carry numbers */}
-            <div>
-              <span className="font-display text-[10px] font-extrabold uppercase tracking-[0.35em] text-m3-primary block mb-6">
-                AI-Native Delivery
-              </span>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-                {AI_PROOF.map((p, i) => {
-                  const PIcon = p.icon;
-                  return (
-                    <motion.div
-                      key={i}
-                      initial={{ opacity: 0, y: 20 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      viewport={{ once: true, margin: "-40px" }}
-                      transition={{ duration: 0.5, delay: i * 0.08 }}
-                      className="bg-m3-surface-variant/50 p-6 rounded-[26px] border border-m3-outline/5 hover:border-m3-primary/25 transition-all"
-                    >
-                      <div className="flex items-center gap-3 mb-4">
-                        <div className="w-10 h-10 bg-m3-primary text-m3-on-primary rounded-[13px] flex items-center justify-center shrink-0">
-                          <PIcon className="w-5 h-5" />
-                        </div>
-                        <div className="min-w-0">
-                          <div className="display text-2xl font-extrabold tracking-tighter text-m3-primary leading-none">{p.metric}</div>
-                          <div className="font-display text-[9px] font-bold uppercase tracking-widest text-m3-on-surface-variant/70 mt-1">{p.label}</div>
-                        </div>
-                      </div>
-                      <p className="text-[13px] leading-relaxed text-m3-on-surface-variant font-medium">{p.detail}</p>
-                    </motion.div>
-                  );
-                })}
-              </div>
-            </div>
-
             {/* Core competencies — chips */}
             <div>
               <span className="font-display text-[10px] font-extrabold uppercase tracking-[0.35em] text-m3-primary block mb-5">
@@ -1150,7 +1092,7 @@ export default function About() {
             duplicated the BuiltBySwami highlights almost verbatim, and the prose
             beside it was generic. What's left is the one claim that is actually
             mine, in my own words, at a third of the height. */}
-        <section className="bg-m3-primary text-m3-on-primary px-6 md:px-12 lg:px-14 py-12 md:py-16 relative overflow-hidden">
+        <section className="bg-m3-primary text-m3-on-primary px-6 md:px-10 lg:px-12 py-10 md:py-12 relative overflow-hidden">
           <div className="absolute top-0 right-0 opacity-10 pointer-events-none">
             <Cpu className="w-56 h-56 md:w-80 md:h-80 -mr-14 -mt-14 rotate-12" />
           </div>
