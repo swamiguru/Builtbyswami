@@ -583,7 +583,7 @@ export default function About() {
         {/* Top Section: Sidebar + Hero */}
         <div className="flex flex-col md:flex-row border-b border-m3-outline/10">
           {/* Sidebar: Identity */}
-          <aside className="order-2 md:order-1 w-full md:w-[360px] border-t md:border-t-0 md:border-r border-m3-outline/10 p-6 md:p-8 flex flex-col justify-center bg-m3-secondary-container shrink-0">
+          <aside className="w-full md:w-[360px] border-b md:border-b-0 md:border-r border-m3-outline/10 p-6 md:p-8 flex flex-col justify-center bg-m3-secondary-container shrink-0">
             <div className="space-y-6">
               <div className="flex items-center gap-4">
                 <img
@@ -682,7 +682,7 @@ export default function About() {
           </aside>
 
           {/* Right Content: Hero + Stats */}
-          <div className="order-1 md:order-2 flex-1 flex flex-col shrink-0 bg-m3-surface">
+          <div className="flex-1 flex flex-col shrink-0 bg-m3-surface">
             <section className="flex-1 border-b border-m3-outline/10 p-6 md:p-10 flex flex-col justify-center relative overflow-hidden">
               <div className="absolute top-0 right-0 w-80 h-80 bg-m3-primary/5 rounded-full -mr-20 -mt-20 blur-3xl"></div>
               <div className="max-w-2xl relative z-10">
