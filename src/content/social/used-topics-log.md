@@ -106,4 +106,7 @@
 2026-08-12 | 1 | Phones | Google Pixel 11 / Made by Google | Pixel 11 launches TODAY (Aug 12) — first 2nm Tensor G6 (TSMC GAA), 'Pixel Glow' RGB alert light, 4 models from $899 (~₹90k, India same day), Pixel Watch 5 (OFFICIAL launch day, 7d after Aug 5 preview)
 2026-08-12 | 2 | Global tech / Phones | Honor Robot Phone | Launches TODAY (Aug 12, China-only) — world's first 'Robot Phone': pop-out titanium 4-DOF gimbal camera arm (~0.8s, 360° auto-track), 200MP main + 200MP periscope, ARRI Log-C, Snapdragon 8 Elite, AgenticOS (neutral product framing; global price/date TBD)
 2026-08-12 | 4 | Myth-buster / Cameras | Phone zoom numbers | '100x zoom = 100x clearer' busted — only optical/periscope zoom (3-5x) is real glass; beyond that is digital crop + AI upscaling ('space zoom' faked)
-2026-08-12 | 5 | Community / Poll | Pixel 11 vs Honor Robot Phone launch-day poll | Which of today's two launches excites you more (Threads+X, no card)
+2026-08-12 | 5 | Community / Poll | Pixel 11 vs Honor Robot Phone launch-day poll | Which of today's two launches excites you more (Threads+X, no card)2026-08-14 | 1 | AI / Global tech | DeepSeek V4-Pro | V4-Pro-0813 open-weight near-frontier model drops Aug 13, fraction of cost (neutral product framing)
+2026-08-14 | 2 | Apps / Social | Instagram grid + Highlights | Drag-reorder grid + add to Highlights without posting a Story
+2026-08-14 | 4 | Comparison / Phones | Refurbished vs New phone | Buyer comparison, certified-refurb-flagship verdict (IG pick)
+2026-08-14 | 5 | AI workflow | Prompt of the day — brain-dump to plan | Turn brain-dump into P1/P2/P3 prioritized plan w/ time estimates
