@@ -50,7 +50,7 @@ export default function NewsletterStrip() {
     <div className="relative z-20 bg-m3-primary text-m3-on-primary">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 py-2.5">
-          <div className="flex items-center gap-2 shrink-0">
+          <div className="flex items-center gap-2 shrink-0 pr-9 sm:pr-0">
             <Sparkles
               className="w-4 h-4 shrink-0 text-m3-on-primary/80"
               aria-hidden="true"
@@ -97,7 +97,7 @@ export default function NewsletterStrip() {
             type="button"
             onClick={dismiss}
             aria-label="Dismiss newsletter banner"
-            className="absolute right-2 top-1/2 -translate-y-1/2 sm:static sm:translate-y-0 shrink-0 p-1.5 rounded-full hover:bg-m3-on-primary/10 transition-colors"
+            className="absolute right-1 top-1 sm:static shrink-0 p-2 rounded-full hover:bg-m3-on-primary/10 transition-colors"
           >
             <X className="w-4 h-4" aria-hidden="true" />
           </button>
