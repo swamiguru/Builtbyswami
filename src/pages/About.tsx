@@ -614,15 +614,15 @@ export default function About() {
                   className="w-[72px] h-[72px] rounded-full object-cover shadow-sm ring-2 ring-m3-primary/25 shrink-0"
                 />
                 <div className="min-w-0">
-                  <p className="display text-xl md:text-2xl font-extrabold tracking-tight text-m3-on-secondary-container leading-none">
+                  <h1 className="display text-xl md:text-2xl font-extrabold tracking-tight text-m3-on-secondary-container leading-none">
                     Swami Guru
-                  </p>
+                  </h1>
                   <div className="w-10 h-1.5 bg-m3-primary rounded-full mt-2.5" />
                 </div>
               </div>
               <div className="flex flex-col gap-1 relative group/title select-none">
                 <div className="flex items-start gap-4">
-                  <h2 className="display text-4xl md:text-5xl leading-[0.85] font-bold tracking-tighter uppercase text-m3-on-secondary-container relative">
+                  <p className="display text-4xl md:text-5xl leading-[0.85] font-bold tracking-tighter uppercase text-m3-on-secondary-container relative">
                     <span className="block relative group-hover/title:text-m3-primary transition-colors duration-500">
                       PRODUCT
                     </span>
@@ -634,7 +634,7 @@ export default function About() {
                         className="inline-block w-[12px] h-[36px] bg-m3-primary ml-1 align-middle translate-y-[-2px]"
                       />
                     </span>
-                  </h2>
+                  </p>
 
                   <div className="mt-2 flex flex-col items-center">
                     <motion.div
@@ -768,9 +768,9 @@ export default function About() {
             <span className="font-display text-[10px] font-extrabold uppercase tracking-[0.35em] text-m3-primary block mb-3">
               Experience
             </span>
-            <h3 className="display text-2xl md:text-4xl font-extrabold tracking-tighter uppercase text-m3-on-surface">
+            <h2 className="display text-2xl md:text-4xl font-extrabold tracking-tighter uppercase text-m3-on-surface">
               Professional trajectory
-            </h3>
+            </h2>
           </div>
 
           <div className="flex-1 space-y-8 md:space-y-10 p-5 md:p-10 lg:p-12 pt-8 md:pt-8">
@@ -882,7 +882,7 @@ export default function About() {
                   <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
                     {exp.highlights.map((h, hi) => (
                       <div key={hi} className="bg-m3-surface p-5 rounded-[20px] border border-m3-outline/5 hover:border-m3-primary/20 transition-all shadow-sm">
-                        <h5 className="font-bold text-[14px] mb-1.5 text-m3-on-surface leading-snug">{h.title}</h5>
+                        <h4 className="font-bold text-[14px] mb-1.5 text-m3-on-surface leading-snug">{h.title}</h4>
                         <p className="text-[13px] leading-relaxed text-m3-on-surface-variant font-medium">{richText(h.detail)}</p>
                       </div>
                     ))}
@@ -908,9 +908,9 @@ export default function About() {
               <span className="font-display text-[10px] font-extrabold uppercase tracking-[0.35em] text-m3-primary block mb-3">
                 Selected Work
               </span>
-              <h3 className="display text-2xl md:text-4xl font-extrabold tracking-tighter uppercase text-m3-on-surface">
+              <h2 className="display text-2xl md:text-4xl font-extrabold tracking-tighter uppercase text-m3-on-surface">
                 Shipped solo
-              </h3>
+              </h2>
             </div>
             <p className="text-sm text-m3-on-surface-variant font-medium max-w-sm">
               Products taken from brief to production single-handedly — AI tools as build partners, not autocomplete.
@@ -930,10 +930,10 @@ export default function About() {
                       {b.status}
                     </span>
                   </div>
-                  <h4 className="display text-xl font-extrabold tracking-tight text-m3-on-surface mb-2 flex items-center gap-2">
+                  <h3 className="display text-xl font-extrabold tracking-tight text-m3-on-surface mb-2 flex items-center gap-2">
                     {b.name}
                     {b.url && <ArrowUpRight className="w-4 h-4 text-m3-primary opacity-60 group-hover:opacity-100 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 transition-all" />}
-                  </h4>
+                  </h3>
                   <p className="text-[13px] leading-relaxed text-m3-on-surface-variant font-medium">{b.detail}</p>
                 </>
               );
@@ -968,9 +968,9 @@ export default function About() {
               <span className="font-display text-[10px] font-extrabold uppercase tracking-[0.35em] text-m3-primary block mb-3">
                 Writing
               </span>
-              <h3 className="display text-2xl md:text-4xl font-extrabold tracking-tighter uppercase text-m3-on-surface">
+              <h2 className="display text-2xl md:text-4xl font-extrabold tracking-tighter uppercase text-m3-on-surface">
                 How I think
-              </h3>
+              </h2>
             </div>
             <Link
               to="/notes"
@@ -998,9 +998,9 @@ export default function About() {
                         {note.readMinutes} min
                       </span>
                     </div>
-                    <h4 className="font-display font-extrabold text-[15px] leading-snug text-m3-on-surface mb-2.5 line-clamp-3">
+                    <h3 className="font-display font-extrabold text-[15px] leading-snug text-m3-on-surface mb-2.5 line-clamp-3">
                       {note.title}
-                    </h4>
+                    </h3>
                     <p className="text-[13px] leading-relaxed text-m3-on-surface-variant font-medium line-clamp-4">
                       {note.description}
                     </p>
@@ -1020,9 +1020,9 @@ export default function About() {
             <span className="font-display text-[10px] font-extrabold uppercase tracking-[0.35em] text-m3-primary block mb-3">
               Capability
             </span>
-            <h3 className="display text-2xl md:text-4xl font-extrabold tracking-tighter uppercase text-m3-on-surface">
+            <h2 className="display text-2xl md:text-4xl font-extrabold tracking-tighter uppercase text-m3-on-surface">
               How I work
-            </h3>
+            </h2>
           </div>
 
           <div className="px-6 md:px-10 lg:px-12 pt-8 pb-10 md:pb-12 space-y-10">
@@ -1101,9 +1101,9 @@ export default function About() {
             <span className="font-display text-[10px] font-extrabold uppercase tracking-[0.35em] text-m3-on-primary/60 block mb-4">
               Point of View
             </span>
-            <h3 className="display text-2xl md:text-4xl font-extrabold tracking-tighter leading-[1.05] mb-5">
+            <h2 className="display text-2xl md:text-4xl font-extrabold tracking-tighter leading-[1.05] mb-5">
               The barrier between idea and execution has collapsed
-            </h3>
+            </h2>
             <p className="text-base md:text-lg font-medium leading-relaxed opacity-90 mb-8 max-w-2xl">
               Context — not syntax — is the new bottleneck. But the method has a load-bearing
               assumption I only noticed building something with no job to do: it runs on a
@@ -1124,9 +1124,9 @@ export default function About() {
         <section className="bg-m3-surface px-6 md:px-10 lg:px-12 py-10 md:py-12 border-t border-m3-outline/10">
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-8">
             <div className="max-w-lg">
-              <h3 className="display text-2xl md:text-4xl font-extrabold tracking-tighter uppercase text-m3-on-surface mb-3">
+              <h2 className="display text-2xl md:text-4xl font-extrabold tracking-tighter uppercase text-m3-on-surface mb-3">
                 Let&rsquo;s build something
-              </h3>
+              </h2>
               <p className="text-sm md:text-base text-m3-on-surface-variant font-medium leading-relaxed">
                 Open to product leadership roles and interesting problems. Bengaluru-based, working globally.
               </p>
