@@ -536,6 +536,75 @@ function ActionRow({ className = "" }: { className?: string }) {
   );
 }
 
+const HOME_TZ = "Asia/Kolkata";
+
+/**
+ * Swami's local time — not the visitor's. Someone in London deciding whether to
+ * reach out actually wants to know when he's awake, so this is useful before
+ * it's charming.
+ *
+ * The phase label is the deliberate part: Adda is built on the idea that a
+ * place feels different under its own sky and its own clock, and "golden hour"
+ * is the same hour that product opens on. The page and the product argue the
+ * same thing.
+ */
+function LocalTime() {
+  const [now, setNow] = useState(() => new Date());
+
+  useEffect(() => {
+    let timer: number;
+    // Tick on the real minute boundary rather than every 60s from mount, so the
+    // displayed minute never drifts behind a clock the visitor can see.
+    const schedule = () => {
+      timer = window.setTimeout(() => {
+        setNow(new Date());
+        schedule();
+      }, 60000 - (Date.now() % 60000));
+    };
+    schedule();
+    return () => window.clearTimeout(timer);
+  }, []);
+
+  const time = new Intl.DateTimeFormat("en-GB", {
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: false,
+    timeZone: HOME_TZ
+  }).format(now);
+
+  const hour =
+    Number(
+      new Intl.DateTimeFormat("en-GB", {
+        hour: "2-digit",
+        hour12: false,
+        timeZone: HOME_TZ
+      }).format(now)
+    ) % 24;
+
+  const { label, dim } =
+    hour < 5
+      ? { label: "late night", dim: "opacity-35" }
+      : hour < 12
+        ? { label: "morning", dim: "opacity-75" }
+        : hour < 17
+          ? { label: "afternoon", dim: "opacity-100" }
+          : hour < 20
+            ? { label: "golden hour", dim: "opacity-100" }
+            : { label: "evening", dim: "opacity-55" };
+
+  return (
+    <span
+      className="mt-1.5 inline-flex items-center gap-1.5 text-[11px] font-medium text-m3-on-secondary-container/60"
+      title={`Swami's local time in Bengaluru — ${label}`}
+    >
+      <span className={`w-1.5 h-1.5 rounded-full bg-m3-primary shrink-0 ${dim}`} aria-hidden="true" />
+      <span>
+        {time} <span className="opacity-70">· {label}</span>
+      </span>
+    </span>
+  );
+}
+
 export default function About() {
   useEffect(() => {
     document.title = "Swami Guru | Senior Product Leader & AI-Native Product Builder";
@@ -693,6 +762,7 @@ export default function About() {
                     <span className="text-[13px] font-semibold flex items-center gap-1.5 leading-snug">
                       <MapPin className="w-3.5 h-3.5 text-m3-primary shrink-0" /> Bengaluru, India
                     </span>
+                    <LocalTime />
                   </div>
                 </div>
 
