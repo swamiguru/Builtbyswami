@@ -496,6 +496,71 @@ function richText(text: string) {
   });
 }
 
+/**
+ * The contact actions appear twice — hero and closing CTA. Defining them once
+ * means order, labels, icons, hierarchy and sizing can't drift apart between
+ * the two placements, which is exactly what had happened.
+ *
+ * Mobile: the primary action keeps its label and flexes to fill; the two
+ * secondary actions collapse to 48px icon buttons. Full labels from sm up.
+ */
+const ACTIONS = [
+  {
+    label: "Download CV",
+    href: "/Swami-Guru-CV.pdf",
+    icon: Download,
+    download: "Swami-Guru-CV.pdf",
+    variant: "primary" as const
+  },
+  {
+    label: "LinkedIn",
+    href: "https://www.linkedin.com/in/swaminathanguru/",
+    icon: Linkedin,
+    external: true,
+    variant: "tonal" as const
+  },
+  {
+    label: "Email",
+    href: "mailto:swami.2580@gmail.com",
+    icon: Mail,
+    variant: "outlined" as const
+  }
+];
+
+const ACTION_VARIANTS = {
+  primary: "bg-m3-primary text-m3-on-primary shadow-sm hover:m3-elevation-1-shadow",
+  tonal: "bg-m3-secondary-container text-m3-on-secondary-container hover:m3-elevation-1",
+  outlined: "border border-m3-outline/30 text-m3-on-surface hover:bg-m3-surface-variant"
+};
+
+function ActionRow({ className = "" }: { className?: string }) {
+  return (
+    <div className={`flex items-center gap-2 sm:gap-3 ${className}`}>
+      {ACTIONS.map((a, i) => {
+        const Icon = a.icon;
+        const isPrimary = i === 0;
+        return (
+          <motion.a
+            key={a.label}
+            whileHover={{ scale: 1.03, y: -2 }}
+            whileTap={{ scale: 0.98 }}
+            href={a.href}
+            aria-label={a.label}
+            {...(a.download ? { download: a.download } : {})}
+            {...(a.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+            className={`inline-flex items-center justify-center gap-2 font-display font-bold h-12 rounded-m3-full text-[13px] sm:text-sm tracking-wide transition-all whitespace-nowrap ${
+              ACTION_VARIANTS[a.variant]
+            } ${isPrimary ? "flex-1 sm:flex-none px-4 sm:px-6" : "shrink-0 w-12 sm:w-auto sm:px-6"}`}
+          >
+            <Icon className="w-4 h-4 shrink-0" />
+            <span className={isPrimary ? "" : "hidden sm:inline"}>{a.label}</span>
+          </motion.a>
+        );
+      })}
+    </div>
+  );
+}
+
 export default function About() {
   useEffect(() => {
     document.title = "Swami Guru | Senior Product Leader & AI-Native Product Builder";
@@ -692,44 +757,7 @@ export default function About() {
                   ))}
                 </div>
 
-                {/* Actions sit in the primary reading path rather than below the
-                    fold in a sidebar — the CV is what recruiters need most.
-                    On mobile all three share one line: the primary action keeps
-                    its label and flexes, the two secondary actions collapse to
-                    44px icon buttons. Full labels return from sm up. */}
-                <div className="mt-6 flex items-center gap-2 sm:gap-3 sm:flex-wrap">
-                  <motion.a
-                    whileHover={{ scale: 1.03, y: -2 }}
-                    whileTap={{ scale: 0.98 }}
-                    href="/Swami-Guru-CV.pdf"
-                    download="Swami-Guru-CV.pdf"
-                    className="flex-1 sm:flex-none inline-flex items-center justify-center gap-2 bg-m3-primary text-m3-on-primary font-display font-bold px-4 sm:px-5 h-11 rounded-m3-full text-[13px] sm:text-sm tracking-wide shadow-sm hover:m3-elevation-1-shadow transition-all whitespace-nowrap"
-                  >
-                    <Download className="w-4 h-4 shrink-0" /> Download CV
-                  </motion.a>
-                  <motion.a
-                    whileHover={{ scale: 1.03, y: -2 }}
-                    whileTap={{ scale: 0.98 }}
-                    href="https://www.linkedin.com/in/swaminathanguru/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label="LinkedIn profile"
-                    className="shrink-0 inline-flex items-center justify-center gap-2 bg-m3-secondary-container text-m3-on-secondary-container font-display font-bold w-11 sm:w-auto sm:px-5 h-11 rounded-m3-full text-sm tracking-wide hover:m3-elevation-1 transition-all"
-                  >
-                    <Linkedin className="w-4 h-4 shrink-0" />
-                    <span className="hidden sm:inline">LinkedIn</span>
-                  </motion.a>
-                  <motion.a
-                    whileHover={{ scale: 1.03, y: -2 }}
-                    whileTap={{ scale: 0.98 }}
-                    href="mailto:swami.2580@gmail.com"
-                    aria-label="Email Swami"
-                    className="shrink-0 inline-flex items-center justify-center gap-2 border border-m3-outline/30 text-m3-on-surface font-display font-bold w-11 sm:w-auto sm:px-5 h-11 rounded-m3-full text-sm tracking-wide hover:bg-m3-surface-variant transition-all"
-                  >
-                    <Mail className="w-4 h-4 shrink-0" />
-                    <span className="hidden sm:inline">Email</span>
-                  </motion.a>
-                </div>
+                <ActionRow className="mt-6" />
               </div>
             </section>
 
@@ -1161,37 +1189,7 @@ export default function About() {
                 Open to product leadership roles and interesting problems. Bengaluru-based, working globally.
               </p>
             </div>
-            {/* Same treatment as the hero row: one line on mobile, primary keeps
-                its label and flexes, secondaries collapse to 44px icon buttons.
-                "Build notes" swapped for the CV — this is the point of highest
-                intent, and /notes is already linked twice below and above. */}
-            <div className="flex items-center gap-2 sm:gap-3 shrink-0 w-full md:w-auto">
-              <a
-                href="mailto:swami.2580@gmail.com"
-                className="flex-1 md:flex-none inline-flex items-center justify-center gap-2 bg-m3-primary text-m3-on-primary font-display font-bold px-4 sm:px-6 h-12 rounded-m3-full text-[13px] sm:text-sm tracking-wide hover:m3-elevation-1-shadow active:scale-95 transition-all whitespace-nowrap"
-              >
-                <Mail className="w-4 h-4 shrink-0" /> Email me
-              </a>
-              <a
-                href="https://www.linkedin.com/in/swaminathanguru/"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="LinkedIn profile"
-                className="shrink-0 inline-flex items-center justify-center gap-2 bg-m3-secondary-container text-m3-on-secondary-container font-display font-bold w-12 sm:w-auto sm:px-6 h-12 rounded-m3-full text-sm tracking-wide hover:m3-elevation-1 active:scale-95 transition-all"
-              >
-                <Linkedin className="w-4 h-4 shrink-0" />
-                <span className="hidden sm:inline">LinkedIn</span>
-              </a>
-              <a
-                href="/Swami-Guru-CV.pdf"
-                download="Swami-Guru-CV.pdf"
-                aria-label="Download CV"
-                className="shrink-0 inline-flex items-center justify-center gap-2 border border-m3-outline/30 text-m3-on-surface font-display font-bold w-12 sm:w-auto sm:px-6 h-12 rounded-m3-full text-sm tracking-wide hover:bg-m3-surface-variant transition-all"
-              >
-                <Download className="w-4 h-4 shrink-0" />
-                <span className="hidden sm:inline">Download CV</span>
-              </a>
-            </div>
+            <ActionRow className="shrink-0 w-full md:w-auto" />
           </div>
         </section>
 
