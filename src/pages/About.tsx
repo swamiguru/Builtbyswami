@@ -688,19 +688,19 @@ export default function About() {
                 </div>
 
                 {/* Actions sit in the primary reading path rather than below the
-                    fold in a sidebar — the CV is the thing recruiters need most. */}
-                {/* Mobile: CV spans the full row as the primary action, the two
-                    secondary actions split the row beneath — avoids the orphaned
-                    third button that flex-wrap produced. Desktop: one inline row. */}
-                <div className="mt-7 grid grid-cols-2 gap-2.5 sm:flex sm:flex-wrap sm:items-center sm:gap-3">
+                    fold in a sidebar — the CV is what recruiters need most.
+                    On mobile all three share one line: the primary action keeps
+                    its label and flexes, the two secondary actions collapse to
+                    44px icon buttons. Full labels return from sm up. */}
+                <div className="mt-6 flex items-center gap-2 sm:gap-3 sm:flex-wrap">
                   <motion.a
                     whileHover={{ scale: 1.03, y: -2 }}
                     whileTap={{ scale: 0.98 }}
                     href="/Swami-Guru-CV.pdf"
                     download="Swami-Guru-CV.pdf"
-                    className="col-span-2 sm:col-span-1 inline-flex items-center justify-center gap-2 bg-m3-primary text-m3-on-primary font-display font-bold px-5 py-3 rounded-m3-full text-[13px] sm:text-sm tracking-wide shadow-sm hover:m3-elevation-1-shadow transition-all"
+                    className="flex-1 sm:flex-none inline-flex items-center justify-center gap-2 bg-m3-primary text-m3-on-primary font-display font-bold px-4 sm:px-5 h-11 rounded-m3-full text-[13px] sm:text-sm tracking-wide shadow-sm hover:m3-elevation-1-shadow transition-all whitespace-nowrap"
                   >
-                    <Download className="w-4 h-4" /> Download CV
+                    <Download className="w-4 h-4 shrink-0" /> Download CV
                   </motion.a>
                   <motion.a
                     whileHover={{ scale: 1.03, y: -2 }}
@@ -708,17 +708,21 @@ export default function About() {
                     href="https://www.linkedin.com/in/swaminathanguru/"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center justify-center gap-2 bg-m3-secondary-container text-m3-on-secondary-container font-display font-bold px-4 sm:px-5 py-3 rounded-m3-full text-[13px] sm:text-sm tracking-wide hover:m3-elevation-1 transition-all"
+                    aria-label="LinkedIn profile"
+                    className="shrink-0 inline-flex items-center justify-center gap-2 bg-m3-secondary-container text-m3-on-secondary-container font-display font-bold w-11 sm:w-auto sm:px-5 h-11 rounded-m3-full text-sm tracking-wide hover:m3-elevation-1 transition-all"
                   >
-                    <Linkedin className="w-4 h-4" /> LinkedIn
+                    <Linkedin className="w-4 h-4 shrink-0" />
+                    <span className="hidden sm:inline">LinkedIn</span>
                   </motion.a>
                   <motion.a
                     whileHover={{ scale: 1.03, y: -2 }}
                     whileTap={{ scale: 0.98 }}
                     href="mailto:swami.2580@gmail.com"
-                    className="inline-flex items-center justify-center gap-2 border border-m3-outline/30 text-m3-on-surface font-display font-bold px-4 sm:px-5 py-3 rounded-m3-full text-[13px] sm:text-sm tracking-wide hover:bg-m3-surface-variant transition-all"
+                    aria-label="Email Swami"
+                    className="shrink-0 inline-flex items-center justify-center gap-2 border border-m3-outline/30 text-m3-on-surface font-display font-bold w-11 sm:w-auto sm:px-5 h-11 rounded-m3-full text-sm tracking-wide hover:bg-m3-surface-variant transition-all"
                   >
-                    <Mail className="w-4 h-4" /> Email
+                    <Mail className="w-4 h-4 shrink-0" />
+                    <span className="hidden sm:inline">Email</span>
                   </motion.a>
                 </div>
               </div>
