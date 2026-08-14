@@ -19,7 +19,6 @@ import {
   Download,
   Timer,
   Award,
-  ShieldCheck,
   Rocket,
   BookOpen
 } from "lucide-react";
@@ -1109,70 +1108,36 @@ export default function About() {
           </div>
         </section>
 
-        {/* ============ MANIFESTO ============ */}
-        <section className="bg-m3-primary text-m3-on-primary p-8 md:p-12 lg:p-14 relative overflow-hidden">
+        {/* ============ POINT OF VIEW ============ */}
+        {/* Collapsed from a two-column section: the "what that looks like" card
+            duplicated the BuiltBySwami highlights almost verbatim, and the prose
+            beside it was generic. What's left is the one claim that is actually
+            mine, in my own words, at a third of the height. */}
+        <section className="bg-m3-primary text-m3-on-primary px-6 md:px-12 lg:px-14 py-12 md:py-16 relative overflow-hidden">
           <div className="absolute top-0 right-0 opacity-10 pointer-events-none">
-            <Cpu className="w-64 h-64 md:w-96 md:h-96 -mr-16 -mt-16 md:-mr-20 md:-mt-20 rotate-12" />
+            <Cpu className="w-56 h-56 md:w-80 md:h-80 -mr-14 -mt-14 rotate-12" />
           </div>
 
-          <div className="max-w-4xl relative z-10">
-            <span className="font-display text-[10px] md:text-[11px] uppercase tracking-[0.4em] font-extrabold text-m3-on-primary/60 mb-5 block">
+          <div className="max-w-3xl relative z-10">
+            <span className="font-display text-[10px] font-extrabold uppercase tracking-[0.35em] text-m3-on-primary/60 block mb-4">
               Point of View
             </span>
-            <h2 className="display text-3xl md:text-6xl font-bold tracking-tighter mb-10 max-w-2xl leading-[0.95]">
-              THE AI-NATIVE PRODUCT REVOLUTION
-            </h2>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-14">
-              <div className="space-y-6">
-                <p className="text-lg md:text-xl font-medium leading-relaxed">
-                  The barrier between{" "}
-                  <span className="bg-m3-primary-container text-m3-on-primary-container px-2 rounded-lg italic">Idea</span> and{" "}
-                  <span className="bg-m3-primary-container text-m3-on-primary-container px-2 rounded-lg italic">Execution</span> has collapsed.
-                </p>
-                <p className="text-base opacity-80 leading-relaxed font-medium">
-                  As AI democratises technical syntax, the product leader&rsquo;s value shifts from management to{" "}
-                  <span className="underline decoration-white/30 underline-offset-8">contextual orchestration</span>.
-                </p>
-                <div className="border-l-4 border-m3-secondary-container pl-6 py-2">
-                  <p className="text-base opacity-90 italic leading-relaxed">
-                    &ldquo;I no longer just build products; I compose ecosystems by leveraging LLMs to handle the velocity while I handle the overarching strategy.&rdquo;
-                  </p>
-                </div>
-                <a
-                  href="https://www.linkedin.com/pulse/ai-changing-game-product-builders-swami-guru-6xnnc/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 bg-m3-surface text-m3-primary font-display font-bold px-6 py-3 rounded-m3-full text-sm tracking-wide hover:shadow-xl transition-shadow"
-                >
-                  Read the strategic brief <ArrowUpRight className="w-4 h-4" />
-                </a>
-              </div>
-
-              <div className="bg-m3-surface text-m3-on-surface p-8 md:p-10 rounded-[32px] shadow-2xl self-start">
-                <div className="flex items-center gap-4 mb-6">
-                  <div className="w-12 h-12 bg-m3-tertiary text-m3-on-tertiary rounded-full flex items-center justify-center">
-                    <ShieldCheck className="w-6 h-6" />
-                  </div>
-                  <span className="font-display text-[11px] uppercase font-black tracking-widest text-m3-tertiary">
-                    What that looks like
-                  </span>
-                </div>
-                <ul className="space-y-4">
-                  {[
-                    "Write the product context and brief before any code exists.",
-                    "Direct AI tools in tight build-review loops, not one-shot prompts.",
-                    "Validate bets with users before committing engineering resource.",
-                    "Catch and reverse scope creep mid-build — ship one focused thing."
-                  ].map((line, i) => (
-                    <li key={i} className="flex gap-3 items-start">
-                      <span className="w-1.5 h-1.5 rounded-full bg-m3-primary mt-2 shrink-0" />
-                      <span className="text-sm font-medium leading-relaxed text-m3-on-surface-variant">{line}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
+            <h3 className="display text-2xl md:text-4xl font-extrabold tracking-tighter leading-[1.05] mb-5">
+              The barrier between idea and execution has collapsed
+            </h3>
+            <p className="text-base md:text-lg font-medium leading-relaxed opacity-90 mb-8 max-w-2xl">
+              Context — not syntax — is the new bottleneck. But the method has a load-bearing
+              assumption I only noticed building something with no job to do: it runs on a
+              definition of done.
+            </p>
+            <a
+              href="https://www.linkedin.com/pulse/ai-changing-game-product-builders-swami-guru-6xnnc/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 bg-m3-surface text-m3-primary font-display font-bold px-6 py-3 rounded-m3-full text-sm tracking-wide hover:shadow-xl transition-shadow"
+            >
+              Read the strategic brief <ArrowUpRight className="w-4 h-4" />
+            </a>
           </div>
         </section>
 
