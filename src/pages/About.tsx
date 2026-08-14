@@ -123,16 +123,21 @@ const EXPERIENCE: ExperienceItem[] = [
       ]
     },
     impact: [
-      "Managed and mentored two product managers across regional squads.",
+      "Hired and led two product managers; set the PM group's reporting standard.",
       "Built $20M+ in net-new revenue through new-market entries.",
       "Cut prototyping cycles 30% and time-to-market 50% with AI-native delivery.",
       "Drove a 30% audience lift and $800K incremental revenue via tentpole launches."
     ],
     highlights: [
       {
-        title: "Team Leadership & Mentorship",
+        title: "Hiring & Team Leadership",
         detail:
-          "Managed and mentored two junior product managers, establishing shared discovery and delivery standards and growing their ownership of features across regional squads."
+          "Hired two product managers — writing the JDs and shaping the team structure around them — then mentored both to independent ownership of features across regional squads. Defined the reporting format the PM group used to brief leadership, and ran a monthly peer forum to share what was working and standardise how we improved."
+      },
+      {
+        title: "Cross-Functional & Executive Leadership",
+        detail:
+          "Steered launches across 14 functions with no direct authority over any of them — Editorial, Audience Development, Engineering, Design, Legal, Consent, Data & Analytics, Programme, SEO, Ad Tech, Commerce, Newsletters, Social and Hiring — reconciling competing priorities into a single sequence. Presented to Product VPs weekly and to exec-level stakeholders ahead of every major launch."
       },
       {
         title: "Market Expansion",
@@ -165,7 +170,7 @@ const EXPERIENCE: ExperienceItem[] = [
           "Executed large-scale migrations for Vogue, GQ, Wired and Architectural Digest with 100% SEO integrity and zero revenue loss, and consolidated Condé Nast Traveller Spain and LATAM onto one Spanish-language platform reaching 56.6M unique users — leading cross-functional Agile squads across Engineering and Design throughout."
       }
     ],
-    technologies: ["Team Leadership", "Enterprise CMS", "Generative AI", "Technical SEO", "Global Migrations", "P&L Ownership"]
+    technologies: ["Team Leadership", "Hiring", "Exec Stakeholders", "Enterprise CMS", "Generative AI", "P&L Ownership"]
   },
   {
     company: "Condé Nast",
@@ -1156,27 +1161,36 @@ export default function About() {
                 Open to product leadership roles and interesting problems. Bengaluru-based, working globally.
               </p>
             </div>
-            <div className="flex flex-wrap gap-3 shrink-0">
+            {/* Same treatment as the hero row: one line on mobile, primary keeps
+                its label and flexes, secondaries collapse to 44px icon buttons.
+                "Build notes" swapped for the CV — this is the point of highest
+                intent, and /notes is already linked twice below and above. */}
+            <div className="flex items-center gap-2 sm:gap-3 shrink-0 w-full md:w-auto">
               <a
                 href="mailto:swami.2580@gmail.com"
-                className="inline-flex items-center gap-2 bg-m3-primary text-m3-on-primary font-display font-bold px-6 py-3.5 rounded-m3-full text-sm tracking-wide hover:m3-elevation-1-shadow active:scale-95 transition-all"
+                className="flex-1 md:flex-none inline-flex items-center justify-center gap-2 bg-m3-primary text-m3-on-primary font-display font-bold px-4 sm:px-6 h-12 rounded-m3-full text-[13px] sm:text-sm tracking-wide hover:m3-elevation-1-shadow active:scale-95 transition-all whitespace-nowrap"
               >
-                <Mail className="w-4 h-4" /> Email me
+                <Mail className="w-4 h-4 shrink-0" /> Email me
               </a>
               <a
                 href="https://www.linkedin.com/in/swaminathanguru/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 bg-m3-secondary-container text-m3-on-secondary-container font-display font-bold px-6 py-3.5 rounded-m3-full text-sm tracking-wide hover:m3-elevation-1 active:scale-95 transition-all"
+                aria-label="LinkedIn profile"
+                className="shrink-0 inline-flex items-center justify-center gap-2 bg-m3-secondary-container text-m3-on-secondary-container font-display font-bold w-12 sm:w-auto sm:px-6 h-12 rounded-m3-full text-sm tracking-wide hover:m3-elevation-1 active:scale-95 transition-all"
               >
-                <Linkedin className="w-4 h-4" /> LinkedIn
+                <Linkedin className="w-4 h-4 shrink-0" />
+                <span className="hidden sm:inline">LinkedIn</span>
               </a>
-              <Link
-                to="/notes"
-                className="inline-flex items-center gap-2 border border-m3-outline/30 text-m3-on-surface font-display font-bold px-6 py-3.5 rounded-m3-full text-sm tracking-wide hover:bg-m3-surface-variant transition-all"
+              <a
+                href="/Swami-Guru-CV.pdf"
+                download="Swami-Guru-CV.pdf"
+                aria-label="Download CV"
+                className="shrink-0 inline-flex items-center justify-center gap-2 border border-m3-outline/30 text-m3-on-surface font-display font-bold w-12 sm:w-auto sm:px-6 h-12 rounded-m3-full text-sm tracking-wide hover:bg-m3-surface-variant transition-all"
               >
-                <BookOpen className="w-4 h-4" /> Build notes
-              </Link>
+                <Download className="w-4 h-4 shrink-0" />
+                <span className="hidden sm:inline">Download CV</span>
+              </a>
             </div>
           </div>
         </section>
