@@ -37,3 +37,4 @@ seed | iOS | Back Tap (double/triple tap back of iPhone)
 2026-08-11 | iOS | Safari "Listen to Page" — tap the aA / page-settings menu > Listen to Page to have the iPhone read any article aloud (lock-screen playback controls, adjustable speed)
 2026-08-12 | Android | Gboard glide gestures — slide finger across the spacebar to move the cursor precisely; press-hold Backspace + swipe left to select/delete whole words (Gboard > Glide typing)
 2026-08-14 | Google Photos | Locked Folder — biometric/PIN vault (Collections > Locked Folder), hides pics from grid/Memories/search/shared albums, blocks screenshots inside
+2026-08-15 | Samsung One UI | Separate app sound — route ONE app's audio (e.g. Maps nav) to a different output (Bluetooth) while everything else plays on the phone speaker (Settings > Sounds and vibration > Separate app sound)

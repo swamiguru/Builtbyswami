@@ -110,3 +110,7 @@
 2026-08-14 | 2 | Apps / Social | Instagram grid + Highlights | Drag-reorder grid + add to Highlights without posting a Story
 2026-08-14 | 4 | Comparison / Phones | Refurbished vs New phone | Buyer comparison, certified-refurb-flagship verdict (IG pick)
 2026-08-14 | 5 | AI workflow | Prompt of the day — brain-dump to plan | Turn brain-dump into P1/P2/P3 prioritized plan w/ time estimates
+2026-08-15 | 1 | Global tech / Autonomous | Uber x Pony.ai robotaxis Europe | 2,000+ Gen-7 robotaxis across 5 European cities (Zagreb first) + Middle East next (neutral product framing)
+2026-08-15 | 2 | Security | Record 2026 US data breach wave | ITRC H1 2026: 471M+ victim notices by midyear, above all of 2025 (297.5M); vishing + reused passwords driving it
+2026-08-15 | 4 | Myth-buster / Phones | More RAM = faster phone | Busted — memory mgmt + chip + storage beat big RAM numbers (IG pick)
+2026-08-15 | 5 | Community / Poll | Robotaxi no-driver poll | Would you get into a driverless robotaxi (Threads+X, no card, tied to slot 1)
