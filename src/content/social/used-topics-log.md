@@ -114,3 +114,7 @@
 2026-08-15 | 2 | Security | Record 2026 US data breach wave | ITRC H1 2026: 471M+ victim notices by midyear, above all of 2025 (297.5M); vishing + reused passwords driving it
 2026-08-15 | 4 | Myth-buster / Phones | More RAM = faster phone | Busted — memory mgmt + chip + storage beat big RAM numbers (IG pick)
 2026-08-15 | 5 | Community / Poll | Robotaxi no-driver poll | Would you get into a driverless robotaxi (Threads+X, no card, tied to slot 1)
+2026-08-16 | 1 | Phones | Apple iPhone 18 event | Sept 9 event tipped (RUMOR) — iPhone 18 Pro/Pro Max + first foldable iPhone Ultra, invites ~Aug 26
+2026-08-16 | 2 | Gaming | Gamescom 2026 | Preview — Aug 26 ONL, Xbox 25th anniversary (20+ games, Metro 2039 + COD MW4 playable)
+2026-08-16 | 4 | AI workflow | Prompt of the day — Teach-Back | Explain topic in own words; AI flags mistakes/gaps + returns 5-bullet corrected version
+2026-08-16 | 5 | AI / Hot take | Gemini 1B monthly users metric | 1B MAU real but monthly-vs-ChatGPT-weekly + Android-default = reach != love
