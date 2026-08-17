@@ -118,3 +118,7 @@
 2026-08-16 | 2 | Gaming | Gamescom 2026 | Preview — Aug 26 ONL, Xbox 25th anniversary (20+ games, Metro 2039 + COD MW4 playable)
 2026-08-16 | 4 | AI workflow | Prompt of the day — Teach-Back | Explain topic in own words; AI flags mistakes/gaps + returns 5-bullet corrected version
 2026-08-16 | 5 | AI / Hot take | Gemini 1B monthly users metric | 1B MAU real but monthly-vs-ChatGPT-weekly + Android-default = reach != love
+2026-08-17 | 1 | Global tech / AI | Alibaba Qwen open models | Qwen crosses 3B downloads (Hugging Face Aug 14), passes Google 418M + Meta 227M; 460+ models, 300k+ derivatives (neutral product framing)
+2026-08-17 | 2 | Big Tech / Space | Nvidia $21B SpaceX stake | Aug 14 13F: 122.8M shares ($21B), 2nd-biggest holding; from $10B xAI bet folded into SpaceX; SpaceX buys chips only from Nvidia
+2026-08-17 | 4 | Comparison / Cloud storage | iCloud+ vs Google One | 2026 who-should-pick verdict — Apple ecosystem vs Android+VPN, free tiers (IG pick)
+2026-08-17 | 5 | Myth-buster / Phones | Force-closing apps myth | Busted — iOS/Android freeze background apps; swipe-killing forces costlier cold relaunch, more battery/CPU
