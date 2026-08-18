@@ -122,3 +122,8 @@
 2026-08-17 | 2 | Big Tech / Space | Nvidia $21B SpaceX stake | Aug 14 13F: 122.8M shares ($21B), 2nd-biggest holding; from $10B xAI bet folded into SpaceX; SpaceX buys chips only from Nvidia
 2026-08-17 | 4 | Comparison / Cloud storage | iCloud+ vs Google One | 2026 who-should-pick verdict — Apple ecosystem vs Android+VPN, free tiers (IG pick)
 2026-08-17 | 5 | Myth-buster / Phones | Force-closing apps myth | Busted — iOS/Android freeze background apps; swipe-killing forces costlier cold relaunch, more battery/CPU
+
+2026-08-18 | 1 | Big Tech Business / AI infra | Stripe x OpenRouter | Stripe buys OpenRouter for $7B+ (5.4x May valuation) — gateway routing 400+ models for ~8M devs
+2026-08-18 | 2 | Security | Android VoLTE video-call exploit | SSD disclosure Aug 17 — two-stage chain = full Android kernel access via VoLTE video call on Unisoc modem firmware (budget phones)
+2026-08-18 | 4 | AI Tool Spotlight | Ideogram | Free AI image generator that renders legible text — thumbnails/posters/logos/memes (IG pick)
+2026-08-18 | 5 | Community / Poll (AI infra) | AI gateway consolidation poll | Comfortable with one payments giant between you and every AI model? (Threads+X, no card, tied to slot 1)

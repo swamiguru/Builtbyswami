@@ -40,3 +40,5 @@ seed | iOS | Back Tap (double/triple tap back of iPhone)
 2026-08-15 | Samsung One UI | Separate app sound — route ONE app's audio (e.g. Maps nav) to a different output (Bluetooth) while everything else plays on the phone speaker (Settings > Sounds and vibration > Separate app sound)
 2026-08-16 | Gmail | Confidential Mode — self-expiring emails + SMS passcode, blocks forward/copy/print/download (Compose > lock+clock icon)
 2026-08-17 | iOS | Live Text on paused video — pause any video, tap the Live Text icon to select/copy on-screen text, tap numbers/links/addresses off the frozen frame
+
+2026-08-18 | Google Maps | Two-wheeler (bike) mode in Directions — routes through narrow shortcuts cars cannot use + bike-specific ETA (India + select countries)
