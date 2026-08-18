@@ -140,6 +140,55 @@
 .prose-notes li { margin: 0 0 0.6rem; font-weight: 450; }
 .prose-notes li::marker { color: var(--color-m3-primary); }
 
+/* Markdown tables. ReactMarkdown emits bare <table>, and Tailwind's preflight
+   strips all default table styling — without these rules cells render with
+   zero padding and adjacent values visually collide. */
+.prose-notes .table-wrap {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  margin: 0 0 1.75rem;
+}
+.prose-notes table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9375rem;
+  line-height: 1.55;
+}
+.prose-notes .table-wrap table { margin-bottom: 0; }
+.prose-notes thead th {
+  text-align: left;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-m3-on-surface);
+  padding: 0 1rem 0.65rem 0;
+  border-bottom: 2px solid var(--color-m3-primary);
+  vertical-align: bottom;
+}
+.prose-notes tbody td {
+  padding: 0.85rem 1rem 0.85rem 0;
+  border-bottom: 1px solid rgba(113, 121, 113, 0.22);
+  vertical-align: top;
+  font-weight: 450;
+}
+.prose-notes thead th:last-child,
+.prose-notes tbody td:last-child { padding-right: 0; }
+.prose-notes tbody td:first-child {
+  font-weight: 700;
+  color: var(--color-m3-on-surface);
+  white-space: nowrap;
+}
+.prose-notes tbody tr:last-child td { border-bottom: none; }
+.prose-notes tbody td strong { color: var(--color-m3-primary); }
+
+@media (max-width: 480px) {
+  .prose-notes table { font-size: 0.875rem; }
+  .prose-notes tbody td { padding: 0.7rem 0.75rem 0.7rem 0; }
+  .prose-notes thead th { padding-right: 0.75rem; }
+}
+
 @layer utilities {
   @media print {
     @page { margin: 1cm; size: auto; }

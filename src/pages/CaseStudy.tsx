@@ -44,9 +44,9 @@ export default function CaseStudy() {
         <div className="h-12 md:h-14 border-b border-m3-outline/20 flex items-center justify-between px-6 md:px-10 bg-m3-surface/80 backdrop-blur-md sticky top-[70px] md:top-[88px] z-20">
           <Link
             to="/work-with-me"
-            className="font-display font-bold text-sm text-m3-on-surface hover:text-m3-primary transition-colors"
+            className="inline-flex items-center h-full pr-3 font-display font-bold text-sm text-m3-on-surface hover:text-m3-primary transition-colors"
           >
-            <ArrowLeft className="w-4 h-4 inline-block mr-1.5 -mt-0.5" />
+            <ArrowLeft className="w-4 h-4 mr-1.5" />
             Work with me
           </Link>
           <span className="flex items-center gap-1 text-[11px] font-bold uppercase tracking-widest text-m3-on-surface-variant/60">
@@ -81,7 +81,18 @@ export default function CaseStudy() {
           </dl>
 
           <div className="prose-notes">
-            <ReactMarkdown remarkPlugins={[remarkGfm]}>
+            <ReactMarkdown
+              remarkPlugins={[remarkGfm]}
+              components={{
+                // Tables get a scroll container so a wide one can never push
+                // the page sideways on a narrow screen.
+                table: ({ children }) => (
+                  <div className="table-wrap">
+                    <table>{children}</table>
+                  </div>
+                ),
+              }}
+            >
               {middleEastLaunches}
             </ReactMarkdown>
           </div>

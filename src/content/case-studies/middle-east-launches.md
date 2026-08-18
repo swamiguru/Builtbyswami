@@ -46,14 +46,22 @@ The Arabic-language edition was scoped and the right-to-left layout work was bui
 
 ## The outcome
 
-| | Waves one and two | Wave three — Wired, 2026 |
-| --- | --- | --- |
-| Revenue | Exceeded the $20M+ Year 1 target | — |
-| Audience reach | 12% above benchmark for GCC and MENA | — |
-| Time to market | Baseline, on schedule | **50% faster** |
-| Ad revenue per visit | Baseline | **~11% higher** |
-| Organic search | Baseline | Materially higher in month one |
-| Core delivery team | 4 engineers, 1 design lead, 1 PM (me) | Same team, half the time |
+Across the programme:
+
+| Measure | Result |
+| --- | --- |
+| Revenue | Exceeded the **$20M+** Year 1 target |
+| Audience reach | **12% above** the GCC and MENA benchmark |
+| Delivery team | 4 engineers, 1 design lead, 1 PM (me) |
+
+Wave three against the earlier waves' baseline:
+
+| Measure | Wave three |
+| --- | --- |
+| Time to market | **50% faster** |
+| Ad revenue per visit | **~11% higher** |
+| Organic search | Materially higher in month one |
+| Team size | Unchanged — same five people, half the time |
 
 Launch dates held. Sponsorship windows were protected. Revenue worked from day one.
 

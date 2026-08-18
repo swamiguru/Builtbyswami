@@ -242,7 +242,7 @@ export default function WorkWithMe() {
             {CASE_STUDY_URL && (
               <Link
                 to={CASE_STUDY_URL}
-                className="mt-1 inline-flex items-center gap-1 text-[11px] font-bold uppercase tracking-widest text-m3-primary hover:gap-2 transition-all"
+                className="mt-1 inline-flex items-center gap-1 min-h-[44px] text-[11px] font-bold uppercase tracking-widest text-m3-primary hover:gap-2 transition-all"
               >
                 Read the full case study <ArrowRight className="w-3.5 h-3.5" />
               </Link>
