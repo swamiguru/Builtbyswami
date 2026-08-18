@@ -59,6 +59,12 @@ try {
 
 const routes = [
   {
+    path: "work-with-me",
+    title: "Work With Me | Swami Guru",
+    description:
+      "Product consulting for publishers and content businesses — market launches, CMS migrations and editorial AI workflows, without losing traffic or revenue. 11 years in product across Vogue, GQ, Wired, AD and Condé Nast Traveller.",
+  },
+  {
     path: "about",
     title: "Swami Guru | Product Builder Portfolio",
     description:
@@ -117,7 +123,7 @@ console.log(`prerender-meta: wrote ${count} route shell(s).`);
 
 // Regenerate sitemap.xml from this same route list so new tech-roundup dates
 // and notes can never fall out of sync with what's actually published.
-const HUB_PATHS = new Set(["about", "notes", "tech-roundup"]);
+const HUB_PATHS = new Set(["about", "notes", "tech-roundup", "work-with-me"]);
 const changefreqFor = (path) =>
   path === "" ? "weekly" : path === "tech-roundup" ? "daily" : HUB_PATHS.has(path) ? "monthly" : "monthly";
 const priorityFor = (path) => (path === "" ? "1.0" : HUB_PATHS.has(path) ? "0.8" : "0.6");

@@ -12,6 +12,7 @@ import Notes from "./pages/Notes";
 import NotePost from "./pages/NotePost";
 import Tech from "./pages/Tech";
 import TechDigest from "./pages/TechDigest";
+import WorkWithMe from "./pages/WorkWithMe";
 
 function TechRedirect() {
   const { date } = useParams<{ date: string }>();
@@ -47,6 +48,10 @@ export default function App() {
         <Route path="/notes/:slug" element={<NotePost />} />
         <Route path="/tech-roundup" element={<Tech />} />
         <Route path="/tech-roundup/:date" element={<TechDigest />} />
+        <Route path="/work-with-me" element={<WorkWithMe />} />
+        {/* Common aliases people type or link — all land on the services page */}
+        <Route path="/hire" element={<Navigate to="/work-with-me" replace />} />
+        <Route path="/consulting" element={<Navigate to="/work-with-me" replace />} />
         {/* Legacy /tech paths redirect to the new slug */}
         <Route path="/tech" element={<Navigate to="/tech-roundup" replace />} />
         <Route path="/tech/:date" element={<TechRedirect />} />

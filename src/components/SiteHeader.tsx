@@ -23,6 +23,7 @@ const NAV: NavItem[] = [
   { label: "The Channel", to: YOUTUBE, external: true },
   { label: "Notes", to: "/notes" },
   { label: "The Work", to: "/about" },
+  { label: "Consulting", to: "/work-with-me" },
 ];
 
 /**
