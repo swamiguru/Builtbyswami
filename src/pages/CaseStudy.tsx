@@ -1,0 +1,114 @@
+/**
+ * @license
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
+import { useEffect } from "react";
+import { Link } from "react-router-dom";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
+import { ArrowLeft, ArrowRight, Clock } from "lucide-react";
+import middleEastLaunches from "../content/case-studies/middle-east-launches.md?raw";
+import SiteHeader from "../components/SiteHeader";
+import SiteFooter from "../components/SiteFooter";
+
+const TITLE = "Launching global media brands into the Middle East";
+const STANDFIRST =
+  "Five titles, three waves — and the last one shipped in half the time.";
+const DESCRIPTION =
+  "How Condé Nast's Middle East expansion shipped across three waves — five flagship titles live in the GCC, the $20M+ Year 1 revenue target exceeded, and a final launch that halved time-to-market.";
+
+const FACTS: [string, string][] = [
+  ["Client", "Condé Nast"],
+  ["Role", "Product Lead"],
+  ["Titles", "CN Traveller, AD, GQ, Vogue, Wired"],
+  ["Waves", "2023 · Jan 2025 · Jan 2026"],
+  ["Team", "4 engineers, 1 design lead, 1 PM"],
+];
+
+export default function CaseStudy() {
+  useEffect(() => {
+    document.title = `${TITLE} | Case Study`;
+    document
+      .querySelector('meta[name="description"]')
+      ?.setAttribute("content", DESCRIPTION);
+  }, []);
+
+  return (
+    <div className="min-h-screen bg-m3-surface md:p-8 selection:bg-m3-primary selection:text-m3-on-primary">
+      <div className="max-w-[1100px] mx-auto min-h-[90vh] flex flex-col relative bg-m3-surface-variant overflow-hidden shadow-xl rounded-m3-xl md:rounded-[32px] border border-m3-outline/10">
+        <SiteHeader />
+
+        {/* Contextual sub-nav — mirrors the Build Notes pattern so the site
+            reads as one system, but points back to the services page. */}
+        <div className="h-12 md:h-14 border-b border-m3-outline/20 flex items-center justify-between px-6 md:px-10 bg-m3-surface/80 backdrop-blur-md sticky top-[70px] md:top-[88px] z-20">
+          <Link
+            to="/work-with-me"
+            className="font-display font-bold text-sm text-m3-on-surface hover:text-m3-primary transition-colors"
+          >
+            <ArrowLeft className="w-4 h-4 inline-block mr-1.5 -mt-0.5" />
+            Work with me
+          </Link>
+          <span className="flex items-center gap-1 text-[11px] font-bold uppercase tracking-widest text-m3-on-surface-variant/60">
+            <Clock className="w-3.5 h-3.5" /> 6 min read
+          </span>
+        </div>
+
+        <article className="max-w-[820px] mx-auto px-6 md:px-14 py-10 md:py-16 w-full">
+          <span className="font-display text-[11px] font-black uppercase tracking-[0.3em] text-m3-primary">
+            Case Study
+          </span>
+
+          <h1 className="display mt-4 text-3xl md:text-5xl font-extrabold tracking-tighter text-m3-on-surface leading-[1.02]">
+            {TITLE}
+          </h1>
+
+          <p className="mt-5 text-lg md:text-xl font-bold text-m3-primary leading-snug">
+            {STANDFIRST}
+          </p>
+
+          <dl className="mt-9 mb-10 grid grid-cols-2 md:grid-cols-3 gap-x-6 gap-y-5 bg-m3-surface rounded-[20px] border border-m3-outline/5 p-6">
+            {FACTS.map(([k, v]) => (
+              <div key={k}>
+                <dt className="text-[10px] font-black uppercase tracking-[0.2em] text-m3-on-surface-variant/60">
+                  {k}
+                </dt>
+                <dd className="mt-1 text-sm font-bold text-m3-on-surface leading-snug">
+                  {v}
+                </dd>
+              </div>
+            ))}
+          </dl>
+
+          <div className="prose-notes">
+            <ReactMarkdown remarkPlugins={[remarkGfm]}>
+              {middleEastLaunches}
+            </ReactMarkdown>
+          </div>
+        </article>
+
+        {/* Closing CTA — the whole point of publishing this. */}
+        <section className="max-w-[820px] mx-auto w-full px-6 md:px-14 pb-14">
+          <div className="bg-m3-surface rounded-[28px] border border-m3-outline/5 p-8 md:p-10 flex flex-col items-start gap-3">
+            <h2 className="display text-xl md:text-2xl font-extrabold tracking-tight text-m3-on-surface">
+              Planning something like this?
+            </h2>
+            <p className="text-sm md:text-base font-medium text-m3-on-surface-variant leading-relaxed max-w-xl">
+              I run this as a fixed-scope engagement for publishers and content
+              businesses — market launches, replatforms, and editorial AI
+              workflows.
+            </p>
+            <Link
+              to="/work-with-me"
+              className="mt-3 inline-flex items-center gap-2 bg-m3-primary text-m3-on-primary font-display font-bold px-7 py-3.5 rounded-m3-full transition-all hover:m3-elevation-1-shadow active:scale-95 shadow-sm"
+            >
+              See how we could work together <ArrowRight className="w-4 h-4" />
+            </Link>
+          </div>
+        </section>
+
+        <SiteFooter />
+      </div>
+    </div>
+  );
+}

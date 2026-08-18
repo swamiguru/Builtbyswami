@@ -65,6 +65,12 @@ const routes = [
       "Product consulting for publishers and content businesses — market launches, CMS migrations and editorial AI workflows, without losing traffic or revenue. 11 years in product across Vogue, GQ, Wired, AD and Condé Nast Traveller.",
   },
   {
+    path: "case-study/middle-east",
+    title: "Launching global media brands into the Middle East | Case Study",
+    description:
+      "How Condé Nast's Middle East expansion shipped across three waves — five flagship titles live in the GCC, the $20M+ Year 1 revenue target exceeded, and a final launch that halved time-to-market.",
+  },
+  {
     path: "about",
     title: "Swami Guru | Product Builder Portfolio",
     description:

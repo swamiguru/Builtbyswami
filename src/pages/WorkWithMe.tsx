@@ -19,14 +19,14 @@ import SiteFooter from "../components/SiteFooter";
 
 /** Booking link — the 30-minute event type, linked directly so there's no
  *  intermediate "pick a duration" step between the CTA and a booked call. */
-const CAL_LINK = "https://cal.com/swami-guru/intro-call";
+const CAL_LINK = "https://cal.com/swami-guru/30min";
 
 /**
  * Full case-study page URL. Leave as an empty string until the case study is
  * published — the "Read the full case study" link is hidden while it's empty,
  * so we never ship a link that 404s.
  */
-const CASE_STUDY_URL = "";
+const CASE_STUDY_URL = "/case-study/middle-east";
 
 interface Service {
   icon: typeof Globe;
