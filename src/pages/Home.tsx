@@ -3,13 +3,11 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { motion, useReducedMotion } from "motion/react";
 import {
   ArrowUpRight,
   ArrowRight,
-  Play,
   Mail,
   BookOpen,
   Sparkles,
@@ -27,90 +25,8 @@ import Carousel from "../components/Carousel";
 import SiteHeader from "../components/SiteHeader";
 import SiteFooter from "../components/SiteFooter";
 import NewsletterSignup from "../components/NewsletterSignup";
-import { useImageOrientation } from "../hooks/useImageOrientation";
 import { useScrambleText } from "../hooks/useScrambleText";
 import { usePageSeo } from "../hooks/usePageSeo";
-
-const YOUTUBE = "https://www.youtube.com/@builtbyswami";
-
-interface Video {
-  id: string;
-  title: string;
-  url: string;
-  embedUrl: string;
-  thumbnail: string;
-}
-
-/** Rail card for the "Latest Videos" carousel — same orientation-matching
- * approach as FeaturedVideo, just sized down for a horizontal scroller. */
-function VideoCard({ video }: { video: Video }) {
-  const orientation = useImageOrientation(video.thumbnail);
-  const isPortrait = orientation === "portrait";
-
-  return (
-    <a
-      href={video.url}
-      target="_blank"
-      rel="noopener noreferrer"
-      role="listitem"
-      className={`group snap-start shrink-0 bg-m3-surface rounded-[20px] border border-m3-outline/5 overflow-hidden hover:border-m3-primary/30 hover:shadow-xl transition-all ${
-        isPortrait ? "w-[160px] md:w-[190px]" : "w-[240px] md:w-[280px]"
-      }`}
-    >
-      <div className={`relative bg-black overflow-hidden ${isPortrait ? "aspect-[9/16]" : "aspect-video"}`}>
-        <img
-          src={video.thumbnail}
-          alt=""
-          loading="lazy"
-          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-        />
-        <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity bg-black/20">
-          <div className="w-12 h-12 rounded-full bg-m3-primary text-m3-on-primary flex items-center justify-center shadow-lg">
-            <Play className="w-5 h-5 ml-0.5" />
-          </div>
-        </div>
-      </div>
-      <div className="p-4">
-        <p className="font-display font-bold text-sm text-m3-on-surface line-clamp-2 leading-snug">
-          {video.title}
-        </p>
-      </div>
-    </a>
-  );
-}
-
-/** Dark sweep shimmer for a thumbnail-shaped block — used by both skeletons
- * below while /api/latest-videos is in flight, in place of the empty gap
- * (or fallback CTA) that would otherwise flash before the real cards pop in. */
-function ShimmerBlock({ className = "" }: { className?: string }) {
-  return (
-    <div className={`relative overflow-hidden bg-black ${className}`}>
-      <div
-        className="absolute inset-0 animate-[shimmer-sweep_1.8s_ease-in-out_infinite] motion-reduce:animate-none"
-        style={{
-          background: "linear-gradient(90deg, transparent, rgba(255,255,255,.08), transparent)",
-          backgroundSize: "200% 100%",
-        }}
-      />
-    </div>
-  );
-}
-
-function VideoCardSkeleton() {
-  return (
-    <div
-      role="listitem"
-      aria-hidden="true"
-      className="snap-start shrink-0 bg-m3-surface rounded-[20px] border border-m3-outline/5 overflow-hidden w-[240px] md:w-[280px]"
-    >
-      <ShimmerBlock className="aspect-video" />
-      <div className="p-4 flex flex-col gap-2">
-        <div className="h-3.5 w-4/5 rounded-full bg-m3-outline/15 animate-pulse" />
-        <div className="h-3.5 w-2/5 rounded-full bg-m3-outline/15 animate-pulse" />
-      </div>
-    </div>
-  );
-}
 
 /** Vignette + grain + cursor-spotlight + sparkles stack shared by the
  * standard "Today's Five" rail cards and the featured hero card, so the two
@@ -172,32 +88,9 @@ function CardArtOverlay() {
 }
 
 export default function Home() {
-  const [videos, setVideos] = useState<Video[]>([]);
-  const [videosLoading, setVideosLoading] = useState(true);
   const shouldReduceMotion = useReducedMotion();
   const roundupKicker = useScrambleText("The Daily Five");
 
-  useEffect(() => {
-    let active = true;
-    fetch("/api/latest-videos")
-      .then((r) => (r.ok ? r.json() : Promise.reject(new Error("unavailable"))))
-      .then((d) => {
-        if (active && d && Array.isArray(d.videos)) setVideos(d.videos);
-      })
-      .catch(() => {
-        /* fall back to the CTA card */
-      })
-      .finally(() => {
-        if (active) setVideosLoading(false);
-      });
-    return () => {
-      active = false;
-    };
-  }, []);
-
-  // The channel is a strip now, not a section — every video goes in the one
-  // carousel rather than promoting the newest into a hero embed above it.
-  const railVideos = videos.slice(0, 6);
   const latestDigest = getLatestDigest();
   // Lead story for the day: whichever post is explicitly marked `featured`,
   // falling back to the first post so today's content (and any digest that
@@ -582,63 +475,6 @@ export default function Home() {
               </Link>
             ))}
           </div>
-        </section>
-
-        {/* 07 — The Channel.
-            Demoted from two full sections (a hero embed plus a rail) to a
-            single strip, and moved below Notes: it's the one module that sends
-            people off-domain, so it shouldn't sit mid-page above the writing. */}
-        {/* Always rendered. /api/latest-videos depends on YouTube's RSS feed,
-            which fails often enough that hiding the section on an empty
-            response leaves the homepage with no channel presence at all —
-            which is exactly what happened when this replaced the old
-            two-section treatment. Empty now degrades to a CTA, not a gap. */}
-        <section className="px-6 md:px-14 py-10 md:py-14 bg-m3-surface border-t border-m3-outline/10" aria-busy={videosLoading}>
-          <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-2 mb-8">
-            <div className="flex items-center gap-3">
-              <Play className="w-5 h-5 text-m3-primary" />
-              <span className="font-display text-[11px] md:text-sm font-black uppercase tracking-[0.3em] text-m3-on-surface">
-                The Channel
-              </span>
-              {videosLoading && <span className="sr-only">Loading videos…</span>}
-            </div>
-            <a
-              href={YOUTUBE}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-[11px] font-bold uppercase tracking-widest text-m3-on-surface-variant hover:text-m3-primary transition-colors flex items-center gap-1"
-            >
-              All videos <ArrowUpRight className="w-3.5 h-3.5" />
-            </a>
-          </div>
-
-          {videosLoading || railVideos.length > 0 ? (
-            <Carousel ariaLabel="Latest videos">
-              {videosLoading
-                ? Array.from({ length: 4 }).map((_, i) => <VideoCardSkeleton key={i} />)
-                : railVideos.map((v) => <VideoCard key={v.id} video={v} />)}
-            </Carousel>
-          ) : (
-            <a
-              href={YOUTUBE}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-6 bg-m3-surface-variant/40 rounded-[24px] border border-m3-outline/5 p-6 md:p-8 hover:bg-m3-surface hover:border-m3-primary/30 hover:shadow-xl transition-all"
-            >
-              <span className="w-14 h-14 shrink-0 rounded-full bg-m3-primary text-m3-on-primary flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
-                <Play className="w-6 h-6 ml-1" />
-              </span>
-              <span className="flex-1 min-w-0">
-                <span className="block font-display font-bold text-base text-m3-on-surface mb-1">
-                  Watch the latest drop on YouTube
-                </span>
-                <span className="block text-sm text-m3-on-surface-variant font-medium">
-                  Scripted tech and AI teardowns, every week or two.
-                </span>
-              </span>
-              <ArrowUpRight className="w-5 h-5 text-m3-on-surface-variant/50 group-hover:text-m3-primary shrink-0 transition-colors" />
-            </a>
-          )}
         </section>
 
         {/* 08 — Builds.
