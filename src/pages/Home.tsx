@@ -17,7 +17,8 @@ import {
 } from "lucide-react";
 import { SOCIALS } from "../data/socials";
 import { getLatestDigest, formatDigestDate, getTopCategories } from "../data/social";
-import { getLatestWeeklyIssue } from "../data/weekly";
+import { WEEKLY_PUBLICATION_URL } from "../data/weekly";
+import { useLatestWeekly } from "../hooks/useLatestWeekly";
 import { getLatestNotes, formatNoteDate } from "../data/notes";
 import { NEWSLETTER_TITLE, NEWSLETTER_PROMISE } from "../data/newsletter";
 import Carousel from "../components/Carousel";
@@ -201,7 +202,7 @@ export default function Home() {
   const heroPost = latestDigest?.posts.find((p) => p.featured) ?? latestDigest?.posts[0];
   const railPosts = latestDigest ? latestDigest.posts.filter((p) => p.n !== heroPost?.n) : [];
   const categories = getTopCategories();
-  const latestIssue = getLatestWeeklyIssue();
+  const latestIssue = useLatestWeekly();
 
   useEffect(() => {
     document.title = "The Daily Tech Roundup: Tech News + AI Builds | Swami Guru";
@@ -467,7 +468,7 @@ export default function Home() {
               </span>
             </div>
             <a
-              href="https://builtbyswami.beehiiv.com/"
+              href={WEEKLY_PUBLICATION_URL}
               target="_blank"
               rel="noopener noreferrer"
               className="text-[11px] font-bold uppercase tracking-widest text-m3-on-surface-variant hover:text-m3-primary transition-colors flex items-center gap-1"
@@ -483,15 +484,21 @@ export default function Home() {
               rel="noopener noreferrer"
               className="group flex flex-col md:flex-row bg-m3-secondary-container text-m3-on-secondary-container rounded-[28px] overflow-hidden hover:shadow-xl transition-all"
             >
-              <img
-                src={latestIssue.thumbnail}
-                alt=""
-                loading="lazy"
-                className="w-full md:w-[320px] aspect-square object-cover shrink-0"
-              />
+              {latestIssue.thumbnail && (
+                <img
+                  src={latestIssue.thumbnail}
+                  alt=""
+                  loading="lazy"
+                  onError={(e) => {
+                    e.currentTarget.style.display = "none";
+                  }}
+                  className="w-full md:w-[320px] aspect-video md:aspect-square object-cover object-center shrink-0"
+                />
+              )}
               <div className="p-6 md:p-8 flex flex-col justify-center gap-3 flex-1 min-w-0">
                 <span className="text-[11px] font-bold uppercase tracking-widest opacity-70">
-                  Issue #{latestIssue.issueNumber} · {formatDigestDate(latestIssue.publishedDate)}
+                  {latestIssue.issueNumber !== undefined && `Issue #${latestIssue.issueNumber} · `}
+                  {formatDigestDate(latestIssue.publishedDate)}
                 </span>
                 <h2 className="display text-xl md:text-2xl font-extrabold tracking-tight leading-snug">
                   {latestIssue.title}
@@ -500,7 +507,10 @@ export default function Home() {
                   {latestIssue.teaser}
                 </p>
                 <span className="mt-2 inline-flex items-center gap-1 text-[11px] font-bold uppercase tracking-widest group-hover:gap-2 transition-all">
-                  Read issue #{latestIssue.issueNumber} <ArrowUpRight className="w-3.5 h-3.5" />
+                  {latestIssue.issueNumber === undefined
+                    ? "Read the issue"
+                    : `Read issue #${latestIssue.issueNumber}`}{" "}
+                  <ArrowUpRight className="w-3.5 h-3.5" />
                 </span>
               </div>
             </a>
