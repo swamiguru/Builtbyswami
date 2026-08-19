@@ -42,8 +42,10 @@
 | `/work-with-me` | Consulting |
 
 Nav is five items plus Subscribe. The YouTube channel is deliberately **not**
-in the nav — it sent every visitor off-domain. It lives as a homepage carousel
-and a footer link.
+in the nav, and as of 19 Aug it's off the homepage entirely — it's the one
+module that sent visitors off-domain, and it doesn't move either audience
+(readers or hiring/consulting) toward anything. It survives as a text link in
+the footer.
 
 ---
 
@@ -84,8 +86,6 @@ fine.
   newest issues. **Publishing on beehiiv is the only step** — the homepage card
   and `/weekly` update on their own within 30 minutes. Committed
   `src/content/weekly/issue-N.json` files are a fallback floor, not required.
-- `/api/latest-videos` pulls the YouTube channel RSS feed for the homepage
-  carousel. Degrades to a CTA card when the feed fails.
 - Social card generation is automated — `scripts/social/make_card.py` renders
   the five `public/social/YYYY-MM-DD/card_N.png` images from the day's pillars
   and hooks.
@@ -117,7 +117,6 @@ fine.
 | Daily cadence not decided | 47+ issues since 12 July, solo, alongside the channel, the job search and consulting. Declaring a cadence that holds beats an archive that shows gaps. | high |
 | GitHub repo name is the last one out of line | Vercel is now `builtbyswami` and the domain is builtbyswami.com; GitHub is still `Swami-Guru-Portfolio`. Renaming is safe — GitHub redirects old URLs permanently and Vercel links by repo ID, not name. | low |
 | Daily JSON doesn't set `featured` | Homepage hero card falls back to `posts[0]` when no post has `featured: true`. Add `"featured": true` when writing the day's JSON to pick the lead deliberately. | low |
-| YouTube RSS feed is flaky | `feeds/videos.xml` returned HTTP 500 for about an hour on 19 Aug, 502ing `/api/latest-videos`. Recovered on its own. The homepage degrades gracefully, so cosmetic. | low |
 | Own traffic isn't filtered from GA4 | Deliberately skipped. The public IP resolves to Google LLC / Data Center / Mumbai — a shared proxy, not a home address — so an IP rule would be unreliable. Read reports from ranges that exclude testing days. | low |
 | Reading components ignore reduced motion | `ScrollProgress` and `TableOfContents` don't check `prefers-reduced-motion`, though `Home.tsx` and `TechDigest.tsx` do. Inconsistent with the rest of the codebase. | low |
 | Sticky header isn't sticky | `SiteHeader` is `sticky top-0`, but the page wrapper's `overflow-hidden` defeats it, so the header scrolls away. Pre-existing. If anyone "fixes" the overflow, `scroll-mt-32` on headings becomes too tight and anchors will hide under the header. | low |
@@ -162,6 +161,19 @@ with **CTA ID** as the secondary dimension.
 - Git run through the Cowork bridge leaves `index.lock` behind on every command
   (the mount allows writes and renames but not `unlink`), blocking the next
   one. Run git in Terminal.
+- **Never `git clone --depth 1` without naming the branch.** A shallow clone
+  takes the *default* branch (`main`). If the work in progress is on a feature
+  branch, editing a file from that clone and committing it back to the feature
+  branch silently reverts every commit the branch had that main didn't — no
+  conflict, no warning, just a diff that looks like a normal edit. This
+  destroyed the Builds showcase on 19 Aug and PROJECT-STATUS.md twice. Always
+  `git clone --branch <branch>` (or a full clone), and before committing, grep
+  for a symbol you know the branch introduced.
+- **zsh does not strip inline `#` comments in interactive mode.** Pasting
+  `git add public/og-image.png    # keep our version` passes `#`, `keep`, `our`
+  and `version` to git as pathspecs and the command fails — while the rest of a
+  pasted block runs on regardless. Commands to paste must carry no trailing
+  comments; put explanation on its own line above.
 - **This file gets clobbered by tools working from a stale checkout.** It was
   reverted to its template twice on 19 Aug. If it looks empty, check
   `git log -- PROJECT-STATUS.md` before rewriting it.
@@ -170,6 +182,10 @@ with **CTA ID** as the secondary dimension.
 
 ## Changelog
 
+- **2026-08-19** — The Channel removed from the homepage. It doesn't win a gig
+  or a job, and it was the only module pointing off-domain. Deleted with it:
+  `api/latest-videos.js`, `src/hooks/useImageOrientation.ts`, and the video
+  card / skeleton components in `Home.tsx`. YouTube stays as a footer link.
 - **2026-08-19** — Restored `public/og-image.png` (deleted by a dependency
   prune), rebuilt to 1200×630 / 851KB from a 5.8MB original.
 - **2026-08-19** — Reading experience: scroll progress bar, table of contents
