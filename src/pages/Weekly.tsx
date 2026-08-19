@@ -12,6 +12,7 @@ import { NEWSLETTER_TITLE, NEWSLETTER_PROMISE } from "../data/newsletter";
 import SiteHeader from "../components/SiteHeader";
 import SiteFooter from "../components/SiteFooter";
 import NewsletterSignup from "../components/NewsletterSignup";
+import { usePageSeo } from "../hooks/usePageSeo";
 
 /**
  * The Weekly archive.
@@ -26,16 +27,7 @@ import NewsletterSignup from "../components/NewsletterSignup";
  */
 export default function Weekly() {
   const { issues, loading } = useWeeklyIssues();
-
-  useEffect(() => {
-    document.title = "The Weekly | Swami Guru";
-    document
-      .querySelector('meta[name="description"]')
-      ?.setAttribute(
-        "content",
-        "The Weekly by Swami Guru — every issue of the Builtbyswami Weekly: the best of the daily five, plus what I'm building in public. Free."
-      );
-  }, []);
+  usePageSeo("weekly");
 
   return (
     <div className="min-h-screen bg-m3-surface md:p-8 selection:bg-m3-primary selection:text-m3-on-primary">

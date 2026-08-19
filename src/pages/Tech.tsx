@@ -8,6 +8,7 @@ import { Link, useSearchParams } from "react-router-dom";
 import { ArrowRight, ChevronLeft, ChevronRight, Sparkles } from "lucide-react";
 import { DIGESTS, formatDigestDate, type Digest } from "../data/social";
 import SiteHeader from "../components/SiteHeader";
+import { usePageSeo } from "../hooks/usePageSeo";
 
 const formatMonth = (key: string): string =>
   new Date(key + "-01T00:00:00").toLocaleDateString("en-US", {
@@ -61,16 +62,7 @@ export default function Tech() {
     setSearchParams(month === monthGroups[0]?.[0] ? {} : { month });
     window.scrollTo(0, 0);
   };
-
-  useEffect(() => {
-    document.title = "Tech Roundup | Swami Guru";
-    document
-      .querySelector('meta[name="description"]')
-      ?.setAttribute(
-        "content",
-        "Daily tech & AI roundups from Swami Guru — the biggest stories, honest takes, and practical tips, filtered so you only get what's worth your time."
-      );
-  }, []);
+  usePageSeo("techRoundup");
 
   return (
     <div className="min-h-screen bg-m3-surface md:p-8 selection:bg-m3-primary selection:text-m3-on-primary">

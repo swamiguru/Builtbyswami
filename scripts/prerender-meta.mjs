@@ -13,6 +13,8 @@ import { readFileSync, writeFileSync, mkdirSync, readdirSync } from "node:fs";
 import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 
+import { PAGE_SEO } from "../src/data/seo.mjs";
+
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const DIST = join(__dirname, "..", "dist");
 const BASE = "https://www.builtbyswami.com";
@@ -70,53 +72,23 @@ try {
 }
 
 const routes = [
-  {
-    path: "work-with-me",
-    title: "Work With Me | Swami Guru",
-    description:
-      "Product consulting for publishers and content businesses — market launches, CMS migrations and editorial AI workflows, without losing traffic or revenue. 11 years in product across Vogue, GQ, Wired, AD and Condé Nast Traveller.",
-  },
+  { path: "work-with-me", ...PAGE_SEO.workWithMe },
   {
     path: "case-study/middle-east",
     title: "Launching global media brands into the Middle East | Case Study",
     description:
       "How Condé Nast's Middle East expansion shipped across three waves — five flagship titles live in the GCC, the $20M+ Year 1 revenue target exceeded, and a final launch that halved time-to-market.",
   },
-  {
-    path: "about",
-    title: "Swami Guru | Product Builder Portfolio",
-    description:
-      "Portfolio of Swami Guru, a Product Builder with 11+ years leading digital strategy, platform transformation, and revenue growth for world-class media brands.",
-  },
-  {
-    path: "notes",
-    title: "Build Notes | Swami Guru",
-    description:
-      "Build notes by Swami Guru — the brief, the method and what broke, written after each product ships. Building in public with AI as a real tool.",
-  },
-  {
-    path: "builds",
-    title: "Builds | Swami Guru",
-    description:
-      "Products Swami Guru has taken from brief to production single-handedly — builtbyswami.com, Free Word Tool, Adda and a 24-hour task engine. What each one was, the constraint, and how long it took.",
-  },
-  {
-    path: "weekly",
-    title: "The Weekly | Swami Guru",
-    description:
-      "The Weekly by Swami Guru — every issue of the Builtbyswami Weekly: the best of the daily five, plus what I'm building in public. Free.",
-  },
+  { path: "about", ...PAGE_SEO.about },
+  { path: "notes", ...PAGE_SEO.notes },
+  { path: "builds", ...PAGE_SEO.builds },
+  { path: "weekly", ...PAGE_SEO.weekly },
   ...NOTES.map((n) => ({
     path: `notes/${n.slug}`,
     title: `${n.title} | Build Notes`,
     description: n.description,
   })),
-  {
-    path: "tech-roundup",
-    title: "Daily Tech & AI Roundup | Swami Guru",
-    description:
-      "Daily tech & AI roundups from Swami Guru — the biggest stories, honest takes, and practical tips, filtered so you only get what's worth your time.",
-  },
+  { path: "tech-roundup", ...PAGE_SEO.techRoundup },
   ...digests.map((d) => ({
     path: `tech-roundup/${d.date}`,
     title: `${d.title} | Tech Roundup`,
@@ -150,6 +122,25 @@ for (const r of routes) {
   console.log(`  prerendered /${r.path}`);
 }
 console.log(`prerender-meta: wrote ${count} route shell(s).`);
+
+// The homepage shell is dist/index.html itself, written by Vite from the
+// source index.html. Rewrite its metadata from PAGE_SEO too, so the one page
+// that doesn't get a generated shell can't drift either.
+{
+  const home = `${BASE}/`;
+  let html = template.replace(/<title>[\s\S]*?<\/title>/, `<title>${PAGE_SEO.home.title}</title>`);
+  html = sub(html, '<meta name="description" content', PAGE_SEO.home.description);
+  html = sub(html, '<meta property="og:title" content', PAGE_SEO.home.title);
+  html = sub(html, '<meta property="og:description" content', PAGE_SEO.home.description);
+  html = sub(html, '<meta property="og:url" content', home);
+  html = sub(html, '<meta name="twitter:title" content', PAGE_SEO.home.title);
+  html = sub(html, '<meta name="twitter:description" content', PAGE_SEO.home.description);
+  html = sub(html, '<meta name="twitter:url" content', home);
+  html = sub(html, '<link rel="canonical" href', home);
+  writeFileSync(join(DIST, "index.html"), html, "utf8");
+  console.log("  rewrote / from PAGE_SEO.home");
+}
+
 
 // Regenerate sitemap.xml from this same route list so new tech-roundup dates
 // and notes can never fall out of sync with what's actually published.
