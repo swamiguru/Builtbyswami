@@ -161,6 +161,10 @@ with **CTA ID** as the secondary dimension.
 - Git run through the Cowork bridge leaves `index.lock` behind on every command
   (the mount allows writes and renames but not `unlink`), blocking the next
   one. Run git in Terminal.
+- **`hidden sm:block` silently kills `line-clamp-N`.** Tailwind's line-clamp
+  works by setting `display: -webkit-box`; any later `display` utility on the
+  same element wins and the text renders in full. Use `max-sm:hidden` to hide
+  something below a breakpoint when it also needs to clamp.
 - **Never `git clone --depth 1` without naming the branch.** A shallow clone
   takes the *default* branch (`main`). If the work in progress is on a feature
   branch, editing a file from that clone and committing it back to the feature
@@ -182,6 +186,9 @@ with **CTA ID** as the secondary dimension.
 
 ## Changelog
 
+- **2026-08-19** — The Weekly and the email capture merged into one tinted
+  block. Two stacked full-bleed sections became one: 960px → 531px on mobile,
+  741px → 384px at 1440px. Notes keeps surface-variant so the two read apart.
 - **2026-08-19** — The Channel removed from the homepage. It doesn't win a gig
   or a job, and it was the only module pointing off-domain. Deleted with it:
   `api/latest-videos.js`, `src/hooks/useImageOrientation.ts`, and the video

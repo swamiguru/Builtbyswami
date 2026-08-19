@@ -345,90 +345,105 @@ export default function Home() {
           </div>
         </section>
 
-        {/* 02b — The Weekly (latest issue).
-            This used to say "Subscribe to read this issue" and point at the
-            email capture below, which read as a paywall on a site whose whole
-            promise is free — and the issue isn't gated on beehiiv anyway. It
-            now links straight to the issue; the ask comes after, in 03. */}
-        <section className="px-6 md:px-14 py-10 md:py-12 bg-m3-surface border-t border-m3-outline/10">
-          <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-2 mb-6">
-            <div className="flex items-center gap-3">
-              <Clock className="w-5 h-5 text-m3-primary" />
-              <span className="font-display text-[11px] md:text-sm font-black uppercase tracking-[0.3em] text-m3-primary">
-                The Weekly
-              </span>
-            </div>
-            <Link
-              to="/weekly"
-              className="text-[11px] font-bold uppercase tracking-widest text-m3-on-surface-variant hover:text-m3-primary transition-colors flex items-center gap-1"
-            >
-              All issues <ArrowRight className="w-3.5 h-3.5" />
-            </Link>
-          </div>
-
-          {latestIssue ? (
-            <a
-              href={latestIssue.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group flex flex-col md:flex-row bg-m3-secondary-container text-m3-on-secondary-container rounded-[28px] overflow-hidden hover:shadow-xl transition-all"
-            >
-              {latestIssue.thumbnail && (
-                <img
-                  src={latestIssue.thumbnail}
-                  alt=""
-                  loading="lazy"
-                  onError={(e) => {
-                    e.currentTarget.style.display = "none";
-                  }}
-                  className="w-full md:w-[320px] aspect-video md:aspect-square object-cover object-center shrink-0"
-                />
-              )}
-              <div className="p-6 md:p-8 flex flex-col justify-center gap-3 flex-1 min-w-0">
-                <span className="text-[11px] font-bold uppercase tracking-widest opacity-70">
-                  {latestIssue.issueNumber !== undefined && `Issue #${latestIssue.issueNumber} · `}
-                  {formatDigestDate(latestIssue.publishedDate)}
-                </span>
-                <h2 className="display text-xl md:text-2xl font-extrabold tracking-tight leading-snug">
-                  {latestIssue.title}
-                </h2>
-                <p className="text-sm md:text-base font-medium opacity-80 leading-relaxed line-clamp-3 max-w-2xl">
-                  {latestIssue.teaser}
-                </p>
-                <span className="mt-2 inline-flex items-center gap-1 text-[11px] font-bold uppercase tracking-widest group-hover:gap-2 transition-all">
-                  {latestIssue.issueNumber === undefined
-                    ? "Read the issue"
-                    : `Read issue #${latestIssue.issueNumber}`}{" "}
-                  <ArrowUpRight className="w-3.5 h-3.5" />
-                </span>
+        {/* 02b + 03 — The Weekly and the email capture, one block.
+            These were two full-bleed sections stacked on top of each other:
+            the latest issue on surface, then the signup on secondary-container.
+            On mobile that was ~900px of scroll for one idea — "here is the
+            weekly, subscribe to it". They now share a single tinted block that
+            reads as one unit and sits clearly apart from Notes below, which
+            keeps surface-variant. On lg the issue and the form sit side by
+            side; below that they stack, and the issue card stays horizontal
+            rather than putting a 16:9 image above the text. */}
+        <section className="bg-m3-secondary-container text-m3-on-secondary-container px-6 md:px-14 py-9 md:py-12 border-t border-m3-outline/10">
+          <div className="grid lg:grid-cols-[1.35fr_1fr] gap-8 lg:gap-12 items-start">
+            {/* The Weekly */}
+            <div className="flex flex-col">
+              <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-2 mb-4">
+                <div className="flex items-center gap-3">
+                  <Clock className="w-5 h-5" />
+                  <span className="font-display text-[11px] md:text-sm font-black uppercase tracking-[0.3em]">
+                    The Weekly
+                  </span>
+                </div>
+                <Link
+                  to="/weekly"
+                  className="text-[11px] font-bold uppercase tracking-widest opacity-70 hover:opacity-100 transition-opacity flex items-center gap-1"
+                >
+                  All issues <ArrowRight className="w-3.5 h-3.5" />
+                </Link>
               </div>
-            </a>
-          ) : (
-            <div className="bg-m3-surface-variant/40 rounded-[24px] border border-m3-outline/5 p-8">
-              <p className="font-display font-bold text-m3-on-surface mb-1">First weekly issue coming soon</p>
-              <p className="text-sm text-m3-on-surface-variant font-medium">
-                Once the first Builtbyswami Weekly issue is live, the week's biggest stories will round up right here.
-              </p>
-            </div>
-          )}
-        </section>
 
-        {/* 03 — Weekly digest (email capture) */}
-        <section
-          id="build-notes"
-          className="bg-m3-secondary-container text-m3-on-secondary-container px-6 md:px-14 py-10 md:py-14"
-        >
-          <div className="max-w-2xl">
-            <div className="flex items-center gap-3 mb-3">
-              <Mail className="w-5 h-5 text-m3-primary" />
-              <h2 className="display text-2xl md:text-3xl font-extrabold uppercase tracking-tight">
-                {NEWSLETTER_TITLE}
-              </h2>
+              {latestIssue ? (
+                <a
+                  href={latestIssue.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group flex bg-m3-surface text-m3-on-surface rounded-[24px] overflow-hidden hover:shadow-xl transition-all"
+                >
+                  {/* Hidden below sm. A 96px-wide strip of a 16:9 beehiiv
+                      thumbnail is a centre crop so tight it reads as a
+                      rendering fault, and the whole point of this block is
+                      less mobile scroll. `max-sm:hidden`, not `hidden sm:block`
+                      — see the teaser below for why that matters. */}
+                  {latestIssue.thumbnail && (
+                    <img
+                      src={latestIssue.thumbnail}
+                      alt=""
+                      loading="lazy"
+                      onError={(e) => {
+                        e.currentTarget.style.display = "none";
+                      }}
+                      className="max-sm:hidden w-[150px] md:w-[200px] shrink-0 self-stretch object-cover object-center"
+                    />
+                  )}
+                  <div className="p-5 md:p-7 flex flex-col justify-center gap-1.5 md:gap-2.5 flex-1 min-w-0">
+                    <span className="text-[10px] md:text-[11px] font-bold uppercase tracking-widest text-m3-on-surface-variant">
+                      {latestIssue.issueNumber !== undefined && `Issue #${latestIssue.issueNumber} · `}
+                      {formatDigestDate(latestIssue.publishedDate)}
+                    </span>
+                    <h2 className="display text-base sm:text-lg md:text-xl font-extrabold tracking-tight leading-snug line-clamp-3">
+                      {latestIssue.title}
+                    </h2>
+                    {/* `max-sm:hidden`, never `hidden sm:block`: line-clamp
+                        works by setting display:-webkit-box, so a `sm:block`
+                        overrides it and the teaser renders in full. That's how
+                        an eight-line paragraph shipped past a `line-clamp-2`. */}
+                    <p className="max-sm:hidden text-sm font-medium text-m3-on-surface-variant leading-relaxed line-clamp-2">
+                      {latestIssue.teaser}
+                    </p>
+                    <span className="mt-1 inline-flex items-center gap-1 text-[10px] md:text-[11px] font-bold uppercase tracking-widest text-m3-primary group-hover:gap-2 transition-all">
+                      {latestIssue.issueNumber === undefined
+                        ? "Read the issue"
+                        : `Read issue #${latestIssue.issueNumber}`}{" "}
+                      <ArrowUpRight className="w-3.5 h-3.5" />
+                    </span>
+                  </div>
+                </a>
+              ) : (
+                <div className="bg-m3-surface text-m3-on-surface rounded-[24px] p-6 md:p-8">
+                  <p className="font-display font-bold mb-1">First weekly issue coming soon</p>
+                  <p className="text-sm text-m3-on-surface-variant font-medium">
+                    Once the first Builtbyswami Weekly issue is live, the week's biggest stories will round up right here.
+                  </p>
+                </div>
+              )}
             </div>
-            <p className="text-sm md:text-base font-medium opacity-80 mb-6 max-w-xl">
-              {NEWSLETTER_PROMISE}
-            </p>
-            <NewsletterSignup />
+
+            {/* Email capture. Keeps the #build-notes id — the footer's
+                Subscribe link points at it. */}
+            <div
+              id="build-notes"
+              className="flex flex-col lg:border-l lg:border-m3-on-secondary-container/15 lg:pl-12 lg:pt-9"
+            >
+              <div className="flex items-center gap-3 mb-2">
+                <Mail className="w-5 h-5" />
+                <h2 className="display text-xl md:text-2xl font-extrabold uppercase tracking-tight leading-tight">
+                  {NEWSLETTER_TITLE}
+                </h2>
+              </div>
+              <p className="text-sm font-medium opacity-80 mb-5">{NEWSLETTER_PROMISE}</p>
+              <NewsletterSignup />
+            </div>
           </div>
         </section>
 
