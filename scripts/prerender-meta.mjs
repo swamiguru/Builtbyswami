@@ -20,6 +20,12 @@ const template = readFileSync(join(DIST, "index.html"), "utf8");
 
 const NOTES = [
   {
+    slug: "what-got-faster-and-what-didnt",
+    title: "What got faster when I started building with AI, and what didn't",
+    description:
+      "Producing code got faster. Deciding what to build and knowing when to stop did not. What eleven years of product work looks like when the execution barrier disappears — and the two rules I broke anyway.",
+  },
+  {
     slug: "what-a-cms-migration-actually-costs",
     title: "What a CMS migration actually costs you",
     description:
@@ -89,6 +95,12 @@ const routes = [
       "Build notes by Swami Guru — the brief, the method and what broke, written after each product ships. Building in public with AI as a real tool.",
   },
   {
+    path: "builds",
+    title: "Builds | Swami Guru",
+    description:
+      "Products Swami Guru has taken from brief to production single-handedly — builtbyswami.com, Free Word Tool, Adda and a 24-hour task engine. What each one was, the constraint, and how long it took.",
+  },
+  {
     path: "weekly",
     title: "The Weekly | Swami Guru",
     description:
@@ -141,7 +153,7 @@ console.log(`prerender-meta: wrote ${count} route shell(s).`);
 
 // Regenerate sitemap.xml from this same route list so new tech-roundup dates
 // and notes can never fall out of sync with what's actually published.
-const HUB_PATHS = new Set(["about", "notes", "weekly", "tech-roundup", "work-with-me"]);
+const HUB_PATHS = new Set(["about", "notes", "weekly", "builds", "tech-roundup", "work-with-me"]);
 const changefreqFor = (path) =>
   path === "" ? "weekly" : path === "tech-roundup" ? "daily" : HUB_PATHS.has(path) ? "monthly" : "monthly";
 const priorityFor = (path) => (path === "" ? "1.0" : HUB_PATHS.has(path) ? "0.8" : "0.6");

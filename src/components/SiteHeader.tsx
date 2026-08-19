@@ -28,6 +28,7 @@ interface NavItem {
 const NAV: NavItem[] = [
   { label: "The Daily Five", to: "/tech-roundup" },
   { label: "Notes", to: "/notes" },
+  { label: "Builds", to: "/builds" },
   { label: "The Work", to: "/about" },
   { label: "Consulting", to: "/work-with-me" },
 ];
