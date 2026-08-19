@@ -67,6 +67,12 @@ export function normalizeCategory(pillar: string): string {
   const p = pillar.toLowerCase();
   if (p.includes("myth")) return "Myth-Buster";
   if (p.includes("hot take")) return "Hot Take";
+  // "News & Commentary" is the daily lead: a story plus a point of view, every
+  // day since 12 July. It was falling through to News because the string
+  // contains "news", which is why News read 57 and Hot Take read 6 — the
+  // browse row described an aggregator when the site is a daily column. This
+  // has to be tested before the "news" rule below, not after.
+  if (p.includes("commentary")) return "Commentary";
   if (p.includes("launch")) return "Launch Radar";
   if (p.includes("tips") || p.includes("trick")) return "Tips";
   if (p.includes("comparison")) return "Comparison";
@@ -86,12 +92,13 @@ export interface CategoryCount {
  * Display order for the browse chips, most distinctive first.
  *
  * Volume alone put News and Tips at the front — the two categories every tech
- * site has and nobody chooses a site for — while Hot Take and Myth-Buster, the
- * formats that actually carry a point of view, sat last because they're the
- * rarest. Count still decides *which* chips appear; this decides the order
- * they're read in. Anything not listed keeps its volume rank, after these.
+ * site has and nobody chooses a site for — while the formats that actually
+ * carry a point of view sat last. Count still decides *which* chips appear;
+ * this decides the order they're read in. Anything not listed keeps its
+ * volume rank, after these.
  */
 const CATEGORY_DISPLAY_ORDER = [
+  "Commentary",
   "Hot Take",
   "Myth-Buster",
   "Comparison",
@@ -103,9 +110,20 @@ const CATEGORY_DISPLAY_ORDER = [
   "News",
 ];
 
+/**
+ * Categories that always appear in the browse row when they have any posts at
+ * all, regardless of volume.
+ *
+ * These are the two standalone opinion formats. They are rare by design, so a
+ * pure top-N-by-count selection drops them exactly because they're the thing
+ * worth finding — adding the Commentary bucket pushed Hot Take (6 posts) off
+ * the row entirely. Pinning them is the point of the row.
+ */
+const PINNED_CATEGORIES = ["Hot Take", "Myth-Buster"];
+
 /** Umbrella categories, selected by volume and ordered by editorial value —
  * used for the homepage chip row and the /tech-roundup filter. */
-export const getTopCategories = (limit = 8): CategoryCount[] => {
+export const getTopCategories = (limit = 9): CategoryCount[] => {
   const counts = new Map<string, number>();
   for (const d of DIGESTS) {
     for (const p of d.posts) {
@@ -119,11 +137,19 @@ export const getTopCategories = (limit = 8): CategoryCount[] => {
     return i === -1 ? CATEGORY_DISPLAY_ORDER.length : i;
   };
 
-  return Array.from(counts.entries())
-    .map(([category, count]) => ({ category, count }))
-    // Which chips make the cut is still a volume question…
+  const all = Array.from(counts.entries()).map(([category, count]) => ({
+    category,
+    count,
+  }));
+
+  const pinned = all.filter((c) => PINNED_CATEGORIES.includes(c.category));
+  const rest = all
+    .filter((c) => !PINNED_CATEGORIES.includes(c.category))
+    // Which of the remaining chips make the cut is still a volume question…
     .sort((a, b) => b.count - a.count)
-    .slice(0, limit)
+    .slice(0, Math.max(0, limit - pinned.length));
+
+  return [...pinned, ...rest]
     // …but the order they're presented in is an editorial one.
     .sort((a, b) => rank(a.category) - rank(b.category) || b.count - a.count);
 };

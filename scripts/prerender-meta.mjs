@@ -165,25 +165,65 @@ const sitemap = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://w
 writeFileSync(join(DIST, "sitemap.xml"), sitemap, "utf8");
 console.log(`prerender-meta: regenerated sitemap.xml with ${sitemapEntries.length} url(s).`);
 
-// The daily five is meant to carry one opinionated slot every day — a Hot Take
-// or a Myth-Buster. Those are the two formats with a point of view, and they
-// were the two rarest (6 and 15 posts against 57 News and 37 Tips), which is
-// how a publication quietly turns into an aggregator.
+// --- Daily Five format check --------------------------------------------
 //
-// This warns; it never fails. A format rule that can block a 6am publish is a
-// rule that gets deleted the first morning it fires.
-const OPINION_PILLARS = ["myth", "hot take"];
-const newest = [...digests].sort((a, b) => b.date.localeCompare(a.date))[0];
-if (newest) {
-  const hasOpinion = (newest.posts ?? []).some((p) =>
-    OPINION_PILLARS.some((k) => String(p.pillar ?? "").toLowerCase().includes(k))
-  );
-  if (!hasOpinion) {
-    const pillars = (newest.posts ?? []).map((p) => p.pillar).join(", ");
+// The format is fixed: 1 Commentary, 2 News, 3 Tips, 4 variable, 5 a
+// standalone opinion piece — a Hot Take or a Myth-Buster.
+//
+// Slot 1 already carries a point of view every day; that is not what this
+// guards. It guards the *standalone* opinion slot, which is the piece that
+// gets quoted and clipped, and which quietly loses slot 5 to Community/Poll.
+//
+// It warns and never fails. A rule that can block a 6am publish is a rule that
+// gets deleted the first morning it fires.
+const isOpinionPillar = (pillar) => /myth|hot take/i.test(String(pillar ?? ""));
+
+const opinionSlot = (digest) => {
+  const posts = digest.posts ?? [];
+  if (!posts.length) return { held: false, foundAt: null };
+  const last = posts[posts.length - 1];
+  const foundAt = posts.findIndex((p) => isOpinionPillar(p.pillar));
+  return {
+    held: isOpinionPillar(last.pillar),
+    foundAt: foundAt === -1 ? null : foundAt + 1,
+  };
+};
+
+const byNewest = [...digests].sort((a, b) => b.date.localeCompare(a.date));
+
+if (byNewest.length) {
+  const rate = (n) => {
+    const window = byNewest.slice(0, n);
+    if (!window.length) return null;
+    const held = window.filter((d) => opinionSlot(d).held).length;
+    return { held, of: window.length, pct: Math.round((held / window.length) * 100) };
+  };
+
+  const newest = byNewest[0];
+  const { held, foundAt } = opinionSlot(newest);
+  const last7 = rate(7);
+  const last30 = rate(30);
+
+  const trend =
+    `  Slot 5 held: ${last7.held}/${last7.of} over the last 7 (${last7.pct}%)` +
+    (last30 && last30.of > last7.of
+      ? `, ${last30.held}/${last30.of} over the last ${last30.of} (${last30.pct}%)`
+      : "");
+
+  if (held) {
+    console.log(`\nprerender-meta: daily format OK — ${newest.date} closes on a standalone opinion.`);
+    console.log(trend + "\n");
+  } else {
+    const where =
+      foundAt === null
+        ? "  No Hot Take or Myth-Buster anywhere in today's five."
+        : `  There is one in slot ${foundAt} — move it to slot 5 and the format holds.`;
     console.warn(
-      `\nprerender-meta: WARNING — the ${newest.date} roundup has no Hot Take or Myth-Buster.` +
-        `\n  Pillars today: ${pillars || "none"}` +
-        `\n  Shipping anyway. The opinion slot is what makes the daily five yours rather than a feed.\n`
+      `\nprerender-meta: WARNING — ${newest.date} does not close on a standalone opinion.` +
+        `\n  Slot 5 is: ${newest.posts?.[newest.posts.length - 1]?.pillar ?? "empty"}` +
+        `\n${where}` +
+        `\n${trend}` +
+        `\n  The lead still carries commentary. This is about the piece people quote.\n`
     );
   }
 }
