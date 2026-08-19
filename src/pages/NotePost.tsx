@@ -11,6 +11,7 @@ import { ArrowLeft, ArrowRight, ArrowUpRight, Clock } from "lucide-react";
 import { NOTES_SORTED, getNote, formatNoteDate } from "../data/notes";
 import SiteHeader from "../components/SiteHeader";
 import SiteFooter from "../components/SiteFooter";
+import ScrollProgress from "../components/ScrollProgress";
 
 const YOUTUBE = "https://www.youtube.com/@builtbyswami";
 
@@ -45,6 +46,7 @@ export default function NotePost() {
 
   return (
     <div className="min-h-screen bg-m3-surface md:p-8 selection:bg-m3-primary selection:text-m3-on-primary">
+      <ScrollProgress />
       <div className="max-w-[1100px] mx-auto min-h-[90vh] flex flex-col relative bg-m3-surface-variant overflow-hidden shadow-xl rounded-m3-xl md:rounded-[32px] border border-m3-outline/10">
 
         <SiteHeader />
