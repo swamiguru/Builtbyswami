@@ -8,6 +8,7 @@ import sprintPost from "../content/notes/24-hour-task-manager-sprint.md?raw";
 import freeWordToolPost from "../content/notes/freewordtool-one-day-sprint.md?raw";
 import builtBySwamiOriginPost from "../content/notes/why-i-built-builtbyswami-from-scratch.md?raw";
 import addaPost from "../content/notes/adda-a-product-with-no-job.md?raw";
+import cmsMigrationPost from "../content/notes/what-a-cms-migration-actually-costs.md?raw";
 
 export interface Note {
   slug: string;
@@ -23,6 +24,18 @@ export interface Note {
 }
 
 export const NOTES: Note[] = [
+  {
+    slug: "what-a-cms-migration-actually-costs",
+    title: "What a CMS migration actually costs you",
+    description:
+      "The business case prices the license, the build and the data move. The three costs that sink migrations aren't in it — editorial throughput, the redirect map, and ad integrations that break quietly.",
+    date: "2026-08-19",
+    readMinutes: 5,
+    tag: "Platform",
+    ctaUrl: "/work-with-me",
+    ctaLabel: "Migration readiness",
+    content: cmsMigrationPost,
+  },
   {
     slug: "adda-a-product-with-no-job",
     title: "I built a product with no job to do",

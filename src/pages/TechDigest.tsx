@@ -246,6 +246,35 @@ export default function TechDigest() {
           </div>
         </article>
 
+        {/* Who writes this.
+            The daily roundup is read by consumer-tech readers, not by anyone
+            shopping for a product lead, so a consulting CTA here would convert
+            nothing and cheapen the piece. This is curiosity instead: it says
+            who wrote it and gets out of the way. /about carries the consulting
+            link for the small share who follow it. */}
+        <aside className="max-w-[820px] mx-auto px-6 md:px-14 pb-8">
+          <Link
+            to="/about"
+            className="group flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-5 bg-m3-surface rounded-[24px] border border-m3-outline/5 p-5 md:p-6 hover:border-m3-primary/30 hover:shadow-lg transition-all"
+          >
+            <span className="w-12 h-12 shrink-0 rounded-full bg-m3-primary-container text-m3-on-primary-container flex items-center justify-center font-display font-black text-lg">
+              S
+            </span>
+            <span className="flex-1 min-w-0">
+              <span className="block font-display font-bold text-sm md:text-base text-m3-on-surface">
+                Written by Swami
+              </span>
+              <span className="block text-sm text-m3-on-surface-variant font-medium leading-relaxed">
+                11 years in product at Vogue, GQ and Wired. Now building and
+                shipping solo from Bengaluru.
+              </span>
+            </span>
+            <span className="text-[11px] font-bold uppercase tracking-widest text-m3-on-surface-variant group-hover:text-m3-primary transition-colors flex items-center gap-1 shrink-0">
+              More <ArrowRight className="w-3.5 h-3.5" />
+            </span>
+          </Link>
+        </aside>
+
         {(older || newer) && (
           <nav
             aria-label="Roundup navigation"

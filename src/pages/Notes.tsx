@@ -37,7 +37,7 @@ export default function Notes() {
       .querySelector('meta[name="description"]')
       ?.setAttribute(
         "content",
-        "Build Notes by Swami Guru — long-form teardowns of building products in public with AI. The wiring behind the videos: prompts, stack, mistakes, results."
+        "Build notes by Swami Guru — the brief, the method and what broke, written after each product ships. Building in public with AI as a real tool."
       );
   }, []);
 
@@ -58,7 +58,7 @@ export default function Notes() {
             The wiring behind the builds
           </h1>
           <p className="mt-5 text-base md:text-lg font-medium text-m3-on-surface-variant max-w-xl leading-relaxed">
-            Long-form AI product teardowns — the prompts and stack notes behind building with AI in public: what broke, what shipped, what I'd do differently.
+            Build notes from shipping solo — the brief, the method, and what broke. Written after each thing goes live, while the decisions are still fresh.
           </p>
         </section>
 

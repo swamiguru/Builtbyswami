@@ -16,6 +16,7 @@ import {
 } from "lucide-react";
 import SiteHeader from "../components/SiteHeader";
 import SiteFooter from "../components/SiteFooter";
+import { trackCta } from "../lib/analytics";
 
 /** Booking link — the 30-minute event type, linked directly so there's no
  *  intermediate "pick a duration" step between the CTA and a booked call. */
@@ -105,6 +106,7 @@ function BookButton({ className = "" }: { className?: string }) {
       href={CAL_LINK}
       target="_blank"
       rel="noopener noreferrer"
+      onClick={() => trackCta("consulting_book_call", "work_with_me")}
       className={`inline-flex items-center gap-2 bg-m3-primary text-m3-on-primary font-display font-bold px-7 py-3.5 rounded-m3-full transition-all hover:m3-elevation-1-shadow active:scale-95 shadow-sm ${className}`}
     >
       Book a 30-minute call <ArrowRight className="w-4 h-4" />

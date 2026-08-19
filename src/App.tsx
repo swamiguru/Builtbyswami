@@ -9,6 +9,7 @@ import { Analytics } from "@vercel/analytics/react";
 import Home from "./pages/Home";
 import About from "./pages/About";
 import Notes from "./pages/Notes";
+import Weekly from "./pages/Weekly";
 import NotePost from "./pages/NotePost";
 import Tech from "./pages/Tech";
 import TechDigest from "./pages/TechDigest";
@@ -46,6 +47,7 @@ export default function App() {
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
         <Route path="/notes" element={<Notes />} />
+        <Route path="/weekly" element={<Weekly />} />
         <Route path="/notes/:slug" element={<NotePost />} />
         <Route path="/tech-roundup" element={<Tech />} />
         <Route path="/tech-roundup/:date" element={<TechDigest />} />
@@ -54,6 +56,7 @@ export default function App() {
         {/* Common aliases people type or link — all land on the services page */}
         <Route path="/hire" element={<Navigate to="/work-with-me" replace />} />
         <Route path="/consulting" element={<Navigate to="/work-with-me" replace />} />
+        <Route path="/newsletter" element={<Navigate to="/weekly" replace />} />
         {/* Legacy /tech paths redirect to the new slug */}
         <Route path="/tech" element={<Navigate to="/tech-roundup" replace />} />
         <Route path="/tech/:date" element={<TechRedirect />} />
