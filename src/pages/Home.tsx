@@ -29,6 +29,7 @@ import SiteFooter from "../components/SiteFooter";
 import NewsletterSignup from "../components/NewsletterSignup";
 import { useImageOrientation } from "../hooks/useImageOrientation";
 import { useScrambleText } from "../hooks/useScrambleText";
+import { usePageSeo } from "../hooks/usePageSeo";
 
 const YOUTUBE = "https://www.youtube.com/@builtbyswami";
 
@@ -205,16 +206,7 @@ export default function Home() {
   const railPosts = latestDigest ? latestDigest.posts.filter((p) => p.n !== heroPost?.n) : [];
   const categories = getTopCategories();
   const latestIssue = useLatestWeekly();
-
-  useEffect(() => {
-    document.title = "The Daily Tech Roundup: Tech News + AI Builds | Swami Guru";
-    document
-      .querySelector('meta[name="description"]')
-      ?.setAttribute(
-        "content",
-        "Get daily tech news, a weekly tech newsletter, and YouTube videos on AI tools - from Swami Guru, a product leader building AI products solo, in public."
-      );
-  }, []);
+  usePageSeo("home");
 
   return (
     <div className="min-h-screen bg-m3-surface md:p-8 selection:bg-m3-primary selection:text-m3-on-primary">

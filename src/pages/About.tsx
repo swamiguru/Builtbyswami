@@ -21,6 +21,7 @@ import { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
 import SiteHeader from "../components/SiteHeader";
 import SiteFooter from "../components/SiteFooter";
+import { usePageSeo } from "../hooks/usePageSeo";
 
 // --- Types ---
 
@@ -425,15 +426,7 @@ function LocalTime() {
 }
 
 export default function About() {
-  useEffect(() => {
-    document.title = "Swami Guru | Senior Product Leader & AI-Native Product Builder";
-    document
-      .querySelector('meta[name="description"]')
-      ?.setAttribute(
-        "content",
-        "Swami Guru — Senior Product Leader and independent product builder. 11+ years in product scaling audience, engagement and revenue for Vogue, GQ, Wired, Condé Nast Traveller, Architectural Digest and Newsweek. $20M+ net-new revenue built."
-      );
-  }, []);
+  usePageSeo("about");
 
   const [showScrollTop, setShowScrollTop] = useState(false);
   const skillsSectionRef = useRef<HTMLDivElement>(null);

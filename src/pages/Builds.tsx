@@ -10,6 +10,7 @@ import { BUILDS } from "../data/builds";
 import { NOTES_SORTED } from "../data/notes";
 import SiteHeader from "../components/SiteHeader";
 import SiteFooter from "../components/SiteFooter";
+import { usePageSeo } from "../hooks/usePageSeo";
 
 /**
  * Shipped solo.
@@ -21,15 +22,7 @@ import SiteFooter from "../components/SiteFooter";
  * down a 4,000-word page.
  */
 export default function Builds() {
-  useEffect(() => {
-    document.title = "Builds | Swami Guru";
-    document
-      .querySelector('meta[name="description"]')
-      ?.setAttribute(
-        "content",
-        "Products Swami Guru has taken from brief to production single-handedly — builtbyswami.com, Free Word Tool, Adda and a 24-hour task engine. What each one was, the constraint, and how long it took."
-      );
-  }, []);
+  usePageSeo("builds");
 
   const noteFor = (slug?: string) =>
     slug ? NOTES_SORTED.find((n) => n.slug === slug) : undefined;

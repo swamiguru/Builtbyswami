@@ -17,6 +17,7 @@ import {
 import SiteHeader from "../components/SiteHeader";
 import SiteFooter from "../components/SiteFooter";
 import { trackCta } from "../lib/analytics";
+import { usePageSeo } from "../hooks/usePageSeo";
 
 /** Booking link — the 30-minute event type, linked directly so there's no
  *  intermediate "pick a duration" step between the CTA and a booked call. */
@@ -115,15 +116,7 @@ function BookButton({ className = "" }: { className?: string }) {
 }
 
 export default function WorkWithMe() {
-  useEffect(() => {
-    document.title = "Work With Me | Swami Guru";
-    document
-      .querySelector('meta[name="description"]')
-      ?.setAttribute(
-        "content",
-        "Product consulting for publishers and content businesses — market launches, CMS migrations and editorial AI workflows, without losing traffic or revenue. 11 years in product across Vogue, GQ, Wired, AD and Condé Nast Traveller."
-      );
-  }, []);
+  usePageSeo("workWithMe");
 
   return (
     <div className="min-h-screen bg-m3-surface md:p-8 selection:bg-m3-primary selection:text-m3-on-primary">

@@ -9,6 +9,7 @@ import { ArrowRight, Clock, BookOpen } from "lucide-react";
 import { NOTES_SORTED, formatNoteDate, type Note } from "../data/notes";
 import SiteHeader from "../components/SiteHeader";
 import SiteFooter from "../components/SiteFooter";
+import { usePageSeo } from "../hooks/usePageSeo";
 
 const formatMonth = (key: string): string =>
   new Date(key + "-01T00:00:00").toLocaleDateString("en-US", {
@@ -30,16 +31,7 @@ export default function Notes() {
     }
     return Array.from(map.entries());
   }, []);
-
-  useEffect(() => {
-    document.title = "Build Notes | Swami Guru";
-    document
-      .querySelector('meta[name="description"]')
-      ?.setAttribute(
-        "content",
-        "Build notes by Swami Guru — the brief, the method and what broke, written after each product ships. Building in public with AI as a real tool."
-      );
-  }, []);
+  usePageSeo("notes");
 
   return (
     <div className="min-h-screen bg-m3-surface md:p-8 selection:bg-m3-primary selection:text-m3-on-primary">
