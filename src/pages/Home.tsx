@@ -206,6 +206,8 @@ export default function Home() {
   const railPosts = latestDigest ? latestDigest.posts.filter((p) => p.n !== heroPost?.n) : [];
   const categories = getTopCategories();
   const latestIssue = useLatestWeekly();
+  // Six is the ceiling; the section header links to /builds for the rest.
+  const homeBuilds = BUILDS.slice(0, 6);
   usePageSeo("home");
 
   return (
@@ -231,7 +233,7 @@ export default function Home() {
               build · ship · repeat
             </span>
             <h1 className="display text-[1.6rem] md:text-[2.6rem] font-extrabold tracking-tighter text-m3-on-surface leading-[1.08] mb-4">
-              I&rsquo;m Swami. I ran product for Vogue, GQ and Wired &mdash; five brand
+              I&rsquo;m Swami. I ran product for Vogue, GQ, Wired, Cond&eacute; Nast Traveller and Architectural Digest &mdash; five brand
               launches, three continents, one $20M year.
             </h1>
             <p className="text-base md:text-lg text-m3-on-surface-variant font-medium leading-relaxed mb-7 max-w-2xl">
@@ -557,17 +559,25 @@ export default function Home() {
               All builds <ArrowRight className="w-3.5 h-3.5" />
             </Link>
           </div>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {BUILDS.filter((b) => b.url)
-              .slice(0, 3)
-              .map((build) => (
-                <a
-                  key={build.name}
-                  href={build.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group bg-m3-surface-variant/40 rounded-[24px] border border-m3-outline/5 p-6 flex flex-col gap-3 hover:bg-m3-surface hover:border-m3-primary/30 hover:shadow-xl hover:-translate-y-1 transition-all"
-                >
+          {/* Every build shows, capped at six. A carousel was considered and
+              rejected: this section's whole job is "look how much shipped", and
+              a carousel hides two thirds of it behind a swipe. A wrapping grid
+              scales to six with no redesign. Two columns at exactly four, so
+              the fourth card isn't stranded alone on its own row. */}
+          <div
+            className={`grid sm:grid-cols-2 gap-4 ${
+              homeBuilds.length === 4 ? "lg:grid-cols-2" : "lg:grid-cols-3"
+            }`}
+          >
+            {homeBuilds.map((build) => {
+              // Not everything shipped has somewhere to go — the task engine was
+              // never published. Those cards point at the write-up instead of a
+              // dead "Open it", which is why they can be shown at all.
+              const cardClass =
+                "group bg-m3-surface-variant/40 rounded-[24px] border border-m3-outline/5 p-6 flex flex-col gap-3 hover:bg-m3-surface hover:border-m3-primary/30 hover:shadow-xl hover:-translate-y-1 transition-all";
+
+              const inner = (
+                <>
                   <span className="text-[10px] font-bold uppercase tracking-widest text-m3-primary">
                     {build.status}
                   </span>
@@ -578,10 +588,39 @@ export default function Home() {
                     {build.what}
                   </span>
                   <span className="mt-auto pt-2 inline-flex items-center gap-1 text-[11px] font-bold uppercase tracking-widest text-m3-primary group-hover:gap-1.5 transition-all">
-                    Open it <ArrowUpRight className="w-3.5 h-3.5" />
+                    {build.url ? (
+                      <>
+                        Open it <ArrowUpRight className="w-3.5 h-3.5" />
+                      </>
+                    ) : (
+                      <>
+                        How it was built <ArrowRight className="w-3.5 h-3.5" />
+                      </>
+                    )}
                   </span>
+                </>
+              );
+
+              return build.url ? (
+                <a
+                  key={build.name}
+                  href={build.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={cardClass}
+                >
+                  {inner}
                 </a>
-              ))}
+              ) : (
+                <Link
+                  key={build.name}
+                  to={build.noteSlug ? `/notes/${build.noteSlug}` : "/builds"}
+                  className={cardClass}
+                >
+                  {inner}
+                </Link>
+              );
+            })}
           </div>
         </section>
 
