@@ -144,8 +144,8 @@ export default function Home() {
                 half a daily reader cares about. Run together they became eight
                 lines on a phone with the payoff buried at the end. */}
             <p className="text-base md:text-lg text-m3-on-surface-variant font-medium leading-relaxed mb-3 max-w-2xl">
-              Eleven years running product at Cond&eacute; Nast, Newsweek and Metro World
-              News &mdash; more than a dozen brand launches, five continents, one $20M year.
+              Product leadership at Cond&eacute; Nast, Newsweek and Metro World News. Twenty
+              brand launches since 2015, five continents, one $20M year.
             </p>
             <p className="text-base md:text-lg text-m3-on-surface font-medium leading-relaxed mb-7 max-w-2xl">
               Here you&rsquo;ll find the daily five, build notes from what I ship solo, and
