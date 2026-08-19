@@ -82,8 +82,29 @@ export interface CategoryCount {
   count: number;
 }
 
-/** Umbrella categories ranked by how many posts fall into them, across every
- * published digest — used to decide which chips are worth showing. */
+/**
+ * Display order for the browse chips, most distinctive first.
+ *
+ * Volume alone put News and Tips at the front — the two categories every tech
+ * site has and nobody chooses a site for — while Hot Take and Myth-Buster, the
+ * formats that actually carry a point of view, sat last because they're the
+ * rarest. Count still decides *which* chips appear; this decides the order
+ * they're read in. Anything not listed keeps its volume rank, after these.
+ */
+const CATEGORY_DISPLAY_ORDER = [
+  "Hot Take",
+  "Myth-Buster",
+  "Comparison",
+  "AI",
+  "Tips",
+  "Security",
+  "Launch Radar",
+  "Community",
+  "News",
+];
+
+/** Umbrella categories, selected by volume and ordered by editorial value —
+ * used for the homepage chip row and the /tech-roundup filter. */
 export const getTopCategories = (limit = 8): CategoryCount[] => {
   const counts = new Map<string, number>();
   for (const d of DIGESTS) {
@@ -92,10 +113,19 @@ export const getTopCategories = (limit = 8): CategoryCount[] => {
       counts.set(cat, (counts.get(cat) ?? 0) + 1);
     }
   }
+
+  const rank = (c: string) => {
+    const i = CATEGORY_DISPLAY_ORDER.indexOf(c);
+    return i === -1 ? CATEGORY_DISPLAY_ORDER.length : i;
+  };
+
   return Array.from(counts.entries())
     .map(([category, count]) => ({ category, count }))
+    // Which chips make the cut is still a volume question…
     .sort((a, b) => b.count - a.count)
-    .slice(0, limit);
+    .slice(0, limit)
+    // …but the order they're presented in is an editorial one.
+    .sort((a, b) => rank(a.category) - rank(b.category) || b.count - a.count);
 };
 
 /** Digests containing at least one post that normalizes to `category`. */

@@ -7,9 +7,48 @@ import { Link } from "react-router-dom";
 import { motion } from "motion/react";
 import { ArrowUpRight } from "lucide-react";
 import { SOCIALS } from "../data/socials";
+import { NEWSLETTER_TITLE, NEWSLETTER_PROMISE } from "../data/newsletter";
+import { getLatestWeeklyIssue } from "../data/weekly";
+
+const YOUTUBE = "https://www.youtube.com/@builtbyswami";
 
 interface SiteFooterProps {
   className?: string;
+}
+
+/** Internal route link — same treatment everywhere in the footer columns. */
+function FootLink({ to, children }: { to: string; children: React.ReactNode }) {
+  return (
+    <Link
+      to={to}
+      className="text-sm font-display font-bold text-m3-on-surface-variant hover:text-m3-primary transition-colors w-fit"
+    >
+      {children}
+    </Link>
+  );
+}
+
+/** Outbound link — carries the arrow so leaving the site is always visible. */
+function FootExternal({ href, children }: { href: string; children: React.ReactNode }) {
+  return (
+    <a
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="text-sm font-display font-bold text-m3-on-surface-variant hover:text-m3-primary transition-colors w-fit inline-flex items-center gap-1.5"
+    >
+      {children} <ArrowUpRight className="w-3.5 h-3.5 opacity-60" />
+    </a>
+  );
+}
+
+/** Column heading — matches the old "Explore" eyebrow treatment. */
+function FootHeading({ children }: { children: React.ReactNode }) {
+  return (
+    <span className="font-display text-[10px] uppercase tracking-[0.3em] font-extrabold text-m3-on-surface-variant/50">
+      {children}
+    </span>
+  );
 }
 
 /**
@@ -18,16 +57,18 @@ interface SiteFooterProps {
  * so navigation and branding stay consistent across the site.
  */
 export default function SiteFooter({ className = "" }: SiteFooterProps) {
+  const latestIssue = getLatestWeeklyIssue();
+
   return (
     <footer className={`bg-m3-surface border-t border-m3-outline/10 rounded-b-m3-xl md:rounded-b-[32px] ${className}`}>
       {/* Top tier — signoff, subscribe & nav */}
       <div className="px-6 md:px-14 pt-10 pb-8 flex flex-col md:flex-row md:items-start gap-8 md:gap-12 justify-between">
         <div className="max-w-sm">
           <p className="font-display text-base font-bold leading-snug text-m3-on-surface">
-            The Daily Tech Roundup, distilled.
+            {NEWSLETTER_TITLE}
           </p>
           <p className="mt-2 text-sm leading-relaxed text-m3-on-surface-variant font-medium">
-            Build notes and the week&rsquo;s best tech, in one email. Free.
+            {NEWSLETTER_PROMISE}
           </p>
           <a
             href="#build-notes"
@@ -36,28 +77,32 @@ export default function SiteFooter({ className = "" }: SiteFooterProps) {
             Subscribe <ArrowUpRight className="w-4 h-4" />
           </a>
         </div>
-        <nav className="flex flex-col gap-3">
-          <span className="font-display text-[10px] uppercase tracking-[0.3em] font-extrabold text-m3-on-surface-variant/50">
-            Explore
-          </span>
-          <Link to="/tech-roundup" className="text-sm font-display font-bold text-m3-on-surface-variant hover:text-m3-primary transition-colors w-fit">
-            Tech Roundup
-          </Link>
-          <Link to="/notes" className="text-sm font-display font-bold text-m3-on-surface-variant hover:text-m3-primary transition-colors w-fit">
-            Notes
-          </Link>
-          <Link to="/about" className="text-sm font-display font-bold text-m3-on-surface-variant hover:text-m3-primary transition-colors w-fit">
-            About
-          </Link>
-          <a
-            href="https://adda.builtbyswami.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-sm font-display font-bold text-m3-on-surface-variant hover:text-m3-primary transition-colors w-fit inline-flex items-center gap-1.5"
-          >
-            Adda <ArrowUpRight className="w-3.5 h-3.5 opacity-60" />
-          </a>
-        </nav>
+
+        {/* Three columns that mirror the nav — reading, working, and the
+            places this site deliberately sends you off to. The old single
+            "Explore" list disagreed with the nav on four of five items. */}
+        <div className="flex flex-col sm:flex-row gap-8 sm:gap-12">
+          <nav className="flex flex-col gap-3">
+            <FootHeading>Read</FootHeading>
+            <FootLink to="/tech-roundup">The Daily Five</FootLink>
+            {latestIssue && <FootExternal href={latestIssue.url}>The Weekly</FootExternal>}
+            <FootLink to="/notes">Notes</FootLink>
+          </nav>
+
+          <nav className="flex flex-col gap-3">
+            <FootHeading>Work</FootHeading>
+            <FootLink to="/about">The Work</FootLink>
+            <FootLink to="/case-study/middle-east">Case study</FootLink>
+            <FootLink to="/work-with-me">Consulting</FootLink>
+          </nav>
+
+          <nav className="flex flex-col gap-3">
+            <FootHeading>Elsewhere</FootHeading>
+            <FootExternal href={YOUTUBE}>YouTube</FootExternal>
+            <FootExternal href="https://freewordtool.com">Free Word Tool</FootExternal>
+            <FootExternal href="https://adda.builtbyswami.com">Adda</FootExternal>
+          </nav>
+        </div>
       </div>
       {/* Baseline bar — status, copyright & socials */}
       <div className="px-6 md:px-14 py-5 border-t border-m3-outline/10 flex flex-col md:flex-row items-center gap-5 justify-between">

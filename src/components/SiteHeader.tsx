@@ -10,7 +10,7 @@ import BrandLogo from "./BrandLogo";
 import NewsletterSignup from "./NewsletterSignup";
 import NewsletterStrip from "./NewsletterStrip";
 
-const YOUTUBE = "https://www.youtube.com/@builtbyswami";
+import { NEWSLETTER_TITLE, NEWSLETTER_PROMISE } from "../data/newsletter";
 
 interface NavItem {
   label: string;
@@ -18,9 +18,15 @@ interface NavItem {
   external?: boolean;
 }
 
+/**
+ * Five items, no more. The YouTube channel deliberately isn't here — a nav
+ * item that ejects every visitor off-domain was the site's biggest leak, so
+ * the channel lives as a carousel on the homepage and a link in the footer.
+ * Labels match their destination exactly ("The Work" → /about is the one
+ * that used to lie).
+ */
 const NAV: NavItem[] = [
-  { label: "Tech Roundup", to: "/tech-roundup" },
-  { label: "The Channel", to: YOUTUBE, external: true },
+  { label: "The Daily Five", to: "/tech-roundup" },
   { label: "Notes", to: "/notes" },
   { label: "The Work", to: "/about" },
   { label: "Consulting", to: "/work-with-me" },
@@ -98,15 +104,15 @@ export default function SiteHeader() {
                 aria-haspopup="true"
                 className="px-5 py-2.5 bg-m3-primary text-m3-on-primary rounded-m3-full hover:m3-elevation-1-shadow active:scale-95 transition-all shadow-sm"
               >
-                Newsletter
+                Subscribe
               </button>
               {subscribeOpen && (
                 <div className="absolute right-0 top-[calc(100%+10px)] w-[320px] max-w-[calc(100vw-3rem)] bg-m3-surface border border-m3-outline/10 rounded-[20px] shadow-xl p-5 z-40">
                   <p className="font-display font-bold text-sm text-m3-on-surface mb-1">
-                    Every day's five, one weekly digest
+                    {NEWSLETTER_TITLE}
                   </p>
                   <p className="text-xs text-m3-on-surface-variant font-medium mb-4">
-                    Weekly-ish, free. Unsubscribe anytime.
+                    {NEWSLETTER_PROMISE}
                   </p>
                   <NewsletterSignup stacked />
                 </div>
@@ -132,10 +138,10 @@ export default function SiteHeader() {
             {NAV.map((item) => renderItem(item, mobileLink))}
             <div className="mt-3 pt-4 border-t border-m3-outline/10">
               <p className="px-4 font-display font-bold text-sm text-m3-on-surface mb-1">
-                Every day's five, one weekly digest
+                {NEWSLETTER_TITLE}
               </p>
               <p className="px-4 text-xs text-m3-on-surface-variant font-medium mb-4">
-                Weekly-ish, free. Unsubscribe anytime.
+                {NEWSLETTER_PROMISE}
               </p>
               <div className="px-4">
                 <NewsletterSignup stacked />

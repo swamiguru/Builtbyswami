@@ -19,6 +19,7 @@ import { SOCIALS } from "../data/socials";
 import { getLatestDigest, formatDigestDate, getTopCategories } from "../data/social";
 import { getLatestWeeklyIssue } from "../data/weekly";
 import { getLatestNotes, formatNoteDate } from "../data/notes";
+import { NEWSLETTER_TITLE, NEWSLETTER_PROMISE } from "../data/newsletter";
 import Carousel from "../components/Carousel";
 import SiteHeader from "../components/SiteHeader";
 import SiteFooter from "../components/SiteFooter";
@@ -34,65 +35,6 @@ interface Video {
   url: string;
   embedUrl: string;
   thumbnail: string;
-}
-
-/**
- * The channel mixes landscape long-form videos and portrait Shorts, so
- * neither a fixed 16:9 nor 9:16 box is ever right for everything. This
- * measures the real thumbnail and sizes itself to match — and defers
- * mounting the YouTube iframe until the visitor actually clicks play, so
- * the embed's own chrome/loading weight isn't paid on every homepage visit.
- */
-function FeaturedVideo({ video }: { video: Video }) {
-  const [playing, setPlaying] = useState(false);
-  const orientation = useImageOrientation(video.thumbnail);
-  const isPortrait = orientation === "portrait";
-
-  return (
-    <div
-      className={`rounded-[28px] overflow-hidden border border-m3-outline/10 bg-m3-surface shadow-sm ${
-        isPortrait ? "max-w-[420px] mx-auto" : ""
-      }`}
-    >
-      <div className={`relative bg-black ${isPortrait ? "aspect-[9/16]" : "aspect-video"}`}>
-        {playing ? (
-          <iframe
-            className="w-full h-full"
-            src={`${video.embedUrl}?autoplay=1`}
-            title={video.title}
-            loading="lazy"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            allowFullScreen
-          />
-        ) : (
-          <button
-            type="button"
-            onClick={() => setPlaying(true)}
-            aria-label={`Play ${video.title}`}
-            className="group absolute inset-0 w-full h-full"
-          >
-            <img src={video.thumbnail} alt="" className="w-full h-full object-cover" />
-            <div className="absolute inset-0 bg-black/20 group-hover:bg-black/30 transition-colors flex items-center justify-center">
-              <div className="w-16 h-16 rounded-full bg-m3-primary text-m3-on-primary flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
-                <Play className="w-6 h-6 ml-1" />
-              </div>
-            </div>
-          </button>
-        )}
-      </div>
-      <a
-        href={video.url}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="flex items-center justify-between gap-4 p-5 md:p-6 hover:bg-m3-surface-variant/40 transition-colors group"
-      >
-        <span className="flex-1 min-w-0 font-display font-bold text-sm md:text-base text-m3-on-surface line-clamp-2">
-          {video.title}
-        </span>
-        <ArrowUpRight className="w-5 h-5 text-m3-on-surface-variant/50 group-hover:text-m3-primary shrink-0 transition-colors" />
-      </a>
-    </div>
-  );
 }
 
 /** Rail card for the "Latest Videos" carousel — same orientation-matching
@@ -146,21 +88,6 @@ function ShimmerBlock({ className = "" }: { className?: string }) {
           backgroundSize: "200% 100%",
         }}
       />
-    </div>
-  );
-}
-
-function FeaturedVideoSkeleton() {
-  return (
-    <div
-      aria-hidden="true"
-      className="rounded-[28px] overflow-hidden border border-m3-outline/10 bg-m3-surface shadow-sm"
-    >
-      <ShimmerBlock className="aspect-video" />
-      <div className="flex items-center justify-between gap-4 p-5 md:p-6">
-        <div className="h-4 w-2/3 rounded-full bg-m3-outline/15 animate-pulse" />
-        <div className="w-5 h-5 rounded-full bg-m3-outline/15 animate-pulse shrink-0" />
-      </div>
     </div>
   );
 }
@@ -244,7 +171,7 @@ export default function Home() {
   const [videos, setVideos] = useState<Video[]>([]);
   const [videosLoading, setVideosLoading] = useState(true);
   const shouldReduceMotion = useReducedMotion();
-  const roundupKicker = useScrambleText("The Daily Tech Roundup");
+  const roundupKicker = useScrambleText("The Daily Five");
 
   useEffect(() => {
     let active = true;
@@ -264,8 +191,9 @@ export default function Home() {
     };
   }, []);
 
-  const featured = videos[0] ?? null;
-  const railVideos = videos.slice(1, 6);
+  // The channel is a strip now, not a section — every video goes in the one
+  // carousel rather than promoting the newest into a hero embed above it.
+  const railVideos = videos.slice(0, 6);
   const latestDigest = getLatestDigest();
   // Lead story for the day: whichever post is explicitly marked `featured`,
   // falling back to the first post so today's content (and any digest that
@@ -292,8 +220,51 @@ export default function Home() {
         {/* 01 — Nav */}
         <SiteHeader />
 
-        {/* 02 — The Daily Tech Roundup (LEAD) */}
-        <section className="relative overflow-hidden px-6 md:px-14 pt-10 md:pt-16 pb-10 md:pb-14 bg-m3-surface">
+        {/* 01b — Router hero.
+            The page used to open straight onto a story headline, which left a
+            first-time visitor with no idea whose site this was. This states the
+            positioning once and then forks: readers go down into the daily,
+            everyone else goes sideways into the consulting page. Deliberately
+            short — it frames the page, it doesn't compete with it. */}
+        <section className="relative overflow-hidden px-6 md:px-14 pt-10 md:pt-14 pb-8 md:pb-10 bg-m3-surface-variant border-b border-m3-outline/10">
+          <div
+            aria-hidden="true"
+            className="absolute -top-24 -left-20 w-80 h-80 bg-m3-primary/10 rounded-full blur-3xl pointer-events-none"
+          />
+          <div className="relative z-10 max-w-3xl">
+            <span className="font-display text-[10px] md:text-[11px] uppercase tracking-[0.4em] font-extrabold text-m3-primary block mb-4">
+              build · ship · repeat
+            </span>
+            <h1 className="display text-[1.6rem] md:text-[2.6rem] font-extrabold tracking-tighter text-m3-on-surface leading-[1.08] mb-4">
+              I&rsquo;m Swami. I ran product for Vogue, GQ and Wired &mdash; five brand
+              launches, three continents, one $20M year.
+            </h1>
+            <p className="text-base md:text-lg text-m3-on-surface-variant font-medium leading-relaxed mb-7 max-w-2xl">
+              Now I ship my own products, and every morning I write up the five tech
+              stories that actually mattered. Free, daily, no fluff &mdash; since 12 July.
+            </p>
+            <div className="flex flex-wrap items-center gap-3">
+              <a
+                href="#daily-five"
+                className="inline-flex items-center gap-2 bg-m3-primary text-m3-on-primary font-display font-bold px-6 py-3 rounded-m3-full hover:m3-elevation-2 active:scale-95 transition-all text-sm tracking-wide"
+              >
+                Read today&rsquo;s five <ArrowRight className="w-4 h-4" />
+              </a>
+              <Link
+                to="/work-with-me"
+                className="inline-flex items-center gap-2 bg-m3-surface text-m3-on-surface border border-m3-outline/20 font-display font-bold px-6 py-3 rounded-m3-full hover:border-m3-primary/40 hover:text-m3-primary active:scale-95 transition-all text-sm tracking-wide"
+              >
+                Work with me <ArrowUpRight className="w-4 h-4" />
+              </Link>
+            </div>
+          </div>
+        </section>
+
+        {/* 02 — The Daily Five (LEAD) */}
+        <section
+          id="daily-five"
+          className="relative overflow-hidden px-6 md:px-14 pt-10 md:pt-16 pb-10 md:pb-14 bg-m3-surface scroll-mt-[88px]"
+        >
           <div className="absolute top-0 right-0 w-96 h-96 bg-m3-primary/5 rounded-full -mr-24 -mt-24 blur-3xl pointer-events-none" />
           <div className="relative z-10">
             <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-2 mb-6">
@@ -313,9 +284,10 @@ export default function Home() {
 
             {latestDigest ? (
               <>
-                <h1 className="display text-2xl md:text-4xl font-extrabold tracking-tighter text-m3-on-surface max-w-3xl leading-[1.05] mb-4">
+                {/* h2, not h1 — the router hero above owns the page's single h1. */}
+                <h2 className="display text-2xl md:text-4xl font-extrabold tracking-tighter text-m3-on-surface max-w-3xl leading-[1.05] mb-4">
                   {latestDigest.title}
-                </h1>
+                </h2>
                 <p className="text-base md:text-lg text-m3-on-surface-variant font-medium max-w-2xl leading-relaxed mb-8">
                   {latestDigest.intro}
                 </p>
@@ -481,18 +453,34 @@ export default function Home() {
           </div>
         </section>
 
-        {/* 02b — Last Week's Tech Roundup (weekly issue teaser) */}
+        {/* 02b — The Weekly (latest issue).
+            This used to say "Subscribe to read this issue" and point at the
+            email capture below, which read as a paywall on a site whose whole
+            promise is free — and the issue isn't gated on beehiiv anyway. It
+            now links straight to the issue; the ask comes after, in 03. */}
         <section className="px-6 md:px-14 py-10 md:py-12 bg-m3-surface border-t border-m3-outline/10">
-          <div className="flex items-center gap-3 mb-6">
-            <Clock className="w-5 h-5 text-m3-primary" />
-            <span className="font-display text-[11px] md:text-sm font-black uppercase tracking-[0.3em] text-m3-primary">
-              Last Week's Tech Roundup
-            </span>
+          <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-2 mb-6">
+            <div className="flex items-center gap-3">
+              <Clock className="w-5 h-5 text-m3-primary" />
+              <span className="font-display text-[11px] md:text-sm font-black uppercase tracking-[0.3em] text-m3-primary">
+                The Weekly
+              </span>
+            </div>
+            <a
+              href="https://builtbyswami.beehiiv.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-[11px] font-bold uppercase tracking-widest text-m3-on-surface-variant hover:text-m3-primary transition-colors flex items-center gap-1"
+            >
+              All issues <ArrowUpRight className="w-3.5 h-3.5" />
+            </a>
           </div>
 
           {latestIssue ? (
             <a
-              href="#build-notes"
+              href={latestIssue.url}
+              target="_blank"
+              rel="noopener noreferrer"
               className="group flex flex-col md:flex-row bg-m3-secondary-container text-m3-on-secondary-container rounded-[28px] overflow-hidden hover:shadow-xl transition-all"
             >
               <img
@@ -512,7 +500,7 @@ export default function Home() {
                   {latestIssue.teaser}
                 </p>
                 <span className="mt-2 inline-flex items-center gap-1 text-[11px] font-bold uppercase tracking-widest group-hover:gap-2 transition-all">
-                  Subscribe to read this issue <ArrowUpRight className="w-3.5 h-3.5" />
+                  Read issue #{latestIssue.issueNumber} <ArrowUpRight className="w-3.5 h-3.5" />
                 </span>
               </div>
             </a>
@@ -535,85 +523,15 @@ export default function Home() {
             <div className="flex items-center gap-3 mb-3">
               <Mail className="w-5 h-5 text-m3-primary" />
               <h2 className="display text-2xl md:text-3xl font-extrabold uppercase tracking-tight">
-                Every day's five, one weekly digest
+                {NEWSLETTER_TITLE}
               </h2>
             </div>
             <p className="text-sm md:text-base font-medium opacity-80 mb-6 max-w-xl">
-              I run Top 5 Daily all week — this is the distilled best of it, plus what I build in public as a solo founder. 11+ years building products at world class brands. Weekly-ish, free.
+              {NEWSLETTER_PROMISE}
             </p>
             <NewsletterSignup />
           </div>
         </section>
-
-        {/* 04 — Latest build (featured video) */}
-        <section className="px-6 md:px-14 py-10 md:py-14 bg-m3-surface-variant border-y border-m3-outline/10">
-          <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-2 mb-6">
-            <span className="font-display text-[11px] md:text-sm font-black uppercase tracking-[0.3em] text-m3-primary">
-              The Channel
-            </span>
-            <a
-              href={YOUTUBE}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-[11px] font-bold uppercase tracking-widest text-m3-on-surface-variant hover:text-m3-primary transition-colors flex items-center gap-1"
-            >
-              All videos <ArrowUpRight className="w-3.5 h-3.5" />
-            </a>
-          </div>
-          {videosLoading ? (
-            <FeaturedVideoSkeleton />
-          ) : featured ? (
-            <FeaturedVideo video={featured} />
-          ) : (
-            <a
-              href={YOUTUBE}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group block relative rounded-[28px] overflow-hidden border border-m3-outline/10 bg-m3-secondary-container/40 aspect-video flex items-center justify-center shadow-sm hover:shadow-xl transition-all"
-            >
-              <div className="absolute inset-0 bg-m3-primary/5 group-hover:bg-m3-primary/10 transition-colors" />
-              <div className="relative z-10 flex flex-col items-center gap-4 text-center px-6">
-                <div className="w-20 h-20 rounded-full bg-m3-primary text-m3-on-primary flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
-                  <Play className="w-8 h-8 ml-1" />
-                </div>
-                <span className="font-display font-bold uppercase tracking-widest text-sm text-m3-on-surface">
-                  Watch the latest drop on YouTube
-                </span>
-                <span className="text-xs font-medium text-m3-on-surface-variant/70 max-w-sm">
-                  New teardown every week or two.
-                </span>
-              </div>
-            </a>
-          )}
-        </section>
-
-        {/* 05 — Latest Videos (carousel) */}
-        {(videosLoading || railVideos.length > 0) && (
-          <section className="px-6 md:px-14 py-10 md:py-14 bg-m3-surface" aria-busy={videosLoading}>
-            <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-2 mb-8">
-              <div className="flex items-center gap-3">
-                <Play className="w-5 h-5 text-m3-primary" />
-                <span className="font-display text-[11px] md:text-sm font-black uppercase tracking-[0.3em] text-m3-on-surface">
-                  Latest Videos
-                </span>
-                {videosLoading && <span className="sr-only">Loading videos…</span>}
-              </div>
-              <a
-                href={YOUTUBE}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-[11px] font-bold uppercase tracking-widest text-m3-on-surface-variant hover:text-m3-primary transition-colors flex items-center gap-1"
-              >
-                All videos <ArrowUpRight className="w-3.5 h-3.5" />
-              </a>
-            </div>
-            <Carousel ariaLabel="Latest videos">
-              {videosLoading
-                ? Array.from({ length: 4 }).map((_, i) => <VideoCardSkeleton key={i} />)
-                : railVideos.map((v) => <VideoCard key={v.id} video={v} />)}
-            </Carousel>
-          </section>
-        )}
 
         {/* 06 — Notes */}
         <section id="notes" className="px-6 md:px-14 py-12 md:py-16 bg-m3-surface-variant border-t border-m3-outline/10">
@@ -660,21 +578,63 @@ export default function Home() {
           </div>
         </section>
 
-        {/* 09 — About teaser */}
-        <section className="px-6 md:px-14 py-5 md:py-7 bg-m3-primary text-m3-on-primary">
+        {/* 07 — The Channel.
+            Demoted from two full sections (a hero embed plus a rail) to a
+            single strip, and moved below Notes: it's the one module that sends
+            people off-domain, so it shouldn't sit mid-page above the writing. */}
+        {(videosLoading || railVideos.length > 0) && (
+          <section className="px-6 md:px-14 py-10 md:py-14 bg-m3-surface border-t border-m3-outline/10" aria-busy={videosLoading}>
+            <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-2 mb-8">
+              <div className="flex items-center gap-3">
+                <Play className="w-5 h-5 text-m3-primary" />
+                <span className="font-display text-[11px] md:text-sm font-black uppercase tracking-[0.3em] text-m3-on-surface">
+                  The Channel
+                </span>
+                {videosLoading && <span className="sr-only">Loading videos…</span>}
+              </div>
+              <a
+                href={YOUTUBE}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[11px] font-bold uppercase tracking-widest text-m3-on-surface-variant hover:text-m3-primary transition-colors flex items-center gap-1"
+              >
+                All videos <ArrowUpRight className="w-3.5 h-3.5" />
+              </a>
+            </div>
+            <Carousel ariaLabel="Latest videos">
+              {videosLoading
+                ? Array.from({ length: 4 }).map((_, i) => <VideoCardSkeleton key={i} />)
+                : railVideos.map((v) => <VideoCard key={v.id} video={v} />)}
+            </Carousel>
+          </section>
+        )}
+
+        {/* 08 — Second fork.
+            Anyone who scrolled a whole publication homepage is interested in
+            who wrote it. This used to offer one vague exit ("The full story");
+            it now names both, so the reader picks rather than guessing. */}
+        <section className="px-6 md:px-14 py-7 md:py-9 bg-m3-primary text-m3-on-primary">
           <div className="max-w-3xl">
             <span className="font-display text-[10px] md:text-[12px] uppercase tracking-[0.4em] font-extrabold text-m3-on-primary/60 mb-2 block">
               The operator behind the builds
             </span>
-            <h2 className="display text-xl md:text-[1.75rem] font-bold tracking-tighter leading-[0.95] mb-4">
+            <h2 className="display text-xl md:text-[1.75rem] font-bold tracking-tighter leading-[0.95] mb-5">
               11 years, three global media companies, $20M+ scaled — now an AI product builder shipping solo from Bengaluru.
             </h2>
-            <Link
-              to="/about"
-              className="inline-flex items-center gap-2 bg-m3-surface text-m3-on-surface font-display font-bold px-6 py-2.5 rounded-m3-full hover:m3-elevation-2 active:scale-95 transition-all text-sm tracking-wide"
-            >
-              The full story <ArrowUpRight className="w-4 h-4" />
-            </Link>
+            <div className="flex flex-wrap items-center gap-3">
+              <Link
+                to="/about"
+                className="inline-flex items-center gap-2 bg-m3-surface text-m3-on-surface font-display font-bold px-6 py-2.5 rounded-m3-full hover:m3-elevation-2 active:scale-95 transition-all text-sm tracking-wide"
+              >
+                The work <ArrowUpRight className="w-4 h-4" />
+              </Link>
+              <Link
+                to="/work-with-me"
+                className="inline-flex items-center gap-2 border border-m3-on-primary/40 text-m3-on-primary font-display font-bold px-6 py-2.5 rounded-m3-full hover:bg-m3-on-primary/10 active:scale-95 transition-all text-sm tracking-wide"
+              >
+                Work with me <ArrowUpRight className="w-4 h-4" />
+              </Link>
+            </div>
           </div>
         </section>
 
