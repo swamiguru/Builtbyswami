@@ -8,7 +8,6 @@ import { motion } from "motion/react";
 import { ArrowUpRight } from "lucide-react";
 import { SOCIALS } from "../data/socials";
 import { NEWSLETTER_TITLE, NEWSLETTER_PROMISE } from "../data/newsletter";
-import { WEEKLY_PUBLICATION_URL } from "../data/weekly";
 
 const YOUTUBE = "https://www.youtube.com/@builtbyswami";
 
@@ -83,7 +82,7 @@ export default function SiteFooter({ className = "" }: SiteFooterProps) {
           <nav className="flex flex-col gap-3">
             <FootHeading>Read</FootHeading>
             <FootLink to="/tech-roundup">The Daily Five</FootLink>
-            <FootExternal href={WEEKLY_PUBLICATION_URL}>The Weekly</FootExternal>
+            <FootLink to="/weekly">The Weekly</FootLink>
             <FootLink to="/notes">Notes</FootLink>
           </nav>
 

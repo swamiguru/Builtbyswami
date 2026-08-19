@@ -17,8 +17,8 @@ import {
 } from "lucide-react";
 import { SOCIALS } from "../data/socials";
 import { getLatestDigest, formatDigestDate, getTopCategories } from "../data/social";
-import { WEEKLY_PUBLICATION_URL } from "../data/weekly";
 import { useLatestWeekly } from "../hooks/useLatestWeekly";
+import { trackCta } from "../lib/analytics";
 import { getLatestNotes, formatNoteDate } from "../data/notes";
 import { NEWSLETTER_TITLE, NEWSLETTER_PROMISE } from "../data/newsletter";
 import Carousel from "../components/Carousel";
@@ -247,12 +247,14 @@ export default function Home() {
             <div className="flex flex-wrap items-center gap-3">
               <a
                 href="#daily-five"
+                onClick={() => trackCta("hero_read_daily", "home_hero")}
                 className="inline-flex items-center gap-2 bg-m3-primary text-m3-on-primary font-display font-bold px-6 py-3 rounded-m3-full hover:m3-elevation-2 active:scale-95 transition-all text-sm tracking-wide"
               >
                 Read today&rsquo;s five <ArrowRight className="w-4 h-4" />
               </a>
               <Link
                 to="/work-with-me"
+                onClick={() => trackCta("hero_work_with_me", "home_hero")}
                 className="inline-flex items-center gap-2 bg-m3-surface text-m3-on-surface border border-m3-outline/20 font-display font-bold px-6 py-3 rounded-m3-full hover:border-m3-primary/40 hover:text-m3-primary active:scale-95 transition-all text-sm tracking-wide"
               >
                 Work with me <ArrowUpRight className="w-4 h-4" />
@@ -467,14 +469,12 @@ export default function Home() {
                 The Weekly
               </span>
             </div>
-            <a
-              href={WEEKLY_PUBLICATION_URL}
-              target="_blank"
-              rel="noopener noreferrer"
+            <Link
+              to="/weekly"
               className="text-[11px] font-bold uppercase tracking-widest text-m3-on-surface-variant hover:text-m3-primary transition-colors flex items-center gap-1"
             >
-              All issues <ArrowUpRight className="w-3.5 h-3.5" />
-            </a>
+              All issues <ArrowRight className="w-3.5 h-3.5" />
+            </Link>
           </div>
 
           {latestIssue ? (
@@ -660,12 +660,14 @@ export default function Home() {
             <div className="flex flex-wrap items-center gap-3">
               <Link
                 to="/about"
+                onClick={() => trackCta("fork_the_work", "home_fork")}
                 className="inline-flex items-center gap-2 bg-m3-surface text-m3-on-surface font-display font-bold px-6 py-2.5 rounded-m3-full hover:m3-elevation-2 active:scale-95 transition-all text-sm tracking-wide"
               >
                 The work <ArrowUpRight className="w-4 h-4" />
               </Link>
               <Link
                 to="/work-with-me"
+                onClick={() => trackCta("fork_work_with_me", "home_fork")}
                 className="inline-flex items-center gap-2 border border-m3-on-primary/40 text-m3-on-primary font-display font-bold px-6 py-2.5 rounded-m3-full hover:bg-m3-on-primary/10 active:scale-95 transition-all text-sm tracking-wide"
               >
                 Work with me <ArrowUpRight className="w-4 h-4" />
