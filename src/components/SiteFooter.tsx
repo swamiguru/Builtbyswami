@@ -8,7 +8,7 @@ import { motion } from "motion/react";
 import { ArrowUpRight } from "lucide-react";
 import { SOCIALS } from "../data/socials";
 import { NEWSLETTER_TITLE, NEWSLETTER_PROMISE } from "../data/newsletter";
-import { getLatestWeeklyIssue } from "../data/weekly";
+import { WEEKLY_PUBLICATION_URL } from "../data/weekly";
 
 const YOUTUBE = "https://www.youtube.com/@builtbyswami";
 
@@ -57,8 +57,6 @@ function FootHeading({ children }: { children: React.ReactNode }) {
  * so navigation and branding stay consistent across the site.
  */
 export default function SiteFooter({ className = "" }: SiteFooterProps) {
-  const latestIssue = getLatestWeeklyIssue();
-
   return (
     <footer className={`bg-m3-surface border-t border-m3-outline/10 rounded-b-m3-xl md:rounded-b-[32px] ${className}`}>
       {/* Top tier — signoff, subscribe & nav */}
@@ -85,7 +83,7 @@ export default function SiteFooter({ className = "" }: SiteFooterProps) {
           <nav className="flex flex-col gap-3">
             <FootHeading>Read</FootHeading>
             <FootLink to="/tech-roundup">The Daily Five</FootLink>
-            {latestIssue && <FootExternal href={latestIssue.url}>The Weekly</FootExternal>}
+            <FootExternal href={WEEKLY_PUBLICATION_URL}>The Weekly</FootExternal>
             <FootLink to="/notes">Notes</FootLink>
           </nav>
 
