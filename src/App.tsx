@@ -10,6 +10,7 @@ import Home from "./pages/Home";
 import About from "./pages/About";
 import Notes from "./pages/Notes";
 import Weekly from "./pages/Weekly";
+import Builds from "./pages/Builds";
 import NotePost from "./pages/NotePost";
 import Tech from "./pages/Tech";
 import TechDigest from "./pages/TechDigest";
@@ -48,6 +49,7 @@ export default function App() {
         <Route path="/about" element={<About />} />
         <Route path="/notes" element={<Notes />} />
         <Route path="/weekly" element={<Weekly />} />
+        <Route path="/builds" element={<Builds />} />
         <Route path="/notes/:slug" element={<NotePost />} />
         <Route path="/tech-roundup" element={<Tech />} />
         <Route path="/tech-roundup/:date" element={<TechDigest />} />

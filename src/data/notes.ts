@@ -9,6 +9,7 @@ import freeWordToolPost from "../content/notes/freewordtool-one-day-sprint.md?ra
 import builtBySwamiOriginPost from "../content/notes/why-i-built-builtbyswami-from-scratch.md?raw";
 import addaPost from "../content/notes/adda-a-product-with-no-job.md?raw";
 import cmsMigrationPost from "../content/notes/what-a-cms-migration-actually-costs.md?raw";
+import whatGotFasterPost from "../content/notes/what-got-faster-and-what-didnt.md?raw";
 
 export interface Note {
   slug: string;
@@ -24,6 +25,16 @@ export interface Note {
 }
 
 export const NOTES: Note[] = [
+  {
+    slug: "what-got-faster-and-what-didnt",
+    title: "What got faster when I started building with AI, and what didn't",
+    description:
+      "Producing code got faster. Deciding what to build and knowing when to stop did not. What eleven years of product work looks like when the execution barrier disappears — and the two rules I broke anyway.",
+    date: "2026-08-19",
+    readMinutes: 4,
+    tag: "Method",
+    content: whatGotFasterPost,
+  },
   {
     slug: "what-a-cms-migration-actually-costs",
     title: "What a CMS migration actually costs you",

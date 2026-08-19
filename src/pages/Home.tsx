@@ -14,12 +14,14 @@ import {
   BookOpen,
   Sparkles,
   Clock,
+  Hammer,
 } from "lucide-react";
 import { SOCIALS } from "../data/socials";
 import { getLatestDigest, formatDigestDate, getTopCategories } from "../data/social";
 import { useLatestWeekly } from "../hooks/useLatestWeekly";
 import { trackCta } from "../lib/analytics";
 import { getLatestNotes, formatNoteDate } from "../data/notes";
+import { BUILDS } from "../data/builds";
 import { NEWSLETTER_TITLE, NEWSLETTER_PROMISE } from "../data/newsletter";
 import Carousel from "../components/Carousel";
 import SiteHeader from "../components/SiteHeader";
@@ -543,7 +545,55 @@ export default function Home() {
           </div>
         </section>
 
-        {/* 06 — Notes */}
+        {/* 06 — Builds.
+            Sits directly after the subscribe block so a reader who declined the
+            newsletter meets proof of work rather than a dead end. It's also the
+            natural bridge from "publication" to "person" — the first thing on
+            the page that is a thing I made rather than a thing I wrote. */}
+        <section className="px-6 md:px-14 py-12 md:py-16 bg-m3-surface border-t border-m3-outline/10">
+          <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-2 mb-8">
+            <div className="flex items-center gap-3">
+              <Hammer className="w-5 h-5 text-m3-primary" />
+              <span className="font-display text-[11px] md:text-sm font-black uppercase tracking-[0.3em] text-m3-on-surface">
+                Builds
+              </span>
+            </div>
+            <Link
+              to="/builds"
+              className="text-[11px] font-bold uppercase tracking-widest text-m3-on-surface-variant hover:text-m3-primary transition-colors flex items-center gap-1"
+            >
+              All builds <ArrowRight className="w-3.5 h-3.5" />
+            </Link>
+          </div>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {BUILDS.filter((b) => b.url)
+              .slice(0, 3)
+              .map((build) => (
+                <a
+                  key={build.name}
+                  href={build.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group bg-m3-surface-variant/40 rounded-[24px] border border-m3-outline/5 p-6 flex flex-col gap-3 hover:bg-m3-surface hover:border-m3-primary/30 hover:shadow-xl hover:-translate-y-1 transition-all"
+                >
+                  <span className="text-[10px] font-bold uppercase tracking-widest text-m3-primary">
+                    {build.status}
+                  </span>
+                  <span className="display text-lg font-extrabold tracking-tight text-m3-on-surface">
+                    {build.name}
+                  </span>
+                  <span className="text-sm leading-relaxed text-m3-on-surface-variant font-medium line-clamp-3">
+                    {build.what}
+                  </span>
+                  <span className="mt-auto pt-2 inline-flex items-center gap-1 text-[11px] font-bold uppercase tracking-widest text-m3-primary group-hover:gap-1.5 transition-all">
+                    Open it <ArrowUpRight className="w-3.5 h-3.5" />
+                  </span>
+                </a>
+              ))}
+          </div>
+        </section>
+
+        {/* 07 — Notes */}
         <section id="notes" className="px-6 md:px-14 py-12 md:py-16 bg-m3-surface-variant border-t border-m3-outline/10">
           <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-2 mb-8">
             <div className="flex items-center gap-3">
@@ -588,7 +638,7 @@ export default function Home() {
           </div>
         </section>
 
-        {/* 07 — The Channel.
+        {/* 08 — The Channel.
             Demoted from two full sections (a hero embed plus a rail) to a
             single strip, and moved below Notes: it's the one module that sends
             people off-domain, so it shouldn't sit mid-page above the writing. */}
@@ -645,7 +695,7 @@ export default function Home() {
           )}
         </section>
 
-        {/* 08 — Second fork.
+        {/* 09 — Second fork.
             Anyone who scrolled a whole publication homepage is interested in
             who wrote it. This used to offer one vague exit ("The full story");
             it now names both, so the reader picks rather than guessing. */}

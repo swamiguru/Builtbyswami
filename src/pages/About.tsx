@@ -5,24 +5,20 @@
 
 import { motion, AnimatePresence, useScroll, useSpring } from "motion/react";
 import {
+  ArrowRight,
+  ArrowUp,
   ArrowUpRight,
+  Cpu,
+  Download,
+  Globe,
+  Layers,
   Linkedin,
   Mail,
   MapPin,
-  Cpu,
-  Layers,
   Sparkles,
-  Globe,
-  Code2,
-  ArrowUp,
-  Download,
-  Timer,
-  Award,
-  BookOpen
 } from "lucide-react";
 import { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { getNote, formatNoteDate } from "../data/notes";
 import SiteHeader from "../components/SiteHeader";
 import SiteFooter from "../components/SiteFooter";
 
@@ -54,16 +50,6 @@ interface ExperienceItem {
   highlights: Highlight[];
   technologies: string[];
 }
-
-interface BuildItem {
-  name: string;
-  status: string;
-  detail: string;
-  url?: string;
-  icon: any;
-}
-
-// --- Data ---
 
 const EXPERIENCE: ExperienceItem[] = [
   {
@@ -240,173 +226,6 @@ const EXPERIENCE: ExperienceItem[] = [
     ],
     technologies: ["Enterprise CMS", "Technical SEO", "Ad Tech", "User Research", "Agile / Scrum"]
   },
-  {
-    company: "Metro International",
-    role: "Global Product Manager",
-    location: "Gurugram",
-    period: "Apr 2015 – Dec 2017",
-    condensed: true,
-    website: "https://www.metro.lu",
-    impact: [
-      "Built and launched a new CMS from scratch in 3 months.",
-      "Generated $850K in incremental revenue for Metro US.",
-      "Delivered a 7% traffic increase through a global site redesign.",
-      "Lifted article engagement 11% across international properties."
-    ],
-    highlights: [
-      {
-        title: "CMS Build & Revenue",
-        detail:
-          "Scoped, built and launched a brand-new CMS from scratch in three months using Agile delivery — generating $850K in incremental revenue for Metro US."
-      },
-      {
-        title: "Website Redesign & Engagement",
-        detail:
-          "Led Metro International's global website redesign, delivering a 7% traffic increase and an 11% uplift in article engagement."
-      },
-      {
-        title: "Roadmap & Discovery",
-        detail:
-          "Defined the product discovery process and roadmap with Editorial, Development and Commercial — translating business vision into shipped product."
-      }
-    ],
-    technologies: ["CMS Architecture", "Agile Delivery", "Product Discovery", "Global Roadmap"]
-  },
-  {
-    company: "Stigasoft",
-    role: "Global Service Desk Manager",
-    location: "Global",
-    period: "Dec 2009 – Mar 2015",
-    condensed: true,
-    website: "https://www.stigasoft.com",
-    context: "Global service desk operations for Metro International's online news portals",
-    impact: [
-      "Ran global service desk operations across 12 digital news portals.",
-      "Supported a daily readership of 18.4M across US, LATAM and Europe.",
-      "Maintained 99.9% uptime for core platform services.",
-      "Trained editorial staff across markets on CMS and online news operations."
-    ],
-    highlights: [
-      {
-        title: "Global Service Desk Operations",
-        detail:
-          "Managed Global Service Desk Operations for Metro International, delivering exceptional service across its various online news portals."
-      },
-      {
-        title: "Platform & App Management",
-        detail:
-          "Oversaw backend CMS, mobile sites and app management, ensuring seamless user experiences."
-      },
-      {
-        title: "Stakeholder & Vendor Coordination",
-        detail:
-          "Coordinated with stakeholders and third-party vendors to implement social media integrations and advertisement management."
-      },
-      {
-        title: "Editorial Enablement",
-        detail:
-          "Developed strong training programmes for editorial staff, enhancing their proficiency in CMS and online news operations."
-      }
-    ],
-    technologies: ["Service Desk Operations", "Backend CMS", "Mobile & App Support", "Vendor Management", "Editorial Training"]
-  }
-];
-
-const BUILDS: BuildItem[] = [
-  {
-    name: "BuiltBySwami.com",
-    status: "Live",
-    detail:
-      "A daily-publishing tech platform built from scratch — strategy, site, newsletter and social. React, TypeScript, Vite, Tailwind, instrumented with GA4 and GTM.",
-    url: "https://www.builtbyswami.com",
-    icon: Globe
-  },
-  {
-    name: "Free Word Tool",
-    status: "Live",
-    detail:
-      "A privacy-first, fully client-side writing utility taken from brief to production in a single one-day sprint. Six user segments scoped; scope creep caught and reversed mid-build.",
-    url: "https://freewordtool.com",
-    icon: Code2
-  },
-  {
-    name: "अड्डा — Adda",
-    status: "Live",
-    detail:
-      "Pick a city and hear its songs, under its own sky and its own clock. Delhi first — 31 tracks at India Gate, golden hour.",
-    url: "https://adda.builtbyswami.com",
-    icon: Sparkles
-  },
-  {
-    name: "Task Management Engine",
-    status: "24-hour sprint",
-    detail:
-      "Data modeling, state, persistence and UI from empty repo to working app in 24 hours, solo. Private build — not published to the Play Store.",
-    icon: Timer
-  }
-];
-
-const COMPETENCIES = [
-  "Product Vision & Strategy",
-  "AI/ML Product Strategy",
-  "Generative AI",
-  "Audience Growth & Engagement",
-  "P&L / Revenue Ownership",
-  "Monetisation Strategy",
-  "Product Discovery",
-  "Experimentation & A/B Testing",
-  "MVP Definition",
-  "Roadmap Planning",
-  "Go-to-Market Strategy",
-  "KPIs & Product Metrics",
-  "PRDs & User Stories",
-  "CMS Architecture",
-  "Technical SEO",
-  "Core Platform",
-  "Cross-Functional Leadership",
-  "Stakeholder Management",
-  "Agile / Scrum / OKRs",
-  "Localisation & Market Expansion"
-];
-
-const TOOLS = [
-  {
-    group: "AI / LLM",
-    items: ["Gemini", "ChatGPT", "Claude", "Claude Code", "Claude Design", "Cursor", "NotebookLM", "Atlassian Rovo", "Figma"]
-  },
-  {
-    group: "Analytics & Data",
-    items: ["GA4", "Google Tag Manager", "Snowplow", "Databricks", "A/B Testing"]
-  },
-  {
-    group: "Platforms & CMS",
-    items: ["WordPress VIP", "Drupal", "Proprietary CMS", "Android Studio", "Kotlin / Jetpack Compose"]
-  },
-  {
-    group: "Monetisation & Ad Tech",
-    items: ["Google Ad Manager", "Affiliate Revenue", "Subscriptions", "Commerce Partnerships"]
-  },
-  {
-    group: "Collaboration",
-    items: ["Jira", "Confluence", "Figma", "Notion", "Trello", "Slack"]
-  }
-];
-
-
-/**
- * Hand-picked rather than "latest": these are the pieces that show product
- * judgment, which is what a hiring reader is assessing. Falls back gracefully
- * if a slug is ever renamed.
- */
-const FEATURED_NOTE_SLUGS = [
-  "adda-a-product-with-no-job",
-  "why-i-built-builtbyswami-from-scratch",
-  "24-hour-task-manager-sprint"
-];
-
-const CREDENTIALS = [
-  { title: "Certified Scrum Product Owner® (CSPO)", issuer: "Scrum Alliance", icon: Award },
-  { title: "Advanced Diploma in Software Engineering", issuer: "APTECH Education", icon: BookOpen }
 ];
 
 const PRODUCT_LINKS: { label: string; url: string }[] = [
@@ -485,14 +304,14 @@ const ACTIONS = [
     href: "/Swami-Guru-CV.pdf",
     icon: Download,
     download: "Swami-Guru-CV.pdf",
-    variant: "primary" as const
+    variant: "outlined" as const
   },
   {
     label: "LinkedIn",
     href: "https://www.linkedin.com/in/swaminathanguru/",
     icon: Linkedin,
     external: true,
-    variant: "tonal" as const
+    variant: "primary" as const
   },
   {
     label: "Email",
@@ -723,27 +542,6 @@ export default function About() {
               </div>
 
               <div className="pt-1 space-y-5">
-                {/* Availability sits above everything else: a recruiter scanning
-                    for 30 seconds needs to know "is he looking, and at what
-                    level" before they need anything else on this page. */}
-                <div className="bg-m3-surface/70 border border-m3-primary/20 rounded-m3-lg p-4">
-                  <span className="inline-flex items-center gap-2 mb-2.5">
-                    <span className="relative flex h-2 w-2">
-                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-m3-primary opacity-75" />
-                      <span className="relative inline-flex rounded-full h-2 w-2 bg-m3-primary" />
-                    </span>
-                    <span className="font-display text-[10px] font-extrabold uppercase tracking-widest text-m3-primary">
-                      Open to new roles
-                    </span>
-                  </span>
-                  <p className="text-[13px] font-bold text-m3-on-secondary-container leading-snug">
-                    Senior product &amp; leadership roles
-                  </p>
-                  <p className="text-[12px] text-m3-on-secondary-container/70 font-medium mt-1">
-                    Bengaluru or remote &middot; open to relocation
-                  </p>
-                </div>
-
                 <div className="flex flex-col">
                   <span className="font-display text-[11px] font-bold uppercase tracking-wider text-m3-primary/60">Currently · since May 2026</span>
                   <span className="text-sm font-bold mb-1">Independent Product Builder</span>
@@ -1028,190 +826,51 @@ export default function About() {
           </motion.div>
         </section>
 
-        {/* ============ SELECTED WORK ============ */}
+        {/* ============ BUILDS POINTER ============ */}
+        {/* The grid that used to sit here is now /builds, where it is linkable,
+            indexable and doing three jobs instead of decorating a CV. */}
         <section id="builds" className="bg-m3-surface-variant border-b border-m3-outline/10 px-6 md:px-10 lg:px-12 py-10 md:py-12">
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-10">
-            <div>
-              <span className="font-display text-[10px] font-extrabold uppercase tracking-[0.35em] text-m3-primary block mb-3">
-                Selected Work
-              </span>
-              <h2 className="display text-2xl md:text-4xl font-extrabold tracking-tighter uppercase text-m3-on-surface">
-                Shipped solo
-              </h2>
-            </div>
-            <p className="text-sm text-m3-on-surface-variant font-medium max-w-sm">
-              Products taken from brief to production single-handedly — AI tools as build partners, not autocomplete.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4 md:gap-5">
-            {BUILDS.map((b, i) => {
-              const BuildIcon = b.icon;
-              const inner = (
-                <>
-                  <div className="flex items-start justify-between gap-4 mb-5">
-                    <div className="w-12 h-12 bg-m3-primary-container text-m3-on-primary-container rounded-[16px] flex items-center justify-center shrink-0 group-hover:bg-m3-primary group-hover:text-m3-on-primary transition-colors">
-                      <BuildIcon className="w-6 h-6" />
-                    </div>
-                    <span className="text-[10px] font-bold uppercase tracking-widest text-m3-primary bg-m3-primary/5 border border-m3-primary/15 px-3 py-1 rounded-m3-full shrink-0">
-                      {b.status}
-                    </span>
-                  </div>
-                  <h3 className="display text-xl font-extrabold tracking-tight text-m3-on-surface mb-2 flex items-center gap-2">
-                    {b.name}
-                    {b.url && <ArrowUpRight className="w-4 h-4 text-m3-primary opacity-60 group-hover:opacity-100 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 transition-all" />}
-                  </h3>
-                  <p className="text-[13px] leading-relaxed text-m3-on-surface-variant font-medium">{b.detail}</p>
-                </>
-              );
-
-              return b.url ? (
-                <motion.a
-                  key={i}
-                  href={b.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  whileHover={{ y: -6 }}
-                  className="bg-m3-surface p-6 md:p-7 rounded-[24px] border border-m3-outline/5 hover:border-m3-primary/30 shadow-sm hover:shadow-xl transition-all group block"
-                >
-                  {inner}
-                </motion.a>
-              ) : (
-                <div
-                  key={i}
-                  className="bg-m3-surface p-6 md:p-7 rounded-[24px] border border-m3-outline/5 shadow-sm group"
-                >
-                  {inner}
-                </div>
-              );
-            })}
-          </div>
+          <span className="font-display text-[10px] font-extrabold uppercase tracking-[0.35em] text-m3-primary block mb-3">
+            Selected work
+          </span>
+          <h2 className="display text-2xl md:text-4xl font-extrabold tracking-tighter uppercase text-m3-on-surface mb-4">
+            Shipped solo
+          </h2>
+          <p className="text-sm md:text-base text-m3-on-surface-variant font-medium leading-relaxed max-w-xl mb-6">
+            Four products taken from brief to production single-handedly, each
+            with a constraint that shaped it. builtbyswami.com, Free Word Tool,
+            Adda, and a task engine built in a single sitting.
+          </p>
+          <Link
+            to="/builds"
+            className="inline-flex items-center gap-2 bg-m3-primary text-m3-on-primary font-display font-bold px-6 py-3 rounded-m3-full text-sm tracking-wide hover:m3-elevation-2 active:scale-95 transition-all"
+          >
+            See the builds <ArrowRight className="w-4 h-4" />
+          </Link>
         </section>
 
-        {/* ============ WRITING ============ */}
-        <section id="writing" className="bg-m3-surface border-b border-m3-outline/10 px-6 md:px-10 lg:px-12 py-10 md:py-12">
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8">
-            <div>
-              <span className="font-display text-[10px] font-extrabold uppercase tracking-[0.35em] text-m3-primary block mb-3">
-                Writing
-              </span>
-              <h2 className="display text-2xl md:text-4xl font-extrabold tracking-tighter uppercase text-m3-on-surface">
-                How I think
-              </h2>
-            </div>
-            <Link
-              to="/notes"
-              className="text-sm font-display font-bold text-m3-primary hover:underline underline-offset-4 inline-flex items-center gap-1.5 shrink-0"
-            >
-              All build notes <ArrowUpRight className="w-4 h-4" />
-            </Link>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-5">
-            {FEATURED_NOTE_SLUGS.map((slug) => {
-              const note = getNote(slug);
-              if (!note) return null;
-              return (
-                <motion.div key={slug} whileHover={{ y: -6 }}>
-                  <Link
-                    to={`/notes/${note.slug}`}
-                    className="h-full flex flex-col bg-m3-surface-variant/40 p-6 rounded-[24px] border border-m3-outline/5 hover:border-m3-primary/30 hover:bg-m3-surface hover:shadow-xl transition-all group"
-                  >
-                    <div className="flex items-center gap-2 mb-4">
-                      <span className="text-[10px] font-bold uppercase tracking-widest text-m3-primary bg-m3-primary/5 border border-m3-primary/15 px-2.5 py-1 rounded-m3-full">
-                        {note.tag}
-                      </span>
-                      <span className="text-[11px] font-medium text-m3-on-surface-variant/60">
-                        {note.readMinutes} min
-                      </span>
-                    </div>
-                    <h3 className="font-display font-extrabold text-[15px] leading-snug text-m3-on-surface mb-2.5 line-clamp-3">
-                      {note.title}
-                    </h3>
-                    <p className="text-[13px] leading-relaxed text-m3-on-surface-variant font-medium line-clamp-4">
-                      {note.description}
-                    </p>
-                    <span className="mt-auto pt-4 inline-flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-widest text-m3-primary group-hover:gap-2.5 transition-all">
-                      {formatNoteDate(note.date)} <ArrowUpRight className="w-3.5 h-3.5" />
-                    </span>
-                  </Link>
-                </motion.div>
-              );
-            })}
-          </div>
-        </section>
-
-        {/* ============ TOOLKIT (condensed) ============ */}
-        <section id="skills" ref={skillsSectionRef} className="flex flex-col bg-m3-surface border-b border-m3-outline/10 shrink-0 overflow-hidden relative">
-          <div className="px-6 md:px-10 lg:px-12 pt-10 md:pt-12">
-            <span className="font-display text-[10px] font-extrabold uppercase tracking-[0.35em] text-m3-primary block mb-3">
-              Capability
-            </span>
-            <h2 className="display text-2xl md:text-4xl font-extrabold tracking-tighter uppercase text-m3-on-surface">
-              How I work
-            </h2>
-          </div>
-
-          <div className="px-6 md:px-10 lg:px-12 pt-8 pb-10 md:pb-12 space-y-10">
-            {/* Core competencies — chips */}
-            <div>
-              <span className="font-display text-[10px] font-extrabold uppercase tracking-[0.35em] text-m3-primary block mb-5">
-                Core Competencies
-              </span>
-              <div className="flex flex-wrap gap-2">
-                {COMPETENCIES.map((c, i) => (
-                  <span
-                    key={i}
-                    className="text-[12px] font-bold text-m3-on-surface bg-m3-surface-variant/60 border border-m3-outline/10 px-3.5 py-2 rounded-m3-full hover:border-m3-primary/30 hover:text-m3-primary transition-colors"
-                  >
-                    {c}
-                  </span>
-                ))}
-              </div>
-            </div>
-
-            {/* Tools — grouped chips */}
-            <div>
-              <span className="font-display text-[10px] font-extrabold uppercase tracking-[0.35em] text-m3-primary block mb-5">
-                Tools
-              </span>
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-10">
-                {TOOLS.map((t, i) => (
-                  <div key={i} className="flex flex-col gap-2 py-3 border-t border-m3-outline/10">
-                    <span className="font-display text-[10px] font-bold uppercase tracking-widest text-m3-on-surface-variant/60">
-                      {t.group}
-                    </span>
-                    <div className="flex flex-wrap gap-2">
-                      {t.items.map((item, ii) => (
-                        <span
-                          key={ii}
-                          className="text-[12px] font-semibold text-m3-on-surface-variant bg-m3-surface-variant/50 px-3 py-1.5 rounded-m3-md border border-m3-outline/5"
-                        >
-                          {item}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Credentials */}
-            <div>
-              <span className="font-display text-[10px] font-extrabold uppercase tracking-[0.35em] text-m3-primary block mb-5">
-                Certifications & Education
-              </span>
-              <div className="flex flex-col sm:flex-row sm:flex-wrap gap-x-8 gap-y-2 pt-3 border-t border-m3-outline/10">
-                {CREDENTIALS.map((cred, i) => (
-                  <p key={i} className="text-[13px] text-m3-on-surface-variant font-medium">
-                    <span className="font-bold text-m3-on-surface">{cred.title}</span>
-                    <span className="text-m3-primary"> — </span>
-                    {cred.issuer}
-                  </p>
-                ))}
-              </div>
-            </div>
-          </div>
+        {/* ============ TOOLKIT (one line) ============ */}
+        {/* Was a competencies matrix, a four-group tools grid and two
+            credentials. Every PM has a skills matrix and it dates within a
+            year. What survives is the tools someone might actually filter on
+            and the one certification worth listing. */}
+        <section id="skills" ref={skillsSectionRef} className="bg-m3-surface border-b border-m3-outline/10 px-6 md:px-10 lg:px-12 py-10 md:py-12">
+          <span className="font-display text-[10px] font-extrabold uppercase tracking-[0.35em] text-m3-primary block mb-3">
+            Capability
+          </span>
+          <h2 className="display text-2xl md:text-4xl font-extrabold tracking-tighter uppercase text-m3-on-surface mb-6">
+            How I work
+          </h2>
+          <p className="text-sm md:text-base text-m3-on-surface-variant font-medium leading-relaxed max-w-3xl mb-4">
+            Claude, Claude Code, Cursor, Gemini and NotebookLM in the build
+            loop. React and TypeScript. GA4, Google Tag Manager and Snowplow
+            for measurement. WordPress VIP, Drupal and proprietary enterprise
+            CMS platforms. Google Ad Manager, affiliate and subscription
+            stacks. Jira, Confluence, Figma and Notion for the rest.
+          </p>
+          <p className="text-sm text-m3-on-surface-variant/70 font-medium">
+            Certified Scrum Product Owner&reg; (CSPO), Scrum Alliance.
+          </p>
         </section>
 
         {/* ============ POINT OF VIEW ============ */}
@@ -1236,14 +895,12 @@ export default function About() {
               assumption I only noticed building something with no job to do: it runs on a
               definition of done.
             </p>
-            <a
-              href="https://www.linkedin.com/pulse/ai-changing-game-product-builders-swami-guru-6xnnc/"
-              target="_blank"
-              rel="noopener noreferrer"
+            <Link
+              to="/notes/what-got-faster-and-what-didnt"
               className="inline-flex items-center gap-2 bg-m3-surface text-m3-primary font-display font-bold px-6 py-3 rounded-m3-full text-sm tracking-wide hover:shadow-xl transition-shadow"
             >
-              Read the strategic brief <ArrowUpRight className="w-4 h-4" />
-            </a>
+              Read the full argument <ArrowRight className="w-4 h-4" />
+            </Link>
           </div>
         </section>
 
@@ -1255,7 +912,7 @@ export default function About() {
                 Let&rsquo;s build something
               </h2>
               <p className="text-sm md:text-base text-m3-on-surface-variant font-medium leading-relaxed">
-                Open to product leadership roles and interesting problems. Bengaluru-based, working globally.
+                Bengaluru-based, working globally. If you're taking a brand into a new market or replatforming without losing traffic, that's the work I do.
               </p>
             </div>
             <ActionRow className="shrink-0 w-full md:w-auto" />
