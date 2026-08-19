@@ -582,32 +582,58 @@ export default function Home() {
             Demoted from two full sections (a hero embed plus a rail) to a
             single strip, and moved below Notes: it's the one module that sends
             people off-domain, so it shouldn't sit mid-page above the writing. */}
-        {(videosLoading || railVideos.length > 0) && (
-          <section className="px-6 md:px-14 py-10 md:py-14 bg-m3-surface border-t border-m3-outline/10" aria-busy={videosLoading}>
-            <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-2 mb-8">
-              <div className="flex items-center gap-3">
-                <Play className="w-5 h-5 text-m3-primary" />
-                <span className="font-display text-[11px] md:text-sm font-black uppercase tracking-[0.3em] text-m3-on-surface">
-                  The Channel
-                </span>
-                {videosLoading && <span className="sr-only">Loading videos…</span>}
-              </div>
-              <a
-                href={YOUTUBE}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-[11px] font-bold uppercase tracking-widest text-m3-on-surface-variant hover:text-m3-primary transition-colors flex items-center gap-1"
-              >
-                All videos <ArrowUpRight className="w-3.5 h-3.5" />
-              </a>
+        {/* Always rendered. /api/latest-videos depends on YouTube's RSS feed,
+            which fails often enough that hiding the section on an empty
+            response leaves the homepage with no channel presence at all —
+            which is exactly what happened when this replaced the old
+            two-section treatment. Empty now degrades to a CTA, not a gap. */}
+        <section className="px-6 md:px-14 py-10 md:py-14 bg-m3-surface border-t border-m3-outline/10" aria-busy={videosLoading}>
+          <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-2 mb-8">
+            <div className="flex items-center gap-3">
+              <Play className="w-5 h-5 text-m3-primary" />
+              <span className="font-display text-[11px] md:text-sm font-black uppercase tracking-[0.3em] text-m3-on-surface">
+                The Channel
+              </span>
+              {videosLoading && <span className="sr-only">Loading videos…</span>}
             </div>
+            <a
+              href={YOUTUBE}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-[11px] font-bold uppercase tracking-widest text-m3-on-surface-variant hover:text-m3-primary transition-colors flex items-center gap-1"
+            >
+              All videos <ArrowUpRight className="w-3.5 h-3.5" />
+            </a>
+          </div>
+
+          {videosLoading || railVideos.length > 0 ? (
             <Carousel ariaLabel="Latest videos">
               {videosLoading
                 ? Array.from({ length: 4 }).map((_, i) => <VideoCardSkeleton key={i} />)
                 : railVideos.map((v) => <VideoCard key={v.id} video={v} />)}
             </Carousel>
-          </section>
-        )}
+          ) : (
+            <a
+              href={YOUTUBE}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-6 bg-m3-surface-variant/40 rounded-[24px] border border-m3-outline/5 p-6 md:p-8 hover:bg-m3-surface hover:border-m3-primary/30 hover:shadow-xl transition-all"
+            >
+              <span className="w-14 h-14 shrink-0 rounded-full bg-m3-primary text-m3-on-primary flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
+                <Play className="w-6 h-6 ml-1" />
+              </span>
+              <span className="flex-1 min-w-0">
+                <span className="block font-display font-bold text-base text-m3-on-surface mb-1">
+                  Watch the latest drop on YouTube
+                </span>
+                <span className="block text-sm text-m3-on-surface-variant font-medium">
+                  Scripted tech and AI teardowns, every week or two.
+                </span>
+              </span>
+              <ArrowUpRight className="w-5 h-5 text-m3-on-surface-variant/50 group-hover:text-m3-primary shrink-0 transition-colors" />
+            </a>
+          )}
+        </section>
 
         {/* 08 — Second fork.
             Anyone who scrolled a whole publication homepage is interested in
