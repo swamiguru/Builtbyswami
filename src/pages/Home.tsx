@@ -231,7 +231,7 @@ export default function Home() {
               build · ship · repeat
             </span>
             <h1 className="display text-[1.6rem] md:text-[2.6rem] font-extrabold tracking-tighter text-m3-on-surface leading-[1.08] mb-4">
-              I&rsquo;m Swami. I ran product for Vogue, GQ and Wired &mdash; five brand
+              I&rsquo;m Swami. I ran product for Vogue, GQ, Wired, Cond&eacute; Nast Traveller and Architectural Digest &mdash; five brand
               launches, three continents, one $20M year.
             </h1>
             <p className="text-base md:text-lg text-m3-on-surface-variant font-medium leading-relaxed mb-7 max-w-2xl">
