@@ -6,6 +6,7 @@
 import { useEffect, useState, type FormEvent } from "react";
 import { ArrowRight, Sparkles, X } from "lucide-react";
 import { SUBSCRIBE_URL } from "./NewsletterSignup";
+import { NEWSLETTER_TAGLINE, NEWSLETTER_TAGLINE_SUFFIX } from "../data/newsletter";
 
 // Dismissing hides the strip for two weeks (persisted client-side) rather
 // than forever, so it resurfaces for a returning visitor who never
@@ -56,10 +57,9 @@ export default function NewsletterStrip() {
               aria-hidden="true"
             />
             <p className="text-sm font-bold font-display leading-tight">
-              5 stories. 5 minutes. Zero fluff.
+              {NEWSLETTER_TAGLINE}
               <span className="hidden sm:inline text-m3-on-primary/75 font-medium">
-                {" "}
-                — today's tech, straight to your inbox.
+                {NEWSLETTER_TAGLINE_SUFFIX}
               </span>
             </p>
           </div>
