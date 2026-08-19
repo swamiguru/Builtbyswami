@@ -20,6 +20,26 @@
 
 ---
 
+## The Daily Five — format
+
+| Slot | Pillar | Fixed? |
+|---|---|---|
+| 1 | Commentary — the lead story, with a point of view | Yes, every day |
+| 2 | News | Yes |
+| 3 | Tips & Tricks | Yes |
+| 4 | Variable — Comparison, AI Tool Spotlight, AI Workflow / Prompt, Community / Poll | No |
+| 5 | **A standalone Hot Take or Myth-Buster** | Yes — this is the rule |
+
+Slot 1 carries commentary every day and always has. Slot 5 is the one that
+slips, usually to Community / Poll, and it's the piece that gets quoted and
+clipped for the channel. The build prints the rolling rate at which slot 5
+holds; it warns and never blocks.
+
+Pillar strings are written freely by the daily pipeline and normalised in
+`src/data/social.ts`. Keep "Commentary", "Hot Take" and "Myth-Buster" in the
+string and the categorisation takes care of itself — casing and suffixes like
+"Hot Take / Global Tech" are fine.
+
 ## What runs on its own
 
 - [e.g. Nightly cron pulls feeds at 05:00 IST and writes markdown to the repo]
