@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 import { Link } from "react-router-dom";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
@@ -11,6 +11,11 @@ import { ArrowLeft, ArrowRight, Clock } from "lucide-react";
 import middleEastLaunches from "../content/case-studies/middle-east-launches.md?raw";
 import SiteHeader from "../components/SiteHeader";
 import SiteFooter from "../components/SiteFooter";
+import ScrollProgress from "../components/ScrollProgress";
+import TableOfContents, {
+  extractTocFromMarkdown,
+  createMarkdownHeadingComponents,
+} from "../components/TableOfContents";
 
 const TITLE = "Launching global media brands into the Middle East";
 const STANDFIRST =
@@ -27,6 +32,12 @@ const FACTS: [string, string][] = [
 ];
 
 export default function CaseStudy() {
+  const tocItems = useMemo(
+    () => extractTocFromMarkdown(middleEastLaunches),
+    []
+  );
+  const markdownComponents = useMemo(() => createMarkdownHeadingComponents(), []);
+
   useEffect(() => {
     document.title = `${TITLE} | Case Study`;
     document
@@ -36,6 +47,7 @@ export default function CaseStudy() {
 
   return (
     <div className="min-h-screen bg-m3-surface md:p-8 selection:bg-m3-primary selection:text-m3-on-primary">
+      <ScrollProgress />
       <div className="max-w-[1100px] mx-auto min-h-[90vh] flex flex-col relative bg-m3-surface-variant overflow-hidden shadow-xl rounded-m3-xl md:rounded-[32px] border border-m3-outline/10">
         <SiteHeader />
 
@@ -54,49 +66,46 @@ export default function CaseStudy() {
           </span>
         </div>
 
-        <article className="max-w-[820px] mx-auto px-6 md:px-14 py-10 md:py-16 w-full">
-          <span className="font-display text-[11px] font-black uppercase tracking-[0.3em] text-m3-primary">
-            Case Study
-          </span>
+        <div className="max-w-[1020px] mx-auto px-6 md:px-10 py-10 md:py-16 w-full flex flex-col lg:flex-row gap-10 items-start">
+          <article className="flex-1 min-w-0 max-w-[720px] w-full">
+            <span className="font-display text-[11px] font-black uppercase tracking-[0.3em] text-m3-primary">
+              Case Study
+            </span>
 
-          <h1 className="display mt-4 text-3xl md:text-5xl font-extrabold tracking-tighter text-m3-on-surface leading-[1.02]">
-            {TITLE}
-          </h1>
+            <h1 className="display mt-4 text-3xl md:text-5xl font-extrabold tracking-tighter text-m3-on-surface leading-[1.02]">
+              {TITLE}
+            </h1>
 
-          <p className="mt-5 text-lg md:text-xl font-bold text-m3-primary leading-snug">
-            {STANDFIRST}
-          </p>
+            <p className="mt-5 text-lg md:text-xl font-bold text-m3-primary leading-snug">
+              {STANDFIRST}
+            </p>
 
-          <dl className="mt-9 mb-10 grid grid-cols-2 md:grid-cols-3 gap-x-6 gap-y-5 bg-m3-surface rounded-[20px] border border-m3-outline/5 p-6">
-            {FACTS.map(([k, v]) => (
-              <div key={k}>
-                <dt className="text-[10px] font-black uppercase tracking-[0.2em] text-m3-on-surface-variant/60">
-                  {k}
-                </dt>
-                <dd className="mt-1 text-sm font-bold text-m3-on-surface leading-snug">
-                  {v}
-                </dd>
-              </div>
-            ))}
-          </dl>
+            <dl className="mt-9 mb-10 grid grid-cols-2 md:grid-cols-3 gap-x-6 gap-y-5 bg-m3-surface rounded-[20px] border border-m3-outline/5 p-6">
+              {FACTS.map(([k, v]) => (
+                <div key={k}>
+                  <dt className="text-[10px] font-black uppercase tracking-[0.2em] text-m3-on-surface-variant/60">
+                    {k}
+                  </dt>
+                  <dd className="mt-1 text-sm font-bold text-m3-on-surface leading-snug">
+                    {v}
+                  </dd>
+                </div>
+              ))}
+            </dl>
 
-          <div className="prose-notes">
-            <ReactMarkdown
-              remarkPlugins={[remarkGfm]}
-              components={{
-                // Tables get a scroll container so a wide one can never push
-                // the page sideways on a narrow screen.
-                table: ({ children }) => (
-                  <div className="table-wrap">
-                    <table>{children}</table>
-                  </div>
-                ),
-              }}
-            >
-              {middleEastLaunches}
-            </ReactMarkdown>
-          </div>
-        </article>
+            <div className="prose-notes">
+              <ReactMarkdown
+                remarkPlugins={[remarkGfm]}
+                components={markdownComponents}
+              >
+                {middleEastLaunches}
+              </ReactMarkdown>
+            </div>
+          </article>
+
+          {/* Floating Table of Contents Sidebar */}
+          {tocItems.length > 0 && <TableOfContents items={tocItems} />}
+        </div>
 
         {/* Closing CTA — the whole point of publishing this. */}
         <section className="max-w-[820px] mx-auto w-full px-6 md:px-14 pb-14">

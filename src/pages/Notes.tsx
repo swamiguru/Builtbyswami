@@ -9,6 +9,7 @@ import { ArrowRight, Clock, BookOpen } from "lucide-react";
 import { NOTES_SORTED, formatNoteDate, type Note } from "../data/notes";
 import SiteHeader from "../components/SiteHeader";
 import SiteFooter from "../components/SiteFooter";
+import ScrollProgress from "../components/ScrollProgress";
 import { usePageSeo } from "../hooks/usePageSeo";
 
 const formatMonth = (key: string): string =>
@@ -35,6 +36,7 @@ export default function Notes() {
 
   return (
     <div className="min-h-screen bg-m3-surface md:p-8 selection:bg-m3-primary selection:text-m3-on-primary">
+      <ScrollProgress />
       <div className="max-w-[1100px] mx-auto min-h-[90vh] flex flex-col relative bg-m3-surface-variant overflow-hidden shadow-xl rounded-m3-xl md:rounded-[32px] border border-m3-outline/10">
 
         <SiteHeader />

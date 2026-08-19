@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 import { Link, Navigate, useParams } from "react-router-dom";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
@@ -11,6 +11,11 @@ import { ArrowLeft, ArrowRight, ArrowUpRight, Clock } from "lucide-react";
 import { NOTES_SORTED, getNote, formatNoteDate } from "../data/notes";
 import SiteHeader from "../components/SiteHeader";
 import SiteFooter from "../components/SiteFooter";
+import ScrollProgress from "../components/ScrollProgress";
+import TableOfContents, {
+  extractTocFromMarkdown,
+  createMarkdownHeadingComponents,
+} from "../components/TableOfContents";
 
 const YOUTUBE = "https://www.youtube.com/@builtbyswami";
 
@@ -32,6 +37,12 @@ export default function NotePost() {
   const older = index >= 0 ? NOTES_SORTED[index + 1] : undefined;
   const newer = index > 0 ? NOTES_SORTED[index - 1] : undefined;
 
+  const tocItems = useMemo(
+    () => (note ? extractTocFromMarkdown(note.content) : []),
+    [note]
+  );
+  const markdownComponents = useMemo(() => createMarkdownHeadingComponents(), []);
+
   useEffect(() => {
     if (note) {
       document.title = `${note.title} | Build Notes`;
@@ -45,6 +56,7 @@ export default function NotePost() {
 
   return (
     <div className="min-h-screen bg-m3-surface md:p-8 selection:bg-m3-primary selection:text-m3-on-primary">
+      <ScrollProgress />
       <div className="max-w-[1100px] mx-auto min-h-[90vh] flex flex-col relative bg-m3-surface-variant overflow-hidden shadow-xl rounded-m3-xl md:rounded-[32px] border border-m3-outline/10">
 
         <SiteHeader />
@@ -101,43 +113,53 @@ export default function NotePost() {
           </div>
         </div>
 
-        <article className="max-w-[820px] mx-auto px-6 md:px-14 py-10 md:py-16">
-          <div className="flex items-center gap-4 text-[11px] font-bold uppercase tracking-widest text-m3-on-surface-variant/60 mb-5">
-            <span className="text-m3-primary">{note.tag}</span>
-            <span>{formatNoteDate(note.date)}</span>
-            <span className="flex items-center gap-1"><Clock className="w-3.5 h-3.5" /> {note.readMinutes} min read</span>
-          </div>
-          <h1 className="display text-3xl md:text-5xl font-extrabold tracking-tighter text-m3-on-surface leading-[1.02] mb-6">
-            {note.title}
-          </h1>
-          {(note.ctaUrl || note.videoUrl) && (
-            <div className="flex flex-wrap items-center gap-3 mb-10">
-              {note.ctaUrl && (
-                <a
-                  href={note.ctaUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 m3-button-tonal text-sm tracking-wide"
-                >
-                  {note.ctaLabel ?? "Visit the live site"} <ArrowUpRight className="w-4 h-4" />
-                </a>
-              )}
-              {note.videoUrl && (
-                <a
-                  href={note.videoUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 m3-button-tonal text-sm tracking-wide"
-                >
-                  Watch the build on YouTube <ArrowUpRight className="w-4 h-4" />
-                </a>
-              )}
+        <div className="max-w-[1020px] mx-auto px-6 md:px-10 py-10 md:py-16 w-full flex flex-col lg:flex-row gap-10 items-start">
+          <article className="flex-1 min-w-0 max-w-[720px] w-full">
+            <div className="flex items-center gap-4 text-[11px] font-bold uppercase tracking-widest text-m3-on-surface-variant/60 mb-5">
+              <span className="text-m3-primary">{note.tag}</span>
+              <span>{formatNoteDate(note.date)}</span>
+              <span className="flex items-center gap-1"><Clock className="w-3.5 h-3.5" /> {note.readMinutes} min read</span>
             </div>
-          )}
-          <div className="prose-notes">
-            <ReactMarkdown remarkPlugins={[remarkGfm]}>{note.content}</ReactMarkdown>
-          </div>
-        </article>
+            <h1 className="display text-3xl md:text-5xl font-extrabold tracking-tighter text-m3-on-surface leading-[1.02] mb-6">
+              {note.title}
+            </h1>
+            {(note.ctaUrl || note.videoUrl) && (
+              <div className="flex flex-wrap items-center gap-3 mb-10">
+                {note.ctaUrl && (
+                  <a
+                    href={note.ctaUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 m3-button-tonal text-sm tracking-wide"
+                  >
+                    {note.ctaLabel ?? "Visit the live site"} <ArrowUpRight className="w-4 h-4" />
+                  </a>
+                )}
+                {note.videoUrl && (
+                  <a
+                    href={note.videoUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 m3-button-tonal text-sm tracking-wide"
+                  >
+                    Watch the build on YouTube <ArrowUpRight className="w-4 h-4" />
+                  </a>
+                )}
+              </div>
+            )}
+            <div className="prose-notes">
+              <ReactMarkdown
+                remarkPlugins={[remarkGfm]}
+                components={markdownComponents}
+              >
+                {note.content}
+              </ReactMarkdown>
+            </div>
+          </article>
+
+          {/* Floating Table of Contents Sidebar */}
+          {tocItems.length > 0 && <TableOfContents items={tocItems} />}
+        </div>
 
         {(older || newer) && (
           <nav

@@ -127,3 +127,7 @@
 2026-08-18 | 2 | Security | Android VoLTE video-call exploit | SSD disclosure Aug 17 — two-stage chain = full Android kernel access via VoLTE video call on Unisoc modem firmware (budget phones)
 2026-08-18 | 4 | AI Tool Spotlight | Ideogram | Free AI image generator that renders legible text — thumbnails/posters/logos/memes (IG pick)
 2026-08-18 | 5 | Community / Poll (AI infra) | AI gateway consolidation poll | Comfortable with one payments giant between you and every AI model? (Threads+X, no card, tied to slot 1)
+2026-08-19 | 1 | India / Telecom | Jio-Airtel tariff hike | 12-15% hike projected in 3-4 months; Jio revives Rs299 Prime as Airtel base moves to Rs349
+2026-08-19 | 2 | AI models | AI speed race | GPT-5.6 Sol Ultrafast on Cerebras ~750 tok/s (up to 14x) + Gemini 3.7 Flash 3 weeks after 3.6
+2026-08-19 | 4 | Security & Privacy | SIM PIN lock | Set a SIM PIN so a stolen SIM cannot be moved to another phone to intercept OTP/UPI
+2026-08-19 | 5 | AI workflow | Prompt of the day - red-team my decision | AI argues strongest case against + 3 failure modes + the one thing that changes your mind

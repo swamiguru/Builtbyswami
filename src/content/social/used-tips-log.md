@@ -42,3 +42,4 @@ seed | iOS | Back Tap (double/triple tap back of iPhone)
 2026-08-17 | iOS | Live Text on paused video — pause any video, tap the Live Text icon to select/copy on-screen text, tap numbers/links/addresses off the frozen frame
 
 2026-08-18 | Google Maps | Two-wheeler (bike) mode in Directions — routes through narrow shortcuts cars cannot use + bike-specific ETA (India + select countries)
+2026-08-19 | Threads | Pin the chronological "Following" feed — tap the Threads home icon to switch feeds, pin/swipe between custom feeds, so the app stops defaulting to the For You algorithm
