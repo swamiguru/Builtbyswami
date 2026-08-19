@@ -206,6 +206,8 @@ export default function Home() {
   const railPosts = latestDigest ? latestDigest.posts.filter((p) => p.n !== heroPost?.n) : [];
   const categories = getTopCategories();
   const latestIssue = useLatestWeekly();
+  // Six is the ceiling; the section header links to /builds for the rest.
+  const homeBuilds = BUILDS.slice(0, 6);
   usePageSeo("home");
 
   return (
@@ -537,55 +539,7 @@ export default function Home() {
           </div>
         </section>
 
-        {/* 06 — Builds.
-            Sits directly after the subscribe block so a reader who declined the
-            newsletter meets proof of work rather than a dead end. It's also the
-            natural bridge from "publication" to "person" — the first thing on
-            the page that is a thing I made rather than a thing I wrote. */}
-        <section className="px-6 md:px-14 py-12 md:py-16 bg-m3-surface border-t border-m3-outline/10">
-          <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-2 mb-8">
-            <div className="flex items-center gap-3">
-              <Hammer className="w-5 h-5 text-m3-primary" />
-              <span className="font-display text-[11px] md:text-sm font-black uppercase tracking-[0.3em] text-m3-on-surface">
-                Builds
-              </span>
-            </div>
-            <Link
-              to="/builds"
-              className="text-[11px] font-bold uppercase tracking-widest text-m3-on-surface-variant hover:text-m3-primary transition-colors flex items-center gap-1"
-            >
-              All builds <ArrowRight className="w-3.5 h-3.5" />
-            </Link>
-          </div>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {BUILDS.filter((b) => b.url)
-              .slice(0, 3)
-              .map((build) => (
-                <a
-                  key={build.name}
-                  href={build.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group bg-m3-surface-variant/40 rounded-[24px] border border-m3-outline/5 p-6 flex flex-col gap-3 hover:bg-m3-surface hover:border-m3-primary/30 hover:shadow-xl hover:-translate-y-1 transition-all"
-                >
-                  <span className="text-[10px] font-bold uppercase tracking-widest text-m3-primary">
-                    {build.status}
-                  </span>
-                  <span className="display text-lg font-extrabold tracking-tight text-m3-on-surface">
-                    {build.name}
-                  </span>
-                  <span className="text-sm leading-relaxed text-m3-on-surface-variant font-medium line-clamp-3">
-                    {build.what}
-                  </span>
-                  <span className="mt-auto pt-2 inline-flex items-center gap-1 text-[11px] font-bold uppercase tracking-widest text-m3-primary group-hover:gap-1.5 transition-all">
-                    Open it <ArrowUpRight className="w-3.5 h-3.5" />
-                  </span>
-                </a>
-              ))}
-          </div>
-        </section>
-
-        {/* 07 — Notes */}
+        {/* 06 — Notes */}
         <section id="notes" className="px-6 md:px-14 py-12 md:py-16 bg-m3-surface-variant border-t border-m3-outline/10">
           <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-2 mb-8">
             <div className="flex items-center gap-3">
@@ -630,7 +584,7 @@ export default function Home() {
           </div>
         </section>
 
-        {/* 08 — The Channel.
+        {/* 07 — The Channel.
             Demoted from two full sections (a hero embed plus a rail) to a
             single strip, and moved below Notes: it's the one module that sends
             people off-domain, so it shouldn't sit mid-page above the writing. */}
@@ -685,6 +639,94 @@ export default function Home() {
               <ArrowUpRight className="w-5 h-5 text-m3-on-surface-variant/50 group-hover:text-m3-primary shrink-0 transition-colors" />
             </a>
           )}
+        </section>
+
+        {/* 08 — Builds.
+            Sits immediately before the closing fork on purpose: that section's
+            eyebrow reads "the operator behind the builds", so the builds should
+            be the thing directly above it. It also puts the strongest proof of
+            work last, leading straight into the ask.
+
+            Order here matches the nav — Daily Five, Notes, Builds — so the page
+            and the header tell the same story. */}
+        <section className="px-6 md:px-14 py-12 md:py-16 bg-m3-surface border-t border-m3-outline/10">
+          <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-2 mb-8">
+            <div className="flex items-center gap-3">
+              <Hammer className="w-5 h-5 text-m3-primary" />
+              <span className="font-display text-[11px] md:text-sm font-black uppercase tracking-[0.3em] text-m3-on-surface">
+                Builds
+              </span>
+            </div>
+            <Link
+              to="/builds"
+              className="text-[11px] font-bold uppercase tracking-widest text-m3-on-surface-variant hover:text-m3-primary transition-colors flex items-center gap-1"
+            >
+              All builds <ArrowRight className="w-3.5 h-3.5" />
+            </Link>
+          </div>
+          {/* Every build shows, capped at six. A carousel was considered and
+              rejected: this section's whole job is "look how much shipped", and
+              a carousel hides two thirds of it behind a swipe. A wrapping grid
+              scales to six with no redesign. Two columns at exactly four, so
+              the fourth card isn't stranded alone on its own row. */}
+          <div
+            className={`grid sm:grid-cols-2 gap-4 ${
+              homeBuilds.length === 4 ? "lg:grid-cols-2" : "lg:grid-cols-3"
+            }`}
+          >
+            {homeBuilds.map((build) => {
+              // Not everything shipped has somewhere to go — the task engine was
+              // never published. Those cards point at the write-up instead of a
+              // dead "Open it", which is why they can be shown at all.
+              const cardClass =
+                "group bg-m3-surface-variant/40 rounded-[24px] border border-m3-outline/5 p-6 flex flex-col gap-3 hover:bg-m3-surface hover:border-m3-primary/30 hover:shadow-xl hover:-translate-y-1 transition-all";
+
+              const inner = (
+                <>
+                  <span className="text-[10px] font-bold uppercase tracking-widest text-m3-primary">
+                    {build.status}
+                  </span>
+                  <span className="display text-lg font-extrabold tracking-tight text-m3-on-surface">
+                    {build.name}
+                  </span>
+                  <span className="text-sm leading-relaxed text-m3-on-surface-variant font-medium line-clamp-3">
+                    {build.what}
+                  </span>
+                  <span className="mt-auto pt-2 inline-flex items-center gap-1 text-[11px] font-bold uppercase tracking-widest text-m3-primary group-hover:gap-1.5 transition-all">
+                    {build.url ? (
+                      <>
+                        Open it <ArrowUpRight className="w-3.5 h-3.5" />
+                      </>
+                    ) : (
+                      <>
+                        How it was built <ArrowRight className="w-3.5 h-3.5" />
+                      </>
+                    )}
+                  </span>
+                </>
+              );
+
+              return build.url ? (
+                <a
+                  key={build.name}
+                  href={build.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={cardClass}
+                >
+                  {inner}
+                </a>
+              ) : (
+                <Link
+                  key={build.name}
+                  to={build.noteSlug ? `/notes/${build.noteSlug}` : "/builds"}
+                  className={cardClass}
+                >
+                  {inner}
+                </Link>
+              );
+            })}
+          </div>
         </section>
 
         {/* 09 — Second fork.
