@@ -125,13 +125,31 @@ export default function Home() {
             <span className="font-display text-[10px] md:text-[11px] uppercase tracking-[0.4em] font-extrabold text-m3-primary block mb-4">
               build · ship · repeat
             </span>
+            {/* The brand list is tinted, not because it's a link, but because
+                five titles in a row is the one thing a recruiter or a buyer
+                scans for. Colour lets the eye take it as a block instead of
+                reading eleven words. The claim and the daily are one sentence
+                apart on purpose: the daily is the evidence the operator still
+                ships, not a change of career. */}
             <h1 className="display text-[1.6rem] md:text-[2.6rem] font-extrabold tracking-tighter text-m3-on-surface leading-[1.08] mb-4">
-              I&rsquo;m Swami. I ran product for Vogue, GQ, Wired, Cond&eacute; Nast Traveller and Architectural Digest &mdash; five brand
-              launches, three continents, one $20M year.
+              I launched{" "}
+              <span className="text-m3-primary">
+                Vogue, GQ, Wired, Cond&eacute; Nast Traveller and Architectural Digest
+              </span>{" "}
+              into new markets. Now I build my own products &mdash; and write the five
+              tech stories worth your morning.
             </h1>
-            <p className="text-base md:text-lg text-m3-on-surface-variant font-medium leading-relaxed mb-7 max-w-2xl">
-              Now I ship my own products, and every morning I write up the five tech
-              stories that actually mattered. Free, daily, no fluff &mdash; since 12 July.
+            {/* Two paragraphs, not one. The first is the credential, the second
+                is what the visitor actually gets — and the second is the only
+                half a daily reader cares about. Run together they became eight
+                lines on a phone with the payoff buried at the end. */}
+            <p className="text-base md:text-lg text-m3-on-surface-variant font-medium leading-relaxed mb-3 max-w-2xl">
+              Eleven years running product at Cond&eacute; Nast, Newsweek and Metro World
+              News &mdash; more than a dozen brand launches, five continents, one $20M year.
+            </p>
+            <p className="text-base md:text-lg text-m3-on-surface font-medium leading-relaxed mb-7 max-w-2xl">
+              Here you&rsquo;ll find the daily five, build notes from what I ship solo, and
+              the launch and migration work I take on.
             </p>
             <div className="flex flex-wrap items-center gap-3">
               <a

@@ -33,7 +33,7 @@
 | Route | What it is |
 |---|---|
 | `/` | Router homepage — positioning hero, then a fork to the daily or to consulting |
-| `/tech-roundup` + `/tech-roundup/:date` | The Daily Five. 47+ dated issues. **These URLs never move.** |
+| `/tech-roundup` + `/tech-roundup/:date` | The Daily Five. 38 dated issues. **These URLs never move.** |
 | `/weekly` | The Weekly archive, read live from beehiiv |
 | `/notes` + `/notes/:slug` | Build notes |
 | `/builds` | Four products shipped solo |
@@ -114,7 +114,7 @@ fine.
 | Problem | Notes | Priority |
 |---|---|---|
 | Slot 5 keeps losing its standalone opinion | Held 2 of the last 7 days (29%) and 12 of the last 30 (40%), usually displaced by Community / Poll. The lead still carries commentary daily — this is specifically about the standalone Hot Take or Myth-Buster. Build prints the rate every deploy. | high |
-| Daily cadence not decided | 47+ issues since 12 July, solo, alongside the channel, the job search and consulting. Declaring a cadence that holds beats an archive that shows gaps. | high |
+| Daily cadence not decided | 38 issues in the 39 days since 12 July (one miss, 13 Aug), solo, alongside the channel, the job search and consulting. Declaring a cadence that holds beats an archive that shows gaps. | high |
 | GitHub repo name is the last one out of line | Vercel is now `builtbyswami` and the domain is builtbyswami.com; GitHub is still `Swami-Guru-Portfolio`. Renaming is safe — GitHub redirects old URLs permanently and Vercel links by repo ID, not name. | low |
 | Daily JSON doesn't set `featured` | Homepage hero card falls back to `posts[0]` when no post has `featured: true`. Add `"featured": true` when writing the day's JSON to pick the lead deliberately. | low |
 | Own traffic isn't filtered from GA4 | Deliberately skipped. The public IP resolves to Google LLC / Data Center / Mumbai — a shared proxy, not a home address — so an IP rule would be unreliable. Read reports from ranges that exclude testing days. | low |
