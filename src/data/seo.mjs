@@ -31,7 +31,7 @@ export const PAGE_SEO = {
   home: {
     title: "The Daily Tech Roundup: Tech News + AI Builds | Swami Guru",
     description:
-      "Get daily tech news, a weekly tech newsletter, and YouTube videos on AI tools - from Swami Guru, a product leader building AI products solo, in public.",
+      "Five tech stories that mattered, every morning, from Swami Guru — who launched Vogue, GQ and Wired into new markets and now builds his own products, in public.",
   },
   about: {
     title: "Swami Guru | Senior Product Leader & AI-Native Product Builder",
