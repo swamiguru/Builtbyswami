@@ -109,6 +109,21 @@ export const NOTES_SORTED: Note[] = [...NOTES].sort((a, b) =>
 export const getLatestNotes = (n = 3): Note[] =>
   [...NOTES].sort((a, b) => b.date.localeCompare(a.date)).slice(0, n);
 
+export interface NoteTagCount {
+  tag: string;
+  count: number;
+}
+
+export const getAllNoteTags = (): NoteTagCount[] => {
+  const counts = new Map<string, number>();
+  for (const n of NOTES) {
+    counts.set(n.tag, (counts.get(n.tag) ?? 0) + 1);
+  }
+  return Array.from(counts.entries())
+    .map(([tag, count]) => ({ tag, count }))
+    .sort((a, b) => b.count - a.count || a.tag.localeCompare(b.tag));
+};
+
 export const formatNoteDate = (iso: string): string =>
   new Date(iso).toLocaleDateString("en-US", {
     year: "numeric",

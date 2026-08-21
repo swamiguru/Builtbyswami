@@ -20,7 +20,7 @@ function FootLink({ to, children }: { to: string; children: React.ReactNode }) {
   return (
     <Link
       to={to}
-      className="text-sm font-display font-bold text-m3-on-surface-variant hover:text-m3-primary transition-colors w-fit"
+      className="text-xs sm:text-sm font-display font-bold text-m3-on-surface-variant hover:text-m3-primary transition-colors w-fit leading-tight"
     >
       {children}
     </Link>
@@ -34,9 +34,9 @@ function FootExternal({ href, children }: { href: string; children: React.ReactN
       href={href}
       target="_blank"
       rel="noopener noreferrer"
-      className="text-sm font-display font-bold text-m3-on-surface-variant hover:text-m3-primary transition-colors w-fit inline-flex items-center gap-1.5"
+      className="text-xs sm:text-sm font-display font-bold text-m3-on-surface-variant hover:text-m3-primary transition-colors w-fit inline-flex items-center gap-1 leading-tight"
     >
-      {children} <ArrowUpRight className="w-3.5 h-3.5 opacity-60" />
+      {children} <ArrowUpRight className="w-3 h-3 sm:w-3.5 sm:h-3.5 opacity-60 shrink-0" />
     </a>
   );
 }
@@ -44,7 +44,7 @@ function FootExternal({ href, children }: { href: string; children: React.ReactN
 /** Column heading — matches the old "Explore" eyebrow treatment. */
 function FootHeading({ children }: { children: React.ReactNode }) {
   return (
-    <span className="font-display text-[10px] uppercase tracking-[0.3em] font-extrabold text-m3-on-surface-variant/50">
+    <span className="font-display text-[9px] sm:text-[10px] uppercase tracking-[0.2em] sm:tracking-[0.25em] font-extrabold text-m3-on-surface-variant/50 block mb-0.5">
       {children}
     </span>
   );
@@ -59,34 +59,32 @@ export default function SiteFooter({ className = "" }: SiteFooterProps) {
   return (
     <footer className={`bg-m3-surface border-t border-m3-outline/10 rounded-b-m3-xl md:rounded-b-[32px] ${className}`}>
       {/* Top tier — signoff, subscribe & nav */}
-      <div className="px-6 md:px-14 pt-10 pb-8 flex flex-col md:flex-row md:items-start gap-8 md:gap-12 justify-between">
+      <div className="px-5 sm:px-8 md:px-12 pt-6 md:pt-8 pb-5 md:pb-6 flex flex-col md:flex-row md:items-start gap-6 md:gap-10 justify-between">
         <div className="max-w-sm">
-          <p className="font-display text-base font-bold leading-snug text-m3-on-surface">
+          <p className="font-display text-sm sm:text-base font-bold leading-snug text-m3-on-surface">
             {NEWSLETTER_TITLE}
           </p>
-          <p className="mt-2 text-sm leading-relaxed text-m3-on-surface-variant font-medium">
+          <p className="mt-1 md:mt-1.5 text-xs sm:text-sm leading-relaxed text-m3-on-surface-variant font-medium">
             {NEWSLETTER_PROMISE}
           </p>
           <a
             href="#build-notes"
-            className="mt-4 inline-flex items-center gap-2 bg-m3-primary text-m3-on-primary font-display font-bold px-5 py-2.5 rounded-m3-full hover:m3-elevation-2 active:scale-95 transition-all text-sm tracking-wide"
+            className="mt-3 inline-flex items-center gap-1.5 bg-m3-primary text-m3-on-primary font-display font-bold px-4 py-2 rounded-m3-full hover:m3-elevation-2 active:scale-95 transition-all text-xs sm:text-sm tracking-wide"
           >
-            Subscribe <ArrowUpRight className="w-4 h-4" />
+            Subscribe <ArrowUpRight className="w-3.5 h-3.5" />
           </a>
         </div>
 
-        {/* Three columns that mirror the nav — reading, working, and the
-            places this site deliberately sends you off to. The old single
-            "Explore" list disagreed with the nav on four of five items. */}
-        <div className="flex flex-col sm:flex-row gap-8 sm:gap-12">
-          <nav className="flex flex-col gap-3">
+        {/* Three columns that mirror the nav — laid out horizontally even on mobile to prevent excessive scrolling */}
+        <div className="grid grid-cols-3 gap-3 sm:gap-8 md:gap-10 pt-1 md:pt-0 border-t border-m3-outline/10 md:border-t-0">
+          <nav className="flex flex-col gap-1.5 md:gap-2">
             <FootHeading>Read</FootHeading>
             <FootLink to="/tech-roundup">The Daily Five</FootLink>
             <FootLink to="/weekly">The Weekly</FootLink>
             <FootLink to="/notes">Notes</FootLink>
           </nav>
 
-          <nav className="flex flex-col gap-3">
+          <nav className="flex flex-col gap-1.5 md:gap-2">
             <FootHeading>Work</FootHeading>
             <FootLink to="/builds">Builds</FootLink>
             <FootLink to="/about">The Work</FootLink>
@@ -94,7 +92,7 @@ export default function SiteFooter({ className = "" }: SiteFooterProps) {
             <FootLink to="/work-with-me">Consulting</FootLink>
           </nav>
 
-          <nav className="flex flex-col gap-3">
+          <nav className="flex flex-col gap-1.5 md:gap-2">
             <FootHeading>Elsewhere</FootHeading>
             <FootExternal href={YOUTUBE}>YouTube</FootExternal>
             <FootExternal href="https://freewordtool.com">Free Word Tool</FootExternal>
@@ -102,32 +100,33 @@ export default function SiteFooter({ className = "" }: SiteFooterProps) {
           </nav>
         </div>
       </div>
+
       {/* Baseline bar — status, copyright & socials */}
-      <div className="px-6 md:px-14 py-5 border-t border-m3-outline/10 flex flex-col md:flex-row items-center gap-5 justify-between">
-        <div className="flex items-center gap-4">
-          <span className="flex items-center gap-2.5">
-            <span className="w-2.5 h-2.5 rounded-full bg-m3-primary animate-pulse" />
-            <span className="font-display text-[11px] font-bold uppercase tracking-[0.2em] text-m3-primary">
+      <div className="px-5 sm:px-8 md:px-12 py-3 md:py-3.5 border-t border-m3-outline/10 flex flex-col sm:flex-row items-center gap-3 sm:gap-4 justify-between">
+        <div className="flex items-center gap-3 sm:gap-4 text-center sm:text-left">
+          <span className="flex items-center gap-2">
+            <span className="w-2 h-2 rounded-full bg-m3-primary animate-pulse" />
+            <span className="font-display text-[10px] sm:text-[11px] font-bold uppercase tracking-[0.18em] text-m3-primary">
               Live — shipping daily
             </span>
           </span>
-          <span className="text-[10px] font-bold uppercase opacity-40 font-display">
+          <span className="text-[9px] sm:text-[10px] font-bold uppercase opacity-40 font-display">
             © 2026 builtbyswami
           </span>
         </div>
-        <div className="flex items-center gap-2 md:gap-3">
+        <div className="flex items-center gap-2">
           {SOCIALS.map((s) => (
             <motion.a
               key={s.name}
-              whileHover={{ scale: 1.15, y: -2 }}
+              whileHover={{ scale: 1.15, y: -1 }}
               whileTap={{ scale: 0.9 }}
               href={s.url}
               target="_blank"
               rel="noopener noreferrer"
               aria-label={`@builtbyswami on ${s.name}`}
-              className="w-9 h-9 md:w-10 md:h-10 bg-m3-surface-variant text-m3-on-surface-variant rounded-full flex items-center justify-center hover:bg-m3-primary hover:text-m3-on-primary transition-colors shadow-sm"
+              className="w-8 h-8 md:w-8.5 md:h-8.5 bg-m3-surface-variant text-m3-on-surface-variant rounded-full flex items-center justify-center hover:bg-m3-primary hover:text-m3-on-primary transition-colors shadow-xs"
             >
-              <svg viewBox="0 0 24 24" fill="currentColor" className="w-4 h-4 md:w-[18px] md:h-[18px]" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="currentColor" className="w-3.5 h-3.5 md:w-4 md:h-4" aria-hidden="true">
                 <path d={s.path} />
               </svg>
             </motion.a>
