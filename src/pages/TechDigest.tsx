@@ -266,8 +266,10 @@ export default function TechDigest() {
                 Written by Swami
               </span>
               <span className="block text-sm text-m3-on-surface-variant font-medium leading-relaxed">
-                11 years in product at Vogue, GQ and Wired. Now building and
-                shipping solo from Bengaluru.
+                Ex-Product Lead at Vogue, GQ, Wired, Condé Nast Traveler,
+                Architectural Digest, Newsweek, and Metro World News. Now
+                turning product strategy into live code, AI workflows, and daily
+                publishing.
               </span>
             </span>
             <span className="text-[11px] font-bold uppercase tracking-widest text-m3-on-surface-variant group-hover:text-m3-primary transition-colors flex items-center gap-1 shrink-0">
