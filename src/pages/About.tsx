@@ -836,7 +836,7 @@ export default function About() {
           </p>
           <Link
             to="/builds"
-            className="inline-flex items-center gap-2 bg-m3-primary text-m3-on-primary font-display font-bold px-6 py-3 rounded-m3-full text-sm tracking-wide hover:m3-elevation-2 active:scale-95 transition-all"
+            className="inline-flex items-center gap-2 bg-m3-primary text-m3-on-primary font-display font-bold px-6 py-3 rounded-m3-full text-sm tracking-wide hover:m3-elevation-1-shadow active:scale-95 transition-all shadow-xs"
           >
             See the builds <ArrowRight className="w-4 h-4" />
           </Link>

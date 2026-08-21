@@ -241,7 +241,7 @@ export default function Notes() {
               <button
                 type="button"
                 onClick={resetFilters}
-                className="mt-2 bg-m3-primary text-m3-on-primary font-display font-bold text-xs px-5 py-2.5 rounded-full hover:m3-elevation-1 transition-all cursor-pointer"
+                className="mt-2 bg-m3-primary text-m3-on-primary font-display font-bold text-xs px-5 py-2.5 rounded-full hover:m3-elevation-1-shadow active:scale-95 transition-all shadow-xs cursor-pointer"
               >
                 Clear all filters
               </button>

@@ -105,7 +105,7 @@ export default function Builds() {
                         href={build.url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center gap-2 bg-m3-primary text-m3-on-primary font-display font-bold px-5 py-2.5 rounded-m3-full text-sm tracking-wide hover:m3-elevation-2 active:scale-95 transition-all"
+                        className="inline-flex items-center gap-2 bg-m3-primary text-m3-on-primary font-display font-bold px-5 py-2.5 rounded-m3-full text-sm tracking-wide hover:m3-elevation-1-shadow active:scale-95 transition-all shadow-xs"
                       >
                         Open it <ArrowUpRight className="w-4 h-4" />
                       </a>
