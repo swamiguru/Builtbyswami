@@ -194,14 +194,14 @@ export default function Home() {
               <a
                 href="#daily-five"
                 onClick={() => trackCta("hero_read_daily", "home_hero")}
-                className="inline-flex items-center gap-2 bg-m3-primary text-m3-on-primary font-display font-bold px-4 sm:px-6 py-3 rounded-m3-full hover:m3-elevation-2 active:scale-95 transition-all text-[13px] sm:text-sm tracking-wide whitespace-nowrap"
+                className="inline-flex items-center justify-center gap-2 min-[360px]:flex-1 sm:flex-none bg-m3-primary text-m3-on-primary font-display font-bold px-4 sm:px-6 py-3 rounded-m3-full hover:m3-elevation-2 active:scale-95 transition-all text-[13px] sm:text-sm tracking-wide whitespace-nowrap"
               >
                 Read today&rsquo;s five <ArrowRight className="w-4 h-4" />
               </a>
               <Link
                 to="/work-with-me"
                 onClick={() => trackCta("hero_work_with_me", "home_hero")}
-                className="inline-flex items-center gap-2 bg-m3-surface text-m3-on-surface border border-m3-outline/20 font-display font-bold px-4 sm:px-6 py-3 rounded-m3-full hover:border-m3-primary/40 hover:text-m3-primary active:scale-95 transition-all text-[13px] sm:text-sm tracking-wide whitespace-nowrap"
+                className="inline-flex items-center justify-center gap-2 min-[360px]:flex-1 sm:flex-none bg-m3-surface text-m3-on-surface border border-m3-outline/20 font-display font-bold px-4 sm:px-6 py-3 rounded-m3-full hover:border-m3-primary/40 hover:text-m3-primary active:scale-95 transition-all text-[13px] sm:text-sm tracking-wide whitespace-nowrap"
               >
                 Work with me <ArrowUpRight className="w-4 h-4" />
               </Link>
