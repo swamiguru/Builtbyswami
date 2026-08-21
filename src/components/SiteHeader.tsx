@@ -143,7 +143,7 @@ export default function SiteHeader() {
   return (
     <>
       <motion.header
-        className="sticky top-0 z-30 bg-m3-surface/85 backdrop-blur-md border-b border-m3-outline/20 will-change-transform"
+        className="sticky top-0 z-30 bg-m3-surface/90 backdrop-blur-md border-b border-m3-outline/20 will-change-transform rounded-t-m3-xl md:rounded-t-[32px]"
         initial={false}
         animate={visible ? "visible" : "hidden"}
         variants={{
@@ -157,7 +157,7 @@ export default function SiteHeader() {
           },
           hidden: {
             y: "-100%",
-            opacity: 0.2,
+            opacity: 0,
             transition: {
               duration: shouldReduceMotion ? 0.05 : 0.22,
               ease: [0.4, 0, 1, 1], // immediate ease-in
@@ -167,7 +167,7 @@ export default function SiteHeader() {
         style={{
           boxShadow:
             scrolled && visible
-              ? "0 10px 30px -10px rgba(0, 0, 0, 0.08), 0 4px 6px -2px rgba(0, 0, 0, 0.03)"
+              ? "0 10px 30px -10px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.04)"
               : "none",
         }}
       >

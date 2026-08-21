@@ -57,13 +57,12 @@ export default function NotePost() {
   return (
     <div className="min-h-screen bg-m3-surface md:p-8 selection:bg-m3-primary selection:text-m3-on-primary">
       <ScrollProgress />
-      <div className="max-w-[1100px] mx-auto min-h-[90vh] flex flex-col relative bg-m3-surface-variant overflow-hidden shadow-xl rounded-m3-xl md:rounded-[32px] border border-m3-outline/10">
+      <div className="max-w-[1100px] mx-auto min-h-[90vh] flex flex-col relative bg-m3-surface-variant shadow-xl rounded-m3-xl md:rounded-[32px] border border-m3-outline/10">
 
         <SiteHeader />
 
-        {/* Contextual sub-nav: sits just under the sticky site header,
-            so it stacks rather than overlaps when both are pinned. */}
-        <div className="h-12 md:h-14 border-b border-m3-outline/20 flex items-center justify-between px-6 md:px-10 bg-m3-surface/80 backdrop-blur-md sticky top-[70px] md:top-[88px] z-20">
+        {/* Contextual sub-nav */}
+        <div className="h-12 md:h-14 border-b border-m3-outline/20 flex items-center justify-between px-6 md:px-10 bg-m3-surface/60">
           <Link to="/notes" className="font-display font-bold text-sm text-m3-on-surface hover:text-m3-primary transition-colors">
             ← Build Notes
           </Link>
