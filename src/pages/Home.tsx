@@ -439,7 +439,7 @@ export default function Home() {
             side; below that they stack, and the issue card stays horizontal
             rather than putting a 16:9 image above the text. */}
         <section className="bg-m3-secondary-container text-m3-on-secondary-container px-6 md:px-14 py-9 md:py-12 border-t border-m3-outline/10">
-          <div className="grid lg:grid-cols-[1.35fr_1fr] gap-8 lg:gap-12 items-start">
+          <div className="grid xl:grid-cols-[1.35fr_1fr] gap-8 xl:gap-12 items-start">
             {/* The Weekly */}
             <div className="flex flex-col">
               <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-2 mb-4">
@@ -462,13 +462,19 @@ export default function Home() {
                   href={latestIssue.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group flex bg-m3-surface text-m3-on-surface rounded-[24px] overflow-hidden hover:shadow-xl transition-all"
+                  className="group flex sm:h-[192px] xl:h-[176px] bg-m3-surface text-m3-on-surface rounded-[24px] overflow-hidden hover:shadow-xl transition-all"
                 >
-                  {/* Hidden below sm. A 96px-wide strip of a 16:9 beehiiv
-                      thumbnail is a centre crop so tight it reads as a
-                      rendering fault, and the whole point of this block is
-                      less mobile scroll. `max-sm:hidden`, not `hidden sm:block`
-                      — see the teaser below for why that matters. */}
+                  {/* The crop is governed by how close this box's aspect is to
+                      the source. beehiiv art is ~1.79:1; the old box was
+                      200x251 (0.80), so object-cover kept 45% of the image
+                      width at 1440 and 37% at 1024 — a centre band with the
+                      subject sliced off both edges, which is what "broken crop"
+                      looked like. Widening to 42% and clamping the text keeps
+                      the box near landscape, so most of the frame survives.
+                      A full 16:9 banner crops nothing but costs ~280px of
+                      height here, which is the space this block was rebuilt to
+                      save. Still hidden below sm. `max-sm:hidden`, not
+                      `hidden sm:block` — see the teaser below for why. */}
                   {latestIssue.thumbnail && (
                     <img
                       src={latestIssue.thumbnail}
@@ -477,22 +483,22 @@ export default function Home() {
                       onError={(e) => {
                         e.currentTarget.style.display = "none";
                       }}
-                      className="max-sm:hidden w-[150px] md:w-[200px] shrink-0 self-stretch object-cover object-center"
+                      className="max-sm:hidden w-[48%] max-w-[300px] shrink-0 self-stretch h-full object-cover object-center"
                     />
                   )}
-                  <div className="p-5 md:p-7 flex flex-col justify-center gap-1.5 md:gap-2.5 flex-1 min-w-0">
+                  <div className="p-4 md:p-5 flex flex-col justify-center gap-1.5 md:gap-2 flex-1 min-w-0">
                     <span className="text-[10px] md:text-[11px] font-bold uppercase tracking-widest text-m3-on-surface-variant">
                       {latestIssue.issueNumber !== undefined && `Issue #${latestIssue.issueNumber} · `}
                       {formatDigestDate(latestIssue.publishedDate)}
                     </span>
-                    <h2 className="display text-base sm:text-lg md:text-xl font-extrabold tracking-tight leading-snug line-clamp-3">
+                    <h2 className="display text-base md:text-lg font-extrabold tracking-tight leading-snug line-clamp-2">
                       {latestIssue.title}
                     </h2>
                     {/* `max-sm:hidden`, never `hidden sm:block`: line-clamp
                         works by setting display:-webkit-box, so a `sm:block`
                         overrides it and the teaser renders in full. That's how
                         an eight-line paragraph shipped past a `line-clamp-2`. */}
-                    <p className="max-sm:hidden text-sm font-medium text-m3-on-surface-variant leading-relaxed line-clamp-2">
+                    <p className="max-sm:hidden xl:hidden text-[13px] font-medium text-m3-on-surface-variant leading-snug line-clamp-2">
                       {latestIssue.teaser}
                     </p>
                     <span className="mt-1 inline-flex items-center gap-1 text-[10px] md:text-[11px] font-bold uppercase tracking-widest text-m3-primary group-hover:gap-2 transition-all">
@@ -517,7 +523,7 @@ export default function Home() {
                 Subscribe link points at it. */}
             <div
               id="build-notes"
-              className="flex flex-col lg:border-l lg:border-m3-on-secondary-container/15 lg:pl-12 lg:pt-9"
+              className="flex flex-col xl:border-l xl:border-m3-on-secondary-container/15 xl:pl-12 xl:pt-9"
             >
               <div className="flex items-center gap-3 mb-2">
                 <Mail className="w-5 h-5" />

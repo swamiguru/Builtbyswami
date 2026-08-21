@@ -8,7 +8,6 @@ import { Link } from "react-router-dom";
 import { Menu, X } from "lucide-react";
 import BrandLogo from "./BrandLogo";
 import NewsletterSignup from "./NewsletterSignup";
-import NewsletterStrip from "./NewsletterStrip";
 
 import { NEWSLETTER_TITLE, NEWSLETTER_PROMISE } from "../data/newsletter";
 
@@ -151,7 +150,6 @@ export default function SiteHeader() {
           </nav>
         )}
       </header>
-      <NewsletterStrip />
     </>
   );
 }
