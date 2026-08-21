@@ -3,7 +3,8 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { Link } from "react-router-dom";
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { motion, useReducedMotion } from "motion/react";
 import {
   ArrowUpRight,
@@ -13,6 +14,7 @@ import {
   Sparkles,
   Clock,
   Hammer,
+  Search,
 } from "lucide-react";
 import { SOCIALS } from "../data/socials";
 import { getLatestDigest, formatDigestDate, getTopCategories } from "../data/social";
@@ -100,6 +102,8 @@ const METRICS: [string, string][] = [
 export default function Home() {
   const shouldReduceMotion = useReducedMotion();
   const roundupKicker = useScrambleText("The Daily Five");
+  const navigate = useNavigate();
+  const [roundupSearch, setRoundupSearch] = useState("");
 
   const latestDigest = getLatestDigest();
   // Lead story for the day: whichever post is explicitly marked `featured`,
@@ -111,6 +115,15 @@ export default function Home() {
   const latestIssue = useLatestWeekly();
   // Six is the ceiling; the section header links to /builds for the rest.
   const homeBuilds = BUILDS.slice(0, 6);
+
+  const handleRoundupSearch = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (roundupSearch.trim()) {
+      navigate(`/tech-roundup?q=${encodeURIComponent(roundupSearch.trim())}`);
+    } else {
+      navigate("/tech-roundup");
+    }
+  };
 
   usePageSeo("home");
 
@@ -407,7 +420,7 @@ export default function Home() {
             )}
 
             {categories.length > 0 && (
-              <div className="mt-8 pt-6 border-t border-m3-outline/10">
+              <div className="mt-8 pt-6 border-t border-m3-outline/10 flex flex-col md:flex-row md:items-center justify-between gap-4">
                 <div
                   className="flex md:flex-wrap flex-nowrap items-center gap-2 overflow-x-auto md:overflow-visible -mx-6 px-6 md:mx-0 md:px-0 pb-1 md:pb-0 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
                 >
@@ -424,6 +437,29 @@ export default function Home() {
                     </Link>
                   ))}
                 </div>
+
+                <form
+                  onSubmit={handleRoundupSearch}
+                  className="relative shrink-0 w-full md:w-64"
+                >
+                  <Search className="w-3.5 h-3.5 text-m3-on-surface-variant/50 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
+                  <input
+                    type="text"
+                    value={roundupSearch}
+                    onChange={(e) => setRoundupSearch(e.target.value)}
+                    placeholder="Search all stories..."
+                    className="w-full bg-m3-surface-variant/60 text-m3-on-surface placeholder:text-m3-on-surface-variant/50 text-xs font-medium rounded-full pl-9 pr-8 py-2 border border-m3-outline/15 focus:border-m3-primary focus:bg-m3-surface focus:outline-hidden transition-all shadow-2xs"
+                  />
+                  {roundupSearch && (
+                    <button
+                      type="button"
+                      onClick={() => setRoundupSearch("")}
+                      className="absolute right-2.5 top-1/2 -translate-y-1/2 text-m3-on-surface-variant/60 hover:text-m3-on-surface p-0.5 rounded-full"
+                    >
+                      ×
+                    </button>
+                  )}
+                </form>
               </div>
             )}
           </div>

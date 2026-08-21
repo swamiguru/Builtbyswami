@@ -154,6 +154,27 @@ export const getTopCategories = (limit = 9): CategoryCount[] => {
     .sort((a, b) => rank(a.category) - rank(b.category) || b.count - a.count);
 };
 
+export interface FlattenedSocialStory extends SocialPost {
+  digestDate: string;
+  digestTitle: string;
+  normalizedCategory: string;
+}
+
+export const getAllStories = (): FlattenedSocialStory[] => {
+  const stories: FlattenedSocialStory[] = [];
+  for (const d of DIGESTS) {
+    for (const p of d.posts) {
+      stories.push({
+        ...p,
+        digestDate: d.date,
+        digestTitle: d.title,
+        normalizedCategory: normalizeCategory(p.pillar),
+      });
+    }
+  }
+  return stories;
+};
+
 /** Digests containing at least one post that normalizes to `category`. */
 export const getDigestsByCategory = (category: string): Digest[] =>
-  DIGESTS.filter((d) => d.posts.some((p) => normalizeCategory(p.pillar) === category));
+  DIGESTS.filter((d) => d.posts.some((p) => normalizeCategory(p.pillar).toLowerCase() === category.toLowerCase()));
