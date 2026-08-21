@@ -43,3 +43,5 @@ seed | iOS | Back Tap (double/triple tap back of iPhone)
 
 2026-08-18 | Google Maps | Two-wheeler (bike) mode in Directions — routes through narrow shortcuts cars cannot use + bike-specific ETA (India + select countries)
 2026-08-19 | Threads | Pin the chronological "Following" feed — tap the Threads home icon to switch feeds, pin/swipe between custom feeds, so the app stops defaulting to the For You algorithm
+
+2026-08-21 | Google Pixel | Now Playing — on-device, offline auto song ID on lock screen; enable Now Playing history (Settings > Sound & vibration > Now Playing) for a searchable log of every track it heard

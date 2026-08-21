@@ -131,3 +131,7 @@
 2026-08-19 | 2 | AI models | AI speed race | GPT-5.6 Sol Ultrafast on Cerebras ~750 tok/s (up to 14x) + Gemini 3.7 Flash 3 weeks after 3.6
 2026-08-19 | 4 | Security & Privacy | SIM PIN lock | Set a SIM PIN so a stolen SIM cannot be moved to another phone to intercept OTP/UPI
 2026-08-19 | 5 | AI workflow | Prompt of the day - red-team my decision | AI argues strongest case against + 3 failure modes + the one thing that changes your mind
+2026-08-21 | 1 | Big Tech / Gadgets | Amazon Prime Air drones | 6x expansion to ~500 US cities by end-2026 (announced Aug 19)
+2026-08-21 | 2 | Creator economy / Apps | Instagram Bonuses | Photo + carousel posts now monetisable + AI Info label + AI translations (IG pick)
+2026-08-21 | 4 | Myth-buster / Connectivity | WiFi bars myth | Full bars != fast internet (signal strength vs speed, band/congestion)
+2026-08-21 | 5 | Big Tech / AI business (Hot take) | ChatGPT Ads Europe | Ads to 31 EU countries serving Aug 24; Free+Go only, Pro/Enterprise ad-free
