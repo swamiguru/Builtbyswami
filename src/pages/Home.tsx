@@ -87,6 +87,16 @@ function CardArtOverlay() {
   );
 }
 
+/** Hero credential. Kept as data so the lg card and the small-screen strip
+ *  can't drift apart — they're the same three facts twice. */
+const HOUSES = ["Condé Nast", "Newsweek", "Metro World News"];
+const TITLES = ["Vogue", "GQ", "Wired", "Condé Nast Traveller", "Architectural Digest"];
+const METRICS: [string, string][] = [
+  ["20", "brand launches"],
+  ["5", "continents since 2015"],
+  ["$20M", "peak year"],
+];
+
 export default function Home() {
   const shouldReduceMotion = useReducedMotion();
   const roundupKicker = useScrambleText("The Daily Five");
@@ -101,6 +111,7 @@ export default function Home() {
   const latestIssue = useLatestWeekly();
   // Six is the ceiling; the section header links to /builds for the rest.
   const homeBuilds = BUILDS.slice(0, 6);
+
   usePageSeo("home");
 
   return (
@@ -121,51 +132,106 @@ export default function Home() {
             aria-hidden="true"
             className="absolute -top-24 -left-20 w-80 h-80 bg-m3-primary/10 rounded-full blur-3xl pointer-events-none"
           />
-          <div className="relative z-10 max-w-3xl">
-            <span className="font-display text-[10px] md:text-[11px] uppercase tracking-[0.4em] font-extrabold text-m3-primary block mb-4">
-              build · ship · repeat
-            </span>
-            {/* The brand list is tinted, not because it's a link, but because
-                five titles in a row is the one thing a recruiter or a buyer
-                scans for. Colour lets the eye take it as a block instead of
-                reading eleven words. The claim and the daily are one sentence
-                apart on purpose: the daily is the evidence the operator still
-                ships, not a change of career. */}
-            <h1 className="display text-[1.6rem] md:text-[2.6rem] font-extrabold tracking-tighter text-m3-on-surface leading-[1.08] mb-4">
-              I launched{" "}
-              <span className="text-m3-primary">
-                Vogue, GQ, Wired, Cond&eacute; Nast Traveller and Architectural Digest
-              </span>{" "}
-              into new markets. Now I build my own products &mdash; and write the five
-              tech stories worth your morning.
-            </h1>
-            {/* Two paragraphs, not one. The first is the credential, the second
-                is what the visitor actually gets — and the second is the only
-                half a daily reader cares about. Run together they became eight
-                lines on a phone with the payoff buried at the end. */}
-            <p className="text-base md:text-lg text-m3-on-surface-variant font-medium leading-relaxed mb-3 max-w-2xl">
-              Product leadership at Cond&eacute; Nast, Newsweek and Metro World News. Twenty
-              brand launches since 2015, five continents, one $20M year.
-            </p>
-            <p className="text-base md:text-lg text-m3-on-surface font-medium leading-relaxed mb-7 max-w-2xl">
-              Here you&rsquo;ll find the daily five, build notes from what I ship solo, and
-              the launch and migration work I take on.
-            </p>
-            <div className="flex flex-wrap items-center gap-3">
+          {/* Two columns above lg. At 1440 the headline only ever used about
+              two-thirds of the width, so the credential goes in the third that
+              was empty and costs no vertical height at all. Below lg it
+              flattens into a ruled strip — a bordered card on a 390px screen is
+              pure tax, and measured 130px worse than the strip.
+
+              The credential sits on secondary-container, not primary. A
+              saturated block here would be the largest, heaviest colour mass in
+              the hero, which would put the résumé above the CTA in the visual
+              hierarchy. Green on this site means clickable; it's spent on the
+              numbers and the buttons, not on company names. */}
+          <div className="relative z-10 grid lg:grid-cols-[1.2fr_1fr] gap-8 lg:gap-12 items-start max-w-6xl">
+            {/* min-w-0: without it a nowrap child below expands this track past
+                the viewport and clips the whole page, headline included. */}
+            <div className="min-w-0">
+              <span className="font-display text-[10px] md:text-[11px] uppercase tracking-[0.4em] font-extrabold text-m3-primary block mb-4">
+                build · ship · repeat
+              </span>
+              {/* Plain, not tinted. The card is the emphasis now; tinting the
+                  headline as well gives the block two competing highlight
+                  systems and the filled card wins, so the tint reads as noise. */}
+              <h1 className="display text-[1.7rem] md:text-[2.75rem] font-extrabold tracking-tighter text-m3-on-surface leading-[1.06] mb-5">
+                I launch brands into new markets. Now I build my own products &mdash; and
+                write the five tech stories worth your morning.
+              </h1>
+              <p className="text-base md:text-lg text-m3-on-surface font-medium leading-relaxed mb-5 lg:mb-6">
+                The daily five, build notes from what I ship solo, and the launch and
+                migration work I take on.
+              </p>
+
+              {/* Small screens: the same facts, flat. */}
+              {/* All three rows are pinned to one line each. The sizes and
+                  tracking below are the largest that clear 312px — the content
+                  width of a 360px phone — measured, not guessed. Change any of
+                  them and re-check 360 and 390 for overflow. */}
+              <div className="lg:hidden mb-6 border-y border-m3-outline/15 py-3">
+                <p className="text-[11px] font-bold uppercase tracking-wider text-m3-primary mb-1.5 min-[360px]:whitespace-nowrap">
+                  20 launches · 5 continents · $20M peak year
+                </p>
+                <div className="flex flex-wrap min-[360px]:flex-nowrap items-baseline min-[360px]:whitespace-nowrap">
+                  {HOUSES.map((h, i) => (
+                    <span
+                      key={h}
+                      className={`font-display text-[9.5px] font-black uppercase tracking-[0.08em] text-m3-on-surface ${
+                        i < HOUSES.length - 1
+                          ? "after:content-['·'] after:mx-1.5 after:opacity-40"
+                          : ""
+                      }`}
+                    >
+                      {h}
+                    </span>
+                  ))}
+                </div>
+                <p className="mt-1 text-[9.5px] text-m3-on-surface-variant font-medium min-[360px]:whitespace-nowrap">
+                  {TITLES.join(" · ")}
+                </p>
+              </div>
+
+              <div className="flex flex-wrap min-[360px]:flex-nowrap items-center gap-2 sm:gap-3">
               <a
                 href="#daily-five"
                 onClick={() => trackCta("hero_read_daily", "home_hero")}
-                className="inline-flex items-center gap-2 bg-m3-primary text-m3-on-primary font-display font-bold px-6 py-3 rounded-m3-full hover:m3-elevation-2 active:scale-95 transition-all text-sm tracking-wide"
+                className="inline-flex items-center gap-2 bg-m3-primary text-m3-on-primary font-display font-bold px-4 sm:px-6 py-3 rounded-m3-full hover:m3-elevation-2 active:scale-95 transition-all text-[13px] sm:text-sm tracking-wide whitespace-nowrap"
               >
                 Read today&rsquo;s five <ArrowRight className="w-4 h-4" />
               </a>
               <Link
                 to="/work-with-me"
                 onClick={() => trackCta("hero_work_with_me", "home_hero")}
-                className="inline-flex items-center gap-2 bg-m3-surface text-m3-on-surface border border-m3-outline/20 font-display font-bold px-6 py-3 rounded-m3-full hover:border-m3-primary/40 hover:text-m3-primary active:scale-95 transition-all text-sm tracking-wide"
+                className="inline-flex items-center gap-2 bg-m3-surface text-m3-on-surface border border-m3-outline/20 font-display font-bold px-4 sm:px-6 py-3 rounded-m3-full hover:border-m3-primary/40 hover:text-m3-primary active:scale-95 transition-all text-[13px] sm:text-sm tracking-wide whitespace-nowrap"
               >
                 Work with me <ArrowUpRight className="w-4 h-4" />
               </Link>
+              </div>
+            </div>
+
+            {/* Large screens: the credential card, in the column the headline
+                doesn't reach. */}
+            <div className="hidden lg:block rounded-[20px] bg-m3-secondary-container text-m3-on-secondary-container p-6 mt-9">
+              <div className="flex flex-col gap-3.5 pb-5 mb-5 border-b border-m3-on-secondary-container/15">
+                {METRICS.map(([value, label]) => (
+                  <div key={value} className="flex items-baseline gap-4">
+                    <div className="display text-[2rem] font-extrabold tracking-tight text-m3-primary leading-none w-24 shrink-0">
+                      {value}
+                    </div>
+                    <div className="text-xs font-bold uppercase tracking-wider">{label}</div>
+                  </div>
+                ))}
+              </div>
+              <p className="text-[10px] font-bold uppercase tracking-[0.14em] opacity-60 mb-2">
+                Product leadership at
+              </p>
+              <div className="flex flex-col">
+                {HOUSES.map((h) => (
+                  <span key={h} className="font-display font-bold text-base leading-snug">
+                    {h}
+                  </span>
+                ))}
+              </div>
+              <p className="mt-2 text-[11px] leading-relaxed opacity-70">{TITLES.join(" · ")}</p>
             </div>
           </div>
         </section>
