@@ -258,9 +258,12 @@ export default function TechDigest() {
             to="/about"
             className="group flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-5 bg-m3-surface rounded-[24px] border border-m3-outline/5 p-5 md:p-6 hover:border-m3-primary/30 hover:shadow-lg transition-all"
           >
-            <span className="w-12 h-12 shrink-0 rounded-full bg-m3-primary-container text-m3-on-primary-container flex items-center justify-center font-display font-black text-lg">
-              S
-            </span>
+            <img
+              src="https://www.builtbyswami.com/swami-guru.jpg"
+              alt="Swami"
+              referrerPolicy="no-referrer"
+              className="w-12 h-12 shrink-0 rounded-full object-cover border border-m3-outline/10 shadow-sm"
+            />
             <span className="flex-1 min-w-0">
               <span className="block font-display font-bold text-sm md:text-base text-m3-on-surface">
                 Written by Swami
