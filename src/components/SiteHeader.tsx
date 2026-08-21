@@ -5,6 +5,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
+import { motion, useReducedMotion } from "motion/react";
 import { Menu, X } from "lucide-react";
 import BrandLogo from "./BrandLogo";
 import NewsletterSignup from "./NewsletterSignup";
@@ -35,6 +36,11 @@ const NAV: NavItem[] = [
 /**
  * Shared, responsive site header: brand lockup + desktop nav on md+,
  * and a hamburger dropdown on small screens so nav is reachable on mobile.
+ *
+ * Implements a smart scroll behavior:
+ * - Hides smoothly on downward scroll
+ * - Elegantly animates back into view on upward scroll
+ * - Stays visible when near the top of the page or when menus/modals are active
  */
 export default function SiteHeader() {
   const [open, setOpen] = useState(false);
@@ -43,6 +49,11 @@ export default function SiteHeader() {
   const [subscribeOpen, setSubscribeOpen] = useState(false);
   const subscribeRef = useRef<HTMLDivElement>(null);
 
+  const [visible, setVisible] = useState(true);
+  const [scrolled, setScrolled] = useState(false);
+  const shouldReduceMotion = useReducedMotion();
+
+  // Handle outside click for subscribe popover
   useEffect(() => {
     if (!subscribeOpen) return;
     const onPointerDown = (e: PointerEvent) => {
@@ -63,6 +74,48 @@ export default function SiteHeader() {
       document.removeEventListener("keydown", onKeyDown);
     };
   }, [subscribeOpen]);
+
+  // Scroll direction detection
+  useEffect(() => {
+    let lastScrollY = typeof window !== "undefined" ? (window.pageYOffset || document.documentElement.scrollTop || 0) : 0;
+
+    const handleScroll = () => {
+      const currentScrollY = window.pageYOffset || document.documentElement.scrollTop || 0;
+
+      // Always reveal when near the top
+      if (currentScrollY <= 80) {
+        setVisible(true);
+        setScrolled(false);
+        lastScrollY = Math.max(0, currentScrollY);
+        return;
+      }
+
+      setScrolled(true);
+
+      // Keep header visible if mobile menu or subscribe popover is open
+      if (open || subscribeOpen) {
+        setVisible(true);
+        lastScrollY = Math.max(0, currentScrollY);
+        return;
+      }
+
+      const diff = currentScrollY - lastScrollY;
+
+      // Scrolling down past threshold -> hide header
+      if (diff > 8) {
+        setVisible(false);
+        lastScrollY = currentScrollY;
+      }
+      // Scrolling up past threshold -> reveal header smoothly
+      else if (diff < -8) {
+        setVisible(true);
+        lastScrollY = currentScrollY;
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [open, subscribeOpen]);
 
   const renderItem = (item: NavItem, className: string) =>
     item.external ? (
@@ -89,7 +142,35 @@ export default function SiteHeader() {
 
   return (
     <>
-      <header className="sticky top-0 z-30 bg-m3-surface/80 backdrop-blur-md border-b border-m3-outline/20">
+      <motion.header
+        className="sticky top-0 z-30 bg-m3-surface/85 backdrop-blur-md border-b border-m3-outline/20 will-change-transform"
+        initial={false}
+        animate={visible ? "visible" : "hidden"}
+        variants={{
+          visible: {
+            y: 0,
+            opacity: 1,
+            transition: {
+              duration: shouldReduceMotion ? 0.05 : 0.28,
+              ease: [0.16, 1, 0.3, 1], // snappy ease-out
+            },
+          },
+          hidden: {
+            y: "-100%",
+            opacity: 0.2,
+            transition: {
+              duration: shouldReduceMotion ? 0.05 : 0.22,
+              ease: [0.4, 0, 1, 1], // immediate ease-in
+            },
+          },
+        }}
+        style={{
+          boxShadow:
+            scrolled && visible
+              ? "0 10px 30px -10px rgba(0, 0, 0, 0.08), 0 4px 6px -2px rgba(0, 0, 0, 0.03)"
+              : "none",
+        }}
+      >
         <div className="h-[70px] md:h-[88px] flex items-center justify-between px-6 md:px-10">
           <BrandLogo />
 
@@ -102,7 +183,7 @@ export default function SiteHeader() {
                 onClick={() => setSubscribeOpen((o) => !o)}
                 aria-expanded={subscribeOpen}
                 aria-haspopup="true"
-                className="px-5 py-2.5 bg-m3-primary text-m3-on-primary rounded-m3-full hover:m3-elevation-1-shadow active:scale-95 transition-all shadow-sm"
+                className="px-5 py-2.5 bg-m3-primary text-m3-on-primary rounded-m3-full hover:m3-elevation-1-shadow active:scale-95 transition-all shadow-xs cursor-pointer"
               >
                 Subscribe
               </button>
@@ -126,7 +207,7 @@ export default function SiteHeader() {
             onClick={() => setOpen((o) => !o)}
             aria-label={open ? "Close menu" : "Open menu"}
             aria-expanded={open}
-            className="md:hidden w-10 h-10 flex items-center justify-center rounded-full hover:bg-m3-surface-variant text-m3-on-surface transition-colors"
+            className="md:hidden w-10 h-10 flex items-center justify-center rounded-full hover:bg-m3-surface-variant text-m3-on-surface transition-colors cursor-pointer"
           >
             {open ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </button>
@@ -149,7 +230,7 @@ export default function SiteHeader() {
             </div>
           </nav>
         )}
-      </header>
+      </motion.header>
     </>
   );
 }

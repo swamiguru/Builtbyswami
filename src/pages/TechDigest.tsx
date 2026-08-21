@@ -52,9 +52,8 @@ export default function TechDigest() {
 
         <SiteHeader />
 
-        {/* Contextual sub-nav: sits just under the sticky site header,
-            so it stacks rather than overlaps when both are pinned. */}
-        <div className="h-12 md:h-14 border-b border-m3-outline/20 flex items-center justify-between px-6 md:px-10 bg-m3-surface/80 backdrop-blur-md sticky top-[70px] md:top-[88px] z-20">
+        {/* Contextual sub-nav */}
+        <div className="h-12 md:h-14 border-b border-m3-outline/20 flex items-center justify-between px-6 md:px-10 bg-m3-surface/60">
           <Link to="/tech-roundup" className="font-display font-bold text-sm text-m3-on-surface hover:text-m3-primary transition-colors">
             ← Tech Roundup
           </Link>
