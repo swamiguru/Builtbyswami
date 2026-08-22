@@ -135,3 +135,7 @@
 2026-08-21 | 2 | Creator economy / Apps | Instagram Bonuses | Photo + carousel posts now monetisable + AI Info label + AI translations (IG pick)
 2026-08-21 | 4 | Myth-buster / Connectivity | WiFi bars myth | Full bars != fast internet (signal strength vs speed, band/congestion)
 2026-08-21 | 5 | Big Tech / AI business (Hot take) | ChatGPT Ads Europe | Ads to 31 EU countries serving Aug 24; Free+Go only, Pro/Enterprise ad-free
+2026-08-22 | 1 | Autonomous / EV tech | Tesla robotaxi Nevada approval | Nevada clears up to 5,000 Tesla + 1,000 each Waymo/Uber robotaxis in Las Vegas, no safety driver (OFFICIAL, Aug 21)
+2026-08-22 | 2 | Chips / Global tech | Nvidia–Rebellions | Nvidia in early talks to invest in/acquire South Korean AI inference-chip startup Rebellions (Bloomberg report Aug 21; neutral product framing)
+2026-08-22 | 4 | AI Tool Spotlight / Creator economy | YouTube Studio AI instrumental generator | 'Create' button in Replace Song makes 4 royalty-free instrumental tracks to clear Content ID claims (US desktop first) (IG pick)
+2026-08-22 | 5 | Community / Poll | AI-as-a-sticker honest-take poll | Is AI actually improving your daily tech or just marketing? (Threads+X, no card)
